@@ -1,0 +1,4 @@
+- TCP / UDP Server in Node JS & understand it
+- https with custom certification in NodeJS
+- gRPC fundamentals with NodeJS
+- GraphQL fundamentals with NodeJS
