@@ -2,3 +2,5 @@
 - https with custom certification in NodeJS
 - gRPC fundamentals with NodeJS
 - GraphQL fundamentals with NodeJS
+- Learn about Byzantine fault and what is it actually ?
+- Learn about clocks & its real world usage in Distributed systems in depth & try to implement it be self.

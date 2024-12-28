@@ -2,7 +2,7 @@
 **Concepts**
 
 - [[Communication]]
-- Coordination
+- [[Coordination]]
 - Scalability
 - Resiliency
 - Operations
