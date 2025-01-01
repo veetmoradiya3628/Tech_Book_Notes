@@ -61,8 +61,81 @@
 ![[Pasted image 20241228141817.png]]
 
 ##### Leader Election
+https://www.geeksforgeeks.org/leader-election-in-system-design/
+
 - Sometimes a single process in the system needs to have special powers, like being the only one that can access a shared resource or assign work to others.
 - A leader election algorithm needs to guarantee that there is at most one leader at any given time and that an election eventually completes.
 
 - **Raft Election Algorithm**
-	- 
+	- Three stages of process
+		1. follower state - process recognizes another one as the leader
+		2. candidate state - process starts a new election proposing itself as a leader
+		3. leader state - process is the leader
+	- Three things can happens
+		- process win's the election
+		- another process win's the election
+		- some time goes by with no winner.
+- RAFT's algorithm logic represented as a state machine.
+![[Pasted image 20241229203650.png]]
+
+- fencing token
+	- https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html
+- optimistic locking
+- Leader election algorithms
+	- Bully algorithm
+	- Ring algorithm
+	- Paxos
+	- Raft
+
+##### Replication
+
+- Data replication is a fundamental building block of distributed systems.
+- Raft's replication algorithm
+- State machine replication
+
+![[Pasted image 20250101220105.png]]
+- Leader's log replicated to followers
+- if there are 2f+1 followers, the system can tolerate up to f failures. 
+- If leader fails then for new election, other processes logs needs to be up to date in-order to participate in election and to be a leader.
+- To determine which two processes logs is more up-to-date, the index and term of their entries are compared.
+	- if the logs ends with different terms, the log with the later term is more up-to-date.
+	- If the logs ends with same term then whichever log is longer is more up-to-date.
+- What if follower fails ?
+	- the leader will retry sending it indefinitely.
+	- What happens when a follower that was temporarily unavailable comes back online ?
+		- The resurrected follower will eventually receive an AppendEntries message with a log entry from the leader. The AppendEntries message includes the index and term number of the entry in the log that immediately precedes the one to be appended. If the follower can’t ﬁnd a log entry with the same index and term number, it rejects the message, ensuring that an append to its log can’t create a hole. It’s as if the leader is sending a puzzle piece that the follower can’t ﬁt in its version of the puzzle.
+		- When the AppendEntries request is rejected, the leader retries sending the message, this time including the last two log entries — this is why we referred to the request as AppendEntries, and not as AppendEntry. This dance continues until the follower ﬁnally accepts a list of log entries that can be appended to its log without creating a hole. Although the number of messages exchanged can be optimized, the idea behind it is the same: the follower waits for a list of puzzle pieces that perfectly ﬁt its version of the puzzle.
+
+- **Consensus**
+	- its a process of set of processes to agree on a value in a fault-tolerant ways.
+	- Any problem that requires consensus can be solved with state machine replication too.
+	- etcd and ZooKeeper implements state machine replication and exposes APIs on top of it.
+
+- **Consistency models**
+	![[Pasted image 20250101222038.png]]
+- Only write has to go through leader in distributed env. but read can be done from leader, follower or combination of both.
+- In this environment there might be a change that client reading from follower whose legging behind leader might see a different view of a system, which can cause a huge consistency problem.
+
+- Strong consistency
+	- Read only from leader, not so good idea
+	![[Pasted image 20250101222652.png]]
+	- linearizability or strong consistency model
+
+- Sequential Consistency
+	- Read from leader or follower, but at the cost of different view of a system.
+	![[Pasted image 20250101222942.png]]
+
+- Eventual Consistency
+	- The only guarantee the client has is that eventually, all followers will converge to the ﬁnal state if the writes to the system stop. This consistency model is called eventual consistency.
+	- An eventually consistent store is perfectly ﬁne if you want to keep track of the number of users visiting your website, as it doesn’t really matter if a read returns a number that is slightly out of date. But for a payment processor, you deﬁnitely want strong consistency.
+
+- **CAT Theorem**
+	- This concept is expressed by the CAP theorem, which can be summarized as: “strong consistency, availability and partition tolerance: pick two out of three.” In reality, the choice really is only between strong consistency and availability, as network faults are a given and can’t be avoided.
+
+- **Practical Considerations**
+	- To provide high availability and performance, off-the-shelf distributed data stores — sometimes referred to as NoSQL stores come with counter-intuitive consistency guarantees. Others have knobs that allow you to choose whether you want better performance or stronger consistency guarantees, like Azure’s Cosmos DB and Cassandra. Because of that, you need to know what the trade-offs are.
+	- https://docs.microsoft.com/en-us/azure/cosmos-db/consistency-levels
+	- https://docs.datastax.com/en/cassandra-oss/3.0/cassandra/dml/dmlConfigConsistency.html
+
+##### Transactions
+- 
