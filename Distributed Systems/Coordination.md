@@ -138,4 +138,54 @@ https://www.geeksforgeeks.org/leader-election-in-system-design/
 	- https://docs.datastax.com/en/cassandra-oss/3.0/cassandra/dml/dmlConfigConsistency.html
 
 ##### Transactions
-- 
+- basic meaning of transaction is that group of operations that modify some data has exclusive access to it and that either all operations complete successfully, or none does.
+- if transaction is being processed on the single process at that time its easy to implement transaction management but your application data model is partitioned at that time its hard to implement transaction management, specifically in case of distributed environment.
+- ACID
+	- A - Atomicity
+	- C - Consistency
+	- I - Isolation
+	- D - Durable
+		- WAL - Write Ahead Log is used to ensure Durability in most of the systems.
+
+- Isolation in DS
+	- A set of concurrently running transactions that access the same data can run into all sorts of race conditions, like dirty writes, dirty reads, fuzzy reads, and phantom reads.
+	- An isolation level protects against one or more types of race conditions and provides an abstraction that we can use to reason about concurrency.
+		
+		![[Pasted image 20250102232136.png]]
+	- Isolation level's and its prevention against the issue
+	- Serializability and Strict Serializability
+	- Serializability is expensive in terms of performance.
+
+- Concurrency control
+	-  Pessimistic concurrency control vs. Optimistic concurrency control
+	- 2 PL (Two phase locking) is a pessimistic concurrency control
+	- Optimistic concurrency control is implemented with MVCC (multi version concurrency control).
+	- Optimistic concurrency makes sense when you have read-heavy workloads that only occasionally perform writes, as reads don’t need to take any locks. For write-heavy loads, a pessimistic protocol is more efﬁcient as it avoids retrying the same transactions repeatedly.
+
+- **Atomicity in DS**
+	- The guarantee that either both transactions succeed and their changes are committed, or that they fail without any side effects.
+	- 2PC - Two phase commit is a protocol used to implement atomic transaction commits across multiple processes.
+	- **Two phases**
+		1. prepare
+		2. commit
+	
+		![[Pasted image 20250103234831.png]]
+- Asynchronous Transaction
+	- 2PC is a synchronous blocking protocol, if any of the participants isn't available, the transaction can't make any progress, and the application blocks completely.
+	- Log based transactions
+		- let say we have a catalog service storing data of product on relational database and elastic search store index for fast text search feature implementation, when category CRUD operation happens at that time both data store to be updated but what if one of the store gets updated and then systems gets crashed, other store is not latest updated, in that case the entire system will go in inconsistent state, but we need eventual consistency so how we can do it ??
+		
+		![[Pasted image 20250104004814.png]]
+	- messages needs to be idempotent in the queue because consumer might crash before check point and once comes back online, it can re read and process the same message again.
+	- messaging model is general way of asynchronous communication.
+
+- SAGA
+	- A saga is a distributed transaction composed of set of local transactions T1, T2, T3, ..., Tn, Where Ti has a corresponding compensating local transaction Ci used to undo its changes.
+	- The Saga guarantees that either all local transactions succeed, or in case of failure, that the compensating local transactions undo the partial execution of the transaction altogether.
+	 
+	 SAGA workflow example
+	 ![[Pasted image 20250104010156.png]]
+
+- Isolation in DS
+	- To ensure isolation in distributed environment, we can use semantic locks.
+	- The idea is that any data that the SAGA modifies is marked with a dirty flag. The flag is only cleared at the end of the transaction when it completes.
