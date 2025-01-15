@@ -4,6 +4,6 @@
 - [[Communication]]
 - [[Coordination]]
 - [[Scalability]]
-- Resiliency
+- [[Resiliency]]
 - Operations
 - Anatomy of a distributed systems
