@@ -4,7 +4,25 @@
 - GraphQL fundamentals with NodeJS
 - Learn about Byzantine fault and what is it actually ?
 - Learn about clocks & its real world usage in Distributed systems in depth & try to implement it be self.
-
+- TLS with Node JS
+- CA Certificates
+- DNS with node js
+- gRPC
+- Websocket
+- graphQL 
+- API Gateway
+- CQRS
+- Partitioning
+- Duplication
+- Load balancing
+- Service Discovery
+- Health checks
+- Replication
+- Caching
+- Retry
+- Circuit breaker
+- Rate limiting
+- Bulkhead
 
 References
 - https://aws.amazon.com/builders-library/?cards-body.sort-by=item.additionalFields.sortDate&cards-body.sort-order=desc&awsf.filter-content-category=*all&awsf.filter-content-type=*all&awsf.filter-content-level=*all
