@@ -213,3 +213,87 @@ Global & local checkpoint
 
 Optimistic Concurrency control in ES
 - to handle this, client can use seq_number and primary_term for control.
+
+- update_by_query
+
+```
+POST /customers/_update_by_query
+{
+  "query": {
+    "match_all": {}
+  },
+  "script": {
+    "source": "ctx._source.age++"
+  }
+}
+```
+- delete_by_query
+
+```
+POST /customers/_delete_by_query
+{
+  "query": {
+    "match": {
+      "age": 26 
+    }
+  }
+}
+```
+
+- Bulk API
+	- Bulk API is a feature that allows you to index or update multiple documents in a single API call.
+	- It is designed to be more efficient when dealing with large volumes of data, as it reduces the overhead of making individual requests for each document.
+	- you provide a sequence of action and data pairs in a single HTTP request, and elastic search processes them in a batch.
+	- Benefits of Bulk API
+
+```
+# index, create, update, delete
+POST /customers/_bulk
+{"index": { }}
+{"name": "Shyam", "age": 30}
+{"create": { }}
+{"name": "Ajay", "age": 35}
+{"update": { "_id": "hY71t5QBnM3DlPRp9Qha" }}
+{"doc": {"age": 24}}
+{"delete": {"_id": "ho4EuJQBnM3DlPRpfwg5"}}
+```
+
+- Analysis & Analyzer in Elastic Search
+	- Analysis refers to the process of converting text into terms that can be efficiently stored and searched.
+	- Elastic search uses a powerful text analysis engine to break down textual data into individual tokens or terms, which are then used to build an inverted index for fast and accurate full-text search.
+	- Analyzer phases
+		- Character filters
+			- Character filters are used to process the input text before tokenization, They can perform tasks like removing HTML tags, replacing specific characters.
+		- Tokenization
+			- Standard tokenization splits text into words based on whitespaces and punctuation.
+		- Token filtering
+			- Lowercase token filter converts all tokens to lowercase.
+	- we can make our custom analyzer
+
+```
+POST _analyze
+{
+  "text": "Hello, How are you ? What's up ? This is so high-end",
+  "analyzer": "standard" # whitespace, stop
+}
+
+POST _analyze
+{
+  "text": "Hello, How are you ? What's up ? This is so high-end",
+  "char_filter": [],
+  "tokenizer": "standard",
+  "filter": ["uppercase", "stop"]
+}
+```
+
+- **Inverted index**
+	- An inverted index is a fundamental data structure used to efficiently store and retrieve information from a large collection of documents. it is a backbone of Elasticsearch's powerful and fast full-text search capabilities.
+	- The inverted index is designed to solve the problem of quickly finding all documents that contain a specific term or word in a vast collection of documents.
+	- For each token, the inverted index maintains a list of document IDs where the token appears. It creates a mapping between each token and the corresponding documents that contain that token.
+	- What is forward index ? its not commonly used.
+
+- Numeric fields are stored in a different way compared to text field in Elasticsearch.
+	- Instead of using the inverted index, Elasticsearch uses a data structure called "Doc Values" for numeric fields. This approach allows for efficient numeric range queries and aggregations.
+	- Doc values are columnar data structures that store the values of each field for each document in a highly compressed and optimized format. Doc values are used for numeric fields, as well as some other field types like date fields.
+	- When we index a document with two text fields, two inverted  indexes are created one for each text field.
+
