@@ -297,3 +297,151 @@ POST _analyze
 	- Doc values are columnar data structures that store the values of each field for each document in a highly compressed and optimized format. Doc values are used for numeric fields, as well as some other field types like date fields.
 	- When we index a document with two text fields, two inverted  indexes are created one for each text field.
 
+- Mapping API
+	- Defines how documents and their fields are stored and indexed.
+	- Describes the data structure of your documents
+	- data types of fields
+	- how they should be analyzed.
+	- dynamic mapping can be helpful for quickly getting started with ES but explicit mapping is essential for data control, consistency and optimizing the search performance.
+		- it prevents type conflicts
+		- validation rules and data integrity
+	- dynamic parameter in mapping definition can have below values and it will behave accordingly
+		- false
+			- it will allow user to add document with additional field but those fields will not get consider for search so user can not search or query data based on the values of those keys.
+		- strict
+			- it won't allow user to add document with extra fields it mapping is defined at the strict level.
+
+```
+# get the mapping of all fields 
+GET students/_mapping
+
+# get the mapping of perticular field
+GET students/_mapping/field/name
+
+# explicit define the mapping for document in perticular index
+PUT students 
+{
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "text"
+      },
+      "age": {
+        "type": "integer"
+      }
+    }
+  }
+}
+
+```
+
+ - If you want to update a mapping of a field then you have to create a new index and copy all the documents.
+
+- Reindex API
+	- Allows user to move documents from one index to other index with dynamic configuration (filter, mutation on document parameter if want to).
+	
+```
+POST /students/_doc/2
+{
+  "name": "Shyam",
+  "age": 6
+}
+
+GET /students/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET /students/_mapping
+
+PUT students_new
+{
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "text"
+      },
+      "age":{
+        "type": "integer"
+      }
+    }
+  }
+}
+
+GET /students_new/_mapping
+
+
+POST _reindex
+{
+  "source": {
+    "index": "students"
+  },
+  "dest": {
+    "index": "students_new"
+  },
+  "script": {
+    "source": "ctx._source.id = ctx._source.name + ctx._source.age"
+  }
+}
+
+GET /students_new/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+```
+
+- Coercion
+	- The process of automatically converting data from one type to another during indexing or searching when the data type in the mapping does not match the data provided. Elasticsearch performs coercion to accommodate data that might not precisely match the expected data types defined in the mapping.
+```
+GET /_cat/indices?v
+
+DELETE students
+
+PUT students/_doc/3
+{
+  "name": "Uddhav",
+  "age": 45
+}
+
+GET students/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+PUT students
+{
+  "settings": {
+    "index.mapping.coerce": false
+  }, 
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "text"
+      },
+      "age": {
+        "type": "integer",
+        "coerce": false
+      }
+    }
+  }
+}
+```
+
+- Data Types in ES
+	- Text - A data type for full-text search and analysis of text data.
+	- Keyword - A data type for exact matching and filtering of keyword-like data, such as IDs, tags, or categories.
+	- Date - A data type for representing dates stored as a long value, representing milliseconds since epoch.
+	- Integer - A data type for storing 32-bit signed integers.
+	- Long - A data type for storing 64-bit signed integers.
+	- Float - A data type for storing single-precision 32-bit floating-point numbers.
+	- Double - A data type for storing single-precision 64-bit floating-point numbers.
+	- Boolean - true / false
+	- Object - complex data type
+	- Nested - Array of complex objects
+
