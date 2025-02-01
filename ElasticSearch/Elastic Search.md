@@ -750,3 +750,511 @@ GET students/_search
 }
 ```
 
+- Joins in Elastic Search
+	- join Data Types
+		- Parent Child Relationship
+		- The join data types in ES allows you to model parent-child relationships between documents within the same index.
+		- This is useful when you have parent child similar concept in documents.
+		- its not exactly map to SQL joins but its more about structuring data and establishing relationships between documents within the same index.
+		-  has_parent, has_child etc
+	
+```
+// parent child relationships
+
+PUT company 
+{
+  "mappings": {
+    "properties": {
+      "my_join_field": {
+        "type": "join",
+        "relations": {
+          "dept": "emp"
+        }
+      }
+    }
+  }
+}
+
+GET company/_mapping
+
+PUT company/_doc/2
+{
+  "name": "IT",
+  "my_join_field": "dept"
+}
+
+PUT company/_doc/3?routing=1
+{
+  "name": "Ram",
+  "age": 20,
+  "my_join_field": {
+    "name": "emp",
+    "parent": 1
+  }
+}
+
+PUT company/_doc/4?routing=2
+{
+  "name": "Shyam",
+  "age": 25,
+  "my_join_field": {
+    "name": "emp",
+    "parent": 2
+  }
+}
+
+PUT company/_doc/5?routing=1
+{
+  "name": "Gita",
+  "age": 25,
+  "my_join_field": {
+    "name": "emp",
+    "parent": 1
+  }
+}
+
+GET company/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET company/_search
+{
+  "query": {
+    "parent_id": {
+      "id": 1,
+      "type": "emp"
+    }
+  }
+}
+
+GET company/_search
+{
+  "query": {
+    "has_parent": {
+      "parent_type": "dept",
+      "query": {
+        "match": {
+          "name": "HR"
+        }
+      }
+    }
+  }
+}
+
+GET company/_search
+{
+  "query": {
+    "has_parent": {
+      "parent_type": "dept",
+      "query": {
+        "match": {
+          "name": "IT"
+        }
+      }
+    }
+  }
+}
+
+
+GET company/_search
+{
+  "query": {
+    "has_child": {
+      "type": "emp",
+      "query": {
+        "range": {
+          "age": {
+            "gte": 10
+          }
+        }
+      }
+    }
+  }
+}
+
+GET company/_search
+{
+  "query": {
+    "has_child": {
+      "type": "emp",
+      "query": {
+        "match": {
+          "name": "Ram"
+        }
+      }
+    }
+  }
+}
+
+
+GET company/_search
+{
+  "query": {
+    "has_child": {
+      "type": "emp",
+      "min_children": 2, 
+      "query": {
+        "range": {
+          "age": {
+            "gte": 20
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+```
+# multi level heirarchy
+
+DELETE company
+
+PUT company 
+{
+  "mappings": {
+    "properties": {
+      "join_field": {
+        "type": "join",
+        "relations": {
+          "company": ["dept", "clients"],
+          "dept": "emp"
+        }
+      }
+    }
+  }  
+}
+
+PUT company/_doc/1
+{
+  "name": "Apple",
+  "join_field": "company"
+}
+
+PUT company/_doc/1
+{
+  "name": "Google",
+  "join_field": "company"
+}
+
+PUT company/_doc/3?routing=1
+{
+  "name": "IT",
+  "join_field": {
+    "name": "dept",
+    "parent": 1
+  }
+}
+
+PUT company/_doc/4?routing=1
+{
+  "name": "HR",
+  "join_field": {
+    "name": "dept",
+    "parent": 2
+  }
+}
+
+PUT company/_doc/5?routing=2
+{
+  "name": "Ram",
+  "join_field": {
+    "name": "emp",
+    "parent": 4
+  }
+}
+
+PUT company/_doc/6?routing=4
+{
+  "name": "Shyam",
+  "join_field": {
+    "name": "emp",
+    "parent": 3
+  }
+}
+
+GET company/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+// company -> dept -> emp
+// company -> clients (x)
+
+// i want companies in which there is employees with name Ram
+GET company/_search
+{
+  "query": {
+    "has_child": {
+      "type": "dept",
+      "query": {
+        "has_child": {
+          "type": "emp",
+          "query": {
+            "match": {
+              "name": "Ram"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+- Limitations
+	- parent and child should be in the same index and same shard
+	- only one join field
+	- a document can have only one parent
+
+**Aggregation**
+- Aggregation are a powerful feature in Elasticsearch that allow you to perform data analysis and extract insights from your indexed data. They are used to group, filter, and compute statistics on your data.
+- ES categories aggregation in 3 categories
+	1. Metrics aggregation
+	2. Bucket aggregation
+	3. Pipeline aggregation
+- Metrics Aggregation
+	- calculate metrics over a set of documents. They provide insights into the numeric values within the documents.
+```
+GET movies/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 0, 
+  "aggs": {
+    "averate_of_length": {
+      "avg": {
+        "field": "length"
+      }
+    },
+    "sum_of_length":{
+      "sum": {
+        "field": "length"
+      }
+    },
+    "min_movie_length": {
+      "min": {
+        "field": "length"
+      }
+    },
+    "max_movie_length": {
+      "max": {
+        "field": "length"
+      }
+    }
+  }
+}
+```
+```
+GET movies/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 0, 
+  "aggs": {
+    "distinct_directors": {
+      "cardinality": {
+        "field": "director.keyword"
+      }
+    },
+    "total_movies": {
+      "value_count": {
+        "field": "name.keyword"
+      }
+    }
+  }
+}
+```
+- precision threshold can be used with cardinality.
+```
+GET movies/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 0, 
+  "aggs": {
+    "distinct_directors": {
+      "cardinality": {
+        "field": "director.keyword"
+      }
+    },
+    "total_movies": {
+      "value_count": {
+        "field": "name.keyword"
+      }
+    },
+    "stats": {
+      "stats": {
+        "field": "rating"
+      }
+    }
+  }
+}
+```
+
+- Bucket aggregation organize documents into buckets. or groups based on certain criteria. These criteria can be fields, ranges, date intervals, etc. They help you understand the distribution of data within various categories.
+- supports nested aggregation on this type.
+
+```
+GET movies/_search
+{
+  "size": 0,
+  "aggs": {
+    "group_by_genre": {
+      "terms": {
+        "field": "genre.keyword",
+        "min_doc_count": 0,
+        "missing": "No_genre"
+      },
+      "aggs": {
+        "my_stats": {
+          "stats": {
+            "field": "rating"
+          }
+        }
+      }
+    }
+  }
+}
+```
+```
+GET movies/_search
+{
+  "size": 0,
+  "aggs": {
+    "my_filter": {
+      "filter": {
+        "term": {
+          "genre.keyword": "Drama"
+        }
+      },
+      "aggs": {
+        "movie_stat": {
+          "stats": {
+            "field": "rating"
+          }
+        }
+      }
+    }
+  }
+}
+```
+```
+GET movies/_search
+{
+  "size": 0,
+  "aggs": {
+    "plan": {
+      "filters": {
+        "filters": {
+          "today": {
+            "term": {
+              "genre.keyword": "Drama"
+            }
+          },
+          "tomorrow": {
+            "term": {
+              "genre.keyword": "Action"
+            }
+          }
+        }
+      },
+      "aggs": {
+        "names_of_movies": {
+          "top_hits": {
+            "size": 10,
+            "_source": {
+              "includes": ["name"]
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+```
+GET movies/_search
+{
+  "size": 0,
+  "aggs": {
+    "group_by_year": {
+      "range": {
+        "field": "release_year",
+        "keyed": true, 
+        "ranges": [
+          {
+            "to": 1990,
+            "key": "old-movie"
+          },
+          {
+            "from": 1990,
+            "to": 2000
+          },
+          {
+            "from": 2000
+          }
+        ]
+      },
+      "aggs": {
+        "my_stats": {
+          "stats": {
+            "field": "length"
+          }
+        }
+      }
+    }
+  }
+}
+```
+```
+GET movies/_search
+{
+  "size": 0,
+  "aggs": {
+    "my_histogram": {
+      "histogram": {
+        "field": "release_year",
+        "interval": 5
+      },
+      "aggs": {
+        "movies": {
+          "top_hits": {
+            "size": 10,
+            "_source": ["name"]
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+**Fuzziness**
+- A search technique that allows for approximate matching of terms, rather than strict exact matching.
+- its useful for typos, misspelling or variations in word forms.
+- fuzziness parameter controls the matching percentage by edit distance.
+- Works based on edit distance algorithm
+- auto parameter can be used for dynamic length
+
+```
+GET movies/_search
+{
+  "query": {
+    "match": {
+      "name": {
+        "query": "night",
+        "fuzziness": 2
+      }
+    }    
+  }
+}
+```
+
