@@ -445,3 +445,308 @@ PUT students
 	- Object - complex data type
 	- Nested - Array of complex objects
 
+- Index template
+	- An index template in ES is a way to define a set of configurations and mappings that will be automatically applied to new indices that match a specific pattern.
+	- index template are useful for automating the process of setting up and configuring indices in ES.
+	- When a new index is created that matches the pattern defined in an index template, ES applies the template's settings, mappings, and other configurations to the new index, ensuring consistency across your data.
+	
+```
+PUT _index_template/students_template
+{
+  "index_patterns": ["students_class_*"],
+  "template": {
+    "settings": {
+      "number_of_shards": 2,
+      "number_of_replicas": 1
+    },
+    "mappings": {
+      "properties": {
+        "name": {
+          "type": "text"
+        },
+        "id": {
+          "type": "keyword"
+        },
+        "dob": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}
+
+PUT students_class_1/_doc/1
+{
+  "name": "Ram",
+  "id": "A12P",
+  "dob": "2001-01-01"
+}
+
+GET _index_template/students_template
+
+DELETE _index_template/students_template
+```
+
+- Elastic common schema (ECS)
+	- its standardized data schema designed to provide a common set of field names and data types for logs and metrics in the Elastic stack, which includes ES, Kibana, logstash, beats and other related components.
+		- Standardization
+		- Flexibility
+		- Interoperability
+		- Ecosystem integration
+
+- Aliases
+	- In Elasticsearch, an alias is an additional name or label assigned to one or more indexes. Aliases are dynamic in nature.
+	- purpose of aliases is abstraction and decoupling, blue-green deployments, filtered queries, cross-cluster search
+```
+PUT students/_doc/1
+{
+  "name": "Ram",
+  "age": 20
+}
+
+PUT teachers/_doc/1
+{
+  "name": "Gita",
+  "age": 30
+}
+
+POST _aliases
+{
+  "actions": [
+    {
+      "remove": {
+        "index": "students",
+        "alias": "school"
+      }
+    }
+  ]
+}
+
+GET school/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+```
+- different types of actions in alias such as add, remove, filter, is_write_index etc.
+
+**Elastic Search Query**
+- One of the core functionality of elastic search is the ability to perform searches on indexed data using the \_search endpoint.
+- The \_search endpoint allows you to execute complex queries against your data and retrieve relevant results efficiently.
+- Query DSL (Domain Specific Language)
+- Query types
+	- Match query
+	- Disjunction match query
+	- Multi-match query
+	- IDs query
+	- Term query
+	- Range query
+	- Bool query
+	- Exists query
+	- Wildcard query
+	- Prefix query
+	- Nested query
+- Match query - This query is used to perform full-text search on a field. it matches documents that contain a specific term.
+	- full-text search.
+	- The match query analyzes the input text and then searches for documents where the analyzed text matches the terms in the specified field.
+	- relevance score measures how well each document matches a query.
+```
+GET students/_search
+{
+  "query": {
+    "match": {
+      "bio": "hackathons robotics data"
+    }
+  }
+}
+
+GET students/_search
+{
+  "query": {
+    "match": {
+      "bio": {
+        "query": "cricket robotics data" # default or operator - "operator": "and"
+      }
+    }
+  }
+}
+
+# fuzziness 
+```
+
+- Disjunction match query
+	- It is useful for situations where you have multiple query clauses representing different aspects of a search, and you want to ensure that documents matching any of these clauses are returned.
+	- query clauses
+		- comma separated queries.
+	- Tie breaker
+		- it  determines how much the individual scores of the query clauses contributes to the final relevance score.
+
+- Multi-match query
+	- A versatile query that allows you to run the same query across multiple fields and combines the results.
+	- Individual fields can be boosted with the (^) notation.
+	- the way multi_match query is executed internally depends on the type parameter. parameters can be best_fields, cross_fields, most_fields, phrase, phrase_prefix.
+	
+```
+GET students/_search
+{
+  "query": {
+    "multi_match": {
+      "query": "robotics coding open-source",
+      "fields": ["hobbies^2", "bio"],
+      "type": "best_fields" # multiple options can be there
+    }
+  }
+}
+```
+
+- IDs query
+	- This ids query allows you to specify an array of document IDs to match. It retrieves documents that have IDs that match any of the provided IDs.
+	
+```
+GET students/_search
+{
+  "query": {
+    "ids": {
+      "values": [1, "6ghcwZQB2IGeQemkglGT"]
+    }
+  }
+}
+```
+
+- Term Query
+	- This query is used to find documents that contain a specific exact term in a particular field.
+	- It's useful for searching fields that are not analyzed.
+```
+GET students/_search
+{
+  "query": {
+    "match": {
+      "hobbies": "coding"
+    }
+  }
+}
+```
+
+- Range Query
+	- it matches documents where the field value falls within a specified range of values.
+	
+```
+GET students/_search
+{
+  "query": {
+    "range": {
+      "dob": {
+        "gte": "2000-01-01"
+      }
+    }
+  }
+}
+```
+
+- Bool Query
+	- A Boolean query that allows you to combine multiple queries using Boolean operators (must, should, must_not, filter) to create more complex queries.
+```
+GET students/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "hobbies": "coding"
+          }
+        },
+        {
+          "match": {
+            "bio": "engineer"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+- bool query will not have relevance score since its conditional queries.
+
+- Exists Query
+	- This query matches documents where the specified field exists. Note that the field's value should have been indexed.
+```
+GET students/_search
+{
+  "query": {
+    "exists": {
+      "field": "hobbies"
+    }
+  }
+}
+```
+
+- Wildcard Query
+	- A wildcard Quey in  elastic search is used to search for documents where a specific field contains terms that match a specified pattern using wildcard characters. 
+	- Wildcards are placeholders that allow you to match a range of terms with similar patterns.
+	- * - matching any sequence of characters
+	- ? - match a single character
+```
+GET students/_search
+{
+  "query": {
+    "wildcard": {
+      "name": "?li*"
+    }
+  }
+}
+```
+
+- Prefix Query
+	- It matches documents that have fields containing terms with a specified prefix. 
+```
+GET students/_search
+{
+  "query": {
+    "prefix": {
+      "name": "alice"
+    }
+  }
+}
+```
+
+- Match Phrase Prefix Query
+	- used to match start with and certain phrase
+- Match Phrase Query
+	- similar to above one.
+- Nested Query
+	- Used to query nested objects within documents.
+```
+GET students/_search
+{
+  "query": {
+    "nested": {
+      "path": "bag",
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "bag.name": "Laptop"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+```
+GET students/_search
+{
+  "_source": ["bag.name"], 
+  "query": {
+    "match_all": {}
+  }
+}
+```
+
