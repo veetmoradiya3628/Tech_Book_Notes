@@ -184,6 +184,7 @@ kubectl port-forward service/prometheus-operated -n monitoring 9090:9090
 
 If you are using an EC2 Instance or Cloud VM, you need to pass `--address 0.0.0.0` to the above command. Then you can access the UI on instance-ip:port
 
+# Grafana UI password is `prom-operator`
 kubectl port-forward service/monitoring-grafana -n monitoring 8080:80
 
 kubectl port-forward service/alertmanager-operated -n monitoring 9093:9093
@@ -199,6 +200,8 @@ helm uninstall monitoring --namespace monitoring
 kubectl delete ns monitoring
 
 # Delete cluster & everything else
-eksctl delete cluster --name observability
+gcloud container clusters delete [CLUSTER_NAME] --zone [ZONE] 
 ```
+
+
 
