@@ -410,3 +410,65 @@ kubectl apply -k alerts-alertmanager-servicemonitor-manifest/
 - `<<LOAD_BALANCER_DNS_NAME>>/crash`
 - You should receive an email once the application container has restarted at least 3 times.
 
+
+##### Logging Overview
+ - Logging is crucial in any distributed system, especially in Kubernetes, to monitor application behavior, detect issues, and ensure the smooth functioning of microservices.
+
+- Importance:
+	- **Debugging**: Logs provide critical information when debugging issues in applications.
+	- **Auditing**: Logs serve as an audit trail, showing what actions were taken and by whom.
+	- **Performance** Monitoring: Analyzing logs can help identify performance bottlenecks.
+	- **Security**: Logs help in detecting unauthorized access or malicious activities.
+
+- Tools available for logging in K8s:
+	- EFK Stack (Elasticsearch, Fluentbit, Kibana)
+	- EFK Stack (Elasticsearch, FluentD, Kibana)
+	- ELK Stack (Elasticsearch, Logstash, Kibana)
+	- Promtail + Loki + Grafana
+
+- EFK Stack (Elasticsearch, Fluentbit, Kibana)
+	- EFK is a popular logging stack used to collect, store, and analyze logs in Kubernetes.
+	- **Elasticsearch**: Stores and indexes log data for easy retrieval.
+	- **Fluentbit**: A lightweight log forwarder that collects logs from different sources and sends them to Elasticsearch.
+	- **Kibana**: A visualization tool that allows users to explore and analyze logs stored in Elasticsearch.
+
+##### Hands On
+- Try to setup and hands on ELK stack for k8s log analysis.
+
+##### What is Jaeger ?
+- Jaeger is an open-source, end-to-end distributed tracing system used for monitoring and troubleshooting microservices-based architectures. It helps developers understand how requests flow through a complex system, by tracing the path a request takes and measuring how long each step in that path takes.
+
+Q. Why Use Jaeger ?
+- In modern applications, especially microservices architectures, a single user request can touch multiple services. When something goes wrong, it’s challenging to pinpoint the source of the problem. Jaeger helps by:
+	- **Identifying bottlenecks**: See where your application spends most of its time.
+	- **Finding root causes of errors**: Trace errors back to their source.
+	- **Optimizing performance**: Understand and improve the latency of services.
+
+Q. Core Concepts of Jaeger ?
+- **Trace**: A trace represents the journey of a request as it travels through various services. Think of it as a detailed map that shows every stop a request makes in your system.
+- **Span**: Each trace is made up of multiple spans. A span is a single operation within a trace, such as an API call or a database query. It has a start time and a duration.
+- **Tags**: Tags are key-value pairs that provide additional context about a span. For example, a tag might indicate the HTTP method used (GET, POST) or the status code returned.
+- **Logs**: Logs in a span provide details about what’s happening during that operation. They can capture events like errors or important checkpoints.
+- **Context Propagation**: For Jaeger to trace requests across services, it needs to propagate context. This means each service in the call chain passes along the trace information to the next service.
+
+##### Hands On
+- Try to simulate multi service request tracking with Jaeger environment.
+
+Q. What is Open Telemetry ?
+- Open Telemetry is an open-source observability framework for generating, collecting, and exporting telemetry data (traces, metrics, logs) to help monitor applications.
+
+- How its different from other libraries ?
+	- OpenTelemetry offers a unified standard for observability across multiple tools and vendors, unlike other libraries that may focus only on a specific aspect like tracing or metrics.
+
+- What existed before Open Telemetry ?
+	- Before OpenTelemetry, observability was typically managed using a combination of specialized tools for different aspects like
+    - `Tracing`: Tools like Jaeger and Zipkin were used to track requests
+    - `Metrics`: Solutions like Prometheus and StatsD were popular for collecting metrics
+    - `Logging`: Tools like ELK Stack (Elasticsearch, Logstash, Kibana) or Fluentd were used to aggregate and analyze logs.
+- OpenTelemetry unified these by standardizing how telemetry data is collected and exported.
+- Prior to OpenTelemetry, there were OpenTracing and OpenCensus, which OpenTelemetry merged to provide a more comprehensive and standardized observability solution.
+- it supports multiple languages.
+
+##### Hands On
+- Implement and hands on with Open Telemetry.
+
