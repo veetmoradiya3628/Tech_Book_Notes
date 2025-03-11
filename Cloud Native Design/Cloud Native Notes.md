@@ -42,3 +42,34 @@
 - SLAs are important and defined in terms of 9s availability.
 
 ### Chap 2. Fundamentals
+
+- Containers
+	- The initial idea of containers was to slice up an OS so that you can securely run multiple applications without them interfering with one another.
+	- The required isolation is accomplished through namespaces and control groups, which are linux kernal features.
+	- Containers are encapsulated, individually deployable components running as isolated instances on the same kernal with virtualization happening on the OS level.
+	- Container uses copy-on-write file system to share data across multiple containers.
+	- VM isolation softwares and available famous isolation software provided by famous public cloud providers.
+
+- Container Orchestration
+	- Container orchestration is needed on large scale container architecture and in those case, management of those many no. of containers become very difficult that's when container orchestrator comes to save our life and by far the most famous tool for that is K8s.
+
+- Kubernetes Overview
+	- Kubernetes master node components :
+		- kube-apiserver
+		- etcd
+		- kube-scheduler
+		- kube-controller-manager
+		- cloud-controller-manager
+	- Kubernetes node components :
+		- kubelet
+		- kube-proxy
+		- container runtime
+	- Fundamental concepts of k8s : 
+		- Pods
+		- Services
+		- Replica Sets
+		- Deployments
+
+- Kubernetes and Containers
+	- 
+
