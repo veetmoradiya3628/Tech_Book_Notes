@@ -71,5 +71,53 @@
 		- Deployments
 
 - Kubernetes and Containers
-	- 
+	- CRI - Container Runtime interface, deals with the runtime support for container life cycle in k8s
+	- OCI - The OCI is a Linux foundation project that aims to design open standards for container images and runtimes.
 
+- Serverless Computing
+	- Serverless computing means that scale and the underlying infrastructure is managed by the cloud provider; that is your application automatically drives the allocation and deallocation of resources and you do not need to worry about managing the underlying infrastructure at all.
+	- it works based on event driven programming model & pay only per execution model.
+
+- Functions
+	- When talking about functions, people typically talk about FaaS offerings such as AWS Lambda, Azure Functions, and Google cloud functions, which are implemented on serverless infrastructure.
+	- From a development perspective, a function is the unit of work, which means that your code has a start and a finish. Functions are usually triggered by events that are emitted by either other functions or platform services.
+	
+- Faas Vs. Containerized Services
+
+| FaaS                              | Containerized Services                     |
+| --------------------------------- | ------------------------------------------ |
+| Does one thing                    | Does more than one thing                   |
+| Can't deploy dependencies         | Can deploy dependencies                    |
+| Must respond to one kind of event | Can respond to more than one kind of event |
+- There are multiple open source FaaS platforms available for use which can be deployed as container or in containerized environment and use it.
+- IaaS to PaaS modernization of applications in the cloud native environment
+- Containers are the great way for IT software evaluation over a time and its game changer.
+- There are 2 methods to move from monolithic to microservices :
+	1. Strangler pattern
+		- With this pattern you strangle the monolithic application. New services or existing components are implemented as microservices. A facade or gateway routes user requests to the correct application. Over time, more and more features are moved to the new architecture until the monolithic application has been entirely transformed into a microservices application.
+	2. Anticorruption layer pattern
+		- This is similar to the strangler pattern but is used when new services need to access the legacy application. the layer then translates the concepts from existing app to new, and vice versa.
+- k8s and service meshes became really popular and supports out of the box features.
+- CaaS - Container as a service is also became more popular in cloud native environment.
+- Benefits of a Microservices Architecture
+	- Agility
+	- Continuous Innovation
+	- Evolutionary design
+	- Small, focused teams
+	- Fault isolation
+	- Improved scale and resource usage
+	- Improved observability
+- Challenges with a Microservices Architecture
+	- Complexity
+	- Data Integrity and consistency
+	- Performance
+	- Development and testing
+	- Versioning and integration
+	- Monitoring and logging
+	- Service dependency management
+	- Availability
+- Every application, whether cloud native or traditional, needs infrastructure on which to be hosted, technology that addresses pain points with development and deployment, and an architectural style that helps with achieving the business objectives, such as time to market. The goal of this chapter was to provide the basic knowledge for cloud native applications. By now you should understand that there are various container technologies with different isolation levels, how functions relate to containers, and that serverless infrastructure does not always need to be FaaS. Further, you should have a basic understanding of microservices architectures and of how you can migrate and modernize an existing application to be a cloud native application.
+
+### Chap 3. Designing Cloud Native Applications
+
+- 
