@@ -120,4 +120,31 @@
 
 ### Chap 3. Designing Cloud Native Applications
 
-- 
+- A good way to designing cloud native applications is to consider five key areas when starting with the initial design: operational excellence, security, reliability, scalability and cost.
+- Operational Excellence
+	- Operational excellence means tbat you need to factor in how to run your application. monitor it and improve it over time when you are starting to design.
+	- Automate Everything
+		- Cloud automation goes hand in hand with infrastructure as Code (IaC). This enables you to minimize errors during environment provisioning and application deployment because the entire environment management is being defined using code artifacts.
+		- Azure Resource Manager and AWS cloud formation with Hashicorp's terraform are few good IAC providers.
+		- Besides automating how to provision the environment, you also need to automate the entire deployment process of your application.
+	- Monitor Everything
+		- Monitoring allows you to learn not only about your application and environment behaviour, but also how your application is being used.
+	- Document everything
+		- It is very common that cloud native applications are being built by many teams and in cloud native distributed environment its always needed to have a well documented APIs using swagger and other automated tools.
+	- Make incremental changes
+		- When making changes to both the environment as well as the application, you need to ensure that those changes are increamental and reversible.
+	- Design for failure
+		- Failures in the cloud will happen - period. you need to think not only about how to design your application to survive failures, but also about the processes that need to kick in when something goes wrong.
+- Security
+	- cloud native environment needs to be super safe and should follow defense in depth principle for security at each and every level.
+	- Source code repository should be super secure and you should have CI step for vulnerability checks.
+	- Container image scan for ports and RBAC needs to be enabled for private container repository.
+	- K8s cluster needs to be RBAC enabled.
+	- Protect the data and secure the communication between services.
+- Reliability and Availability
+	- Reliability means that the application will still work in an acceptable way even in the presence of failure, whereas availability means that your application is available for a certain amount of time.
+	- In summary, to design for reliability and availability you should have testing in place that informs you of how your system is behaving and how your recovery mechanisms work. And, of course, the application needs to recover automatically by taking advantage of the scaling capabilities.
+- Scalability and Cost
+	- Scalability and cost go hand in hand. When designing a cloud native application, you need to think about not only how to scale the application, but also how to do it in a very cost-efficient way.
+
+- Cloud Native versus Traditional Architectures
