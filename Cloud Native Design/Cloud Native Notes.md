@@ -148,3 +148,29 @@
 	- Scalability and cost go hand in hand. When designing a cloud native application, you need to think about not only how to scale the application, but also how to do it in a very cost-efficient way.
 
 - Cloud Native versus Traditional Architectures
+	- Traditional applications are often stateful in nature, which means that the application state was commonly stored with the compute instance.
+	- Cloud native applications, on the other hand are stateless by nature. Stateless does not mean that they do not deal with data, but it means that they need to be designed in a way that the number of compute instances is highly dynamic without affecting user experiences that rely on data.
+       	- Finally, there is a big difference in how cloud native architectures deal with failure as opposed to how traditional applications cope with them. cloud native expects failures and implement mechanism to deal with them whereas traditional architectures try to minimize failures.
+  
+- Functions versus Services
+  - Function scenarios
+    - Simple parallel execution scenarios in which functions do not need to communicate with one another.
+  - Considerations for using functions
+    - challenges when moving from a monolith to microservices
+    - Limited lifetime of a function
+    - No usage of specialized hardware
+    - Functions are stateless and not directly network addressable
+    - local development and debugging
+    - Economics
+- Most of the time a combination of functions and services is a great solution allowing you to take advantage of the simplicity of FaaS while benifitting from the flexibility of containerized services.
+
+- API Design and Versioning
+	- Three strategies for API versioning : 
+		1. The knot - Consumers of your API are tied to a single version of the API. When the API changes, all consumers need to change as well.
+		2. Point to Point - All API versions are kept running and each consumer uses the version they need to.
+		3. Compitable Versioning - All consumers talk to the same API version. Old versions are deprecated and no longer exist because the latest version is backward compitable.
+	
+	- REST has three approaches that deal with versioning : global versioning, resource versioning and mime-based approach.
+	- Regardless of the approach you take, it is important that you are able to monitor the API and versions of the API used by the consumers. Having good monitoring in place helps you decide how and when to deprecate the APIs.
+
+- API backward and forward Compatibility
