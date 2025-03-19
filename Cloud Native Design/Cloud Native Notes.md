@@ -174,3 +174,55 @@
 	- Regardless of the approach you take, it is important that you are able to monitor the API and versions of the API used by the consumers. Having good monitoring in place helps you decide how and when to deprecate the APIs.
 
 - API backward and forward Compatibility
+	- best practices for backward compatibility
+		- New rename existing fields or remove them
+		- Never make optional things required
+		- Make old API endpoints as obsolete if not used anymore.
+
+- Semantic Versioning
+	- major.minor.patch
+
+- Service Communication
+	- At a high level there are two types of communication possible, external service communication and internal service communication.
+	- External service communication refers to North-South communication and can be done via ingress and egress configuration in k8s env.
+	- Internal service communication refers to East-West traffic.
+
+- Protocols
+	- Protocols are major factor in distributed environment
+	- WebSocket
+		- bi directional light weight protocol for effective communication.
+	- HTTP/2
+	- gRPC
+		- binary nature
+
+	- Messaging Protocols
+		- MQTT
+			- Message Queue Telemetry Transport
+		- AMQP
+			- Advanced Message Queuing Protocol
+
+- Serialization considerations
+	- JSON vs. Protobuf
+
+- Idempotency
+	- Being able to run an operation multiple times without changing the result is called idempotency.
+	- A common way of ensuring that an operation is idempotent is by adding a unique identifier to the message and making sure that the service processes the message only if the identifiers do not match.
+	- de-duping is technique used for this scenarios.
+
+- Request / Response
+	- Synchronous
+	- Asynchronous
+		- request response scenario can be implemented with correlationIDs (CIDs)
+		- Pub/Sub pattern
+			- topic, publisher, subscriber
+			- priority queue pattern
+			- poison message queue
+			- difference between message queues and pub/sub.
+- Request / Response vs. Pub/Sub
+- Synchronous versus Asynchronous
+	- Problems with Sync communication
+		- Exhaustion of resources
+		- Response latency
+		- Cascading failures
+- Gateways
+	- 
