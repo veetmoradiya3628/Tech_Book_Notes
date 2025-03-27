@@ -174,3 +174,35 @@
 	- Regardless of the approach you take, it is important that you are able to monitor the API and versions of the API used by the consumers. Having good monitoring in place helps you decide how and when to deprecate the APIs.
 
 - API backward and forward Compatibility
+
+- Gateways
+	- Gateways are of two types 
+	    1. API Gateways
+	    2. Application Gateways
+    - Their responsibility can vary from routing incoming requests or SSL offloading or routing to specific backend service.
+
+- Gateway can work as aggregator as well where it takes one request from the client and makes multiple requests to the underlying services.
+- One of the most common uses for gateways is to offload different functionality from individual services and do them at the gateway level.
+    - Examples of functionalities that can be offloaded from the individual services
+        - Authentication and authorization
+        - Rate limiting, retry policies, circuit breaking
+        - Caching
+        - Compression
+        - SSL offloading
+        - Logging and monitoring
+    - its essential to monitor gateways for performance.
+
+- There are multiple technologies available for implementing gateways. The most popular proxies that are used for gateways are NGINX, HAProxy and Envoy.
+- Egress gateway running inside your private network can help direct and control all traffic exiting the private network.
+- You should consider using an egress gateway if you need to monitor or control access to external services.
+- Service Mesh with control plane and data plane configuration, Istio is most famous service mesh tool.
+- Service Mesh features
+    - Traffic Management
+        - Request headers, URI and Sources are some common criteria for traffic management.
+    - Failure Handing
+    - Security
+    - Tracing and monitoring
+
+- As mentioned at the beginning of this chapter, each architecture is different, and there is no one-size-fits-all architecture. Nonetheless, there are specific components and building blocks in a cloud native application architecture that, if designed the wrong way, can cause many problems down the road. By understanding the technologies and patterns described in this chapter, you should be well prepared for designing a cloud native application from the compute side.
+
+### Chap 4. Working with Data
