@@ -206,3 +206,40 @@
 - As mentioned at the beginning of this chapter, each architecture is different, and there is no one-size-fits-all architecture. Nonetheless, there are specific components and building blocks in a cloud native application architecture that, if designed the wrong way, can cause many problems down the road. By understanding the technologies and patterns described in this chapter, you should be well prepared for designing a cloud native application from the compute side.
 
 ### Chap 4. Working with Data
+- Cloud native applications take advantage of managed and serverless data storage and processing services.
+- By using a managed database, the team can focus on building applications that use the database instead of spending time provisioning and managing the underlying data systems.
+- Applications will often take advantages of multiple data storage systems, storing files in an object store, writing data to a relational database, and caching with an in-memory key/value store.
+- Object storage service
+	- manage data as objects
+	- Determining where to store files such as images, documents, content and genomics data files will largely depend on the systems that access them.
+	- Object/blob storage
+		- Use it with files when the applications accessing the data support the cloud provider API.
+	- File storage
+		- Use it with applications designed to support Network Attached Storage (NAS).
+	- Disk (block) storage
+		- Use it for applications that assume persistent local storage disks, like mongodb or a MySQL database.
+- distributed file system like HDFS is popular for big data analytics.
+
+- Databases
+	- Databases are generally used for storing more structured data with well-defined formats.
+	- key/value
+		- Ofter, application data needs to be retrieved using only the primary key, or may be even part of the key. A key/value store can be viewed as simply a very large hash table that stores some value under a unique key.
+		- KV stores are very scalable datastores. selecting a key is important when using these datastores because it will have a significant impact on the scale and the performance of data storage reads and writes.
+	- Document
+		- A document database is similar to a key/value database in that it stores a document (value) by a primary key. Unlike a key/value database, which can store just about any value, the documents in a document database need to conform to some defined structure.
+	- Relational
+		- Relational databases organize data into two-dimentional structures called tables, consisting of columns and rows. Data in one table can have a relationship to data in another table, which the database system can enforce.
+		- If the application data has a lot of relationships, especially those that require transactions, these databases might be a good fit.
+	- Graph
+		- A graph database stores two types of information: edges and nodes.
+		- Graph database work well at analyzing the relationships between entities.
+	- Column family
+		- Column family database organizes data into rows and columns, and can initially appear very similar to relational database. You can think of a column-family database as holding tabular data with rows and columns, but the columns are divided into groups known as column families.
+	- Time-series
+		- Time-series data is a database that's optimized for time, storing values based on time. These databases generally need to support a very high number of writes.
+		- Time-series databases are good for storing telemetry data. 
+	- Search
+		- Search engine databases are often used to search for information held in other datastores and services. A search engine database can index large volumes of data with near-real-time access to the indexes.
+		- Some databases have full-text indexing features, but search databases are also capable of reducing words to their root forms through stemming and normalization.
+
+- Streams and Queues
