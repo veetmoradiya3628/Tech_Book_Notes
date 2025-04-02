@@ -243,3 +243,63 @@
 		- Some databases have full-text indexing features, but search databases are also capable of reducing words to their root forms through stemming and normalization.
 
 - Streams and Queues
+	- Streams and Queues are data storage systems that store events and messages.
+	- In an event stream, data is stored as an immutable stream of events.
+	- Messages queues or topics will store messages that can be changes (mutated), and its possible to remove an individual message from a queue.
+
+- Selecting a Datastore
+	- Functional requirements
+		1. Data format - what type of data do you need to store ?
+		2. Read and write - How will the data need to be consumed and written ?
+		3. Data size - How large are the items that will be placed in the datastore ?
+		4. Scale and structure - How much storage capacity do you need, and do you anticipate needing to partition your data ?
+		5. Data relationships - Will your data need to support complex relationships ?
+		6. Consistency model - Will you require strong consistency or eventual consistency acceptable ?
+		7. Schema flexibility - What kind of schemas will you apply to your data ? Is a fixed or strongly enforced schema important
+		8. Concurrency - Will the application benefit from multiversion concurrency control ? Do you require pessimistic and/or optimistic concurrency control ?
+		9. Data movement - Will your application need to move data to other stores or data warehouses ?
+		10. Data life cycle - Is the data write once and read many ? Can it be archived over time or can the fidelity of the data be reduced through down-sampling ?
+		11. Change streams - Do you need to support cdc (change data capture) and fire events when data changes ?
+		12. Other supported features - do you need any other specific features, full-text search, indexing, and so on ?
+	- Non functional requirements
+		1. Team experience - Probably one of the biggest reasons teams select a specific database solution is because of experience.
+		2. Support - Sometimes the database system that’s the best technical fit for an application is not the best fit for a project because of the support options available. Consider whether or not available support options meet the organizations needs.
+		3. Performance and scalability - What are your performance requirements? Is the workload heavy on ingestion? Query and analytics?
+		4. Reliability - what are the availability requirements ? what backup and restore features are necessary ?
+		5. Replication - Will data need to be replicated across multiple regions or zones ?
+		6. Limits - Are there any hard limits on size and scale ?
+		7. Portability - Do you need to deploy on-premises or to multiple cloud providers ?
+	- Management and Cost
+		1. Managed services - When possible, use a managed data service. There are, however, situations for which a feature is not available and needed.
+		2. Region or cloud provider availability
+		3. Licensing
+		4. Overall cost
+- https://db-engines.com/en/
+
+- Data in Multiple Datastores
+	- Challenges of distributing data
+		1. Data consistency across the data stores
+		2. Analysis of data in multiple data stores
+		3. Backup and restore of the datastores
+
+- Change Data Capture
+	- Many of the database options available today offer a stream of data change events (change log) and expose this through an easy to consume API.
+	- use cases for CDC 
+		1. Notifications
+		2. Materialized Views
+		3. Cache invalidation
+		4. Auditing
+		5. Search
+		6. Analytics
+		7. Change analytics
+		8. Archive
+		9. Legacy systems
+	- Many of the managed data services make this really easy to implement and can be quickly configured to invoke a serverless function when a change happends in the data store.
+	Ex.
+		- A change in Amazon DynamoDB or Amazon Simple Storage Service (Amazon S3) can trigger a lambda function.
+		- Microsoft Azure Functions can be invoked when a change happens in Azure Cosmon DB or Azure Blobl Storage.
+		- A change in Google cloud firestore or object store service can trigger a cloud function.
+- Write Changes as an Event to a Change log
+- Transaction supervisor - You can use this approach - using a supervisor and setting status - in many different ways to monitor systems and databases for consistency and take action to correct them or generate a notification of the issue.
+
+- Compensating Transactions
