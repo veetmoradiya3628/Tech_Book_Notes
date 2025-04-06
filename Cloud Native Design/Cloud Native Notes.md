@@ -273,12 +273,12 @@
 - Databases
 	- Databases are generally used for storing more structured data with well-defined formats.
 	- key/value
-		- Ofter, application data needs to be retrieved using only the primary key, or may be even part of the key. A key/value store can be viewed as simply a very large hash table that stores some value under a unique key.
+		- Offer, application data needs to be retrieved using only the primary key, or may be even part of the key. A key/value store can be viewed as simply a very large hash table that stores some value under a unique key.
 		- KV stores are very scalable datastores. selecting a key is important when using these datastores because it will have a significant impact on the scale and the performance of data storage reads and writes.
 	- Document
 		- A document database is similar to a key/value database in that it stores a document (value) by a primary key. Unlike a key/value database, which can store just about any value, the documents in a document database need to conform to some defined structure.
 	- Relational
-		- Relational databases organize data into two-dimentional structures called tables, consisting of columns and rows. Data in one table can have a relationship to data in another table, which the database system can enforce.
+		- Relational databases organize data into two-dimensional structures called tables, consisting of columns and rows. Data in one table can have a relationship to data in another table, which the database system can enforce.
 		- If the application data has a lot of relationships, especially those that require transactions, these databases might be a good fit.
 	- Graph
 		- A graph database stores two types of information: edges and nodes.
@@ -344,12 +344,88 @@
 		7. Change analytics
 		8. Archive
 		9. Legacy systems
-	- Many of the managed data services make this really easy to implement and can be quickly configured to invoke a serverless function when a change happends in the data store.
+	- Many of the managed data services make this really easy to implement and can be quickly configured to invoke a serverless function when a change happens in the data store.
 	Ex.
 		- A change in Amazon DynamoDB or Amazon Simple Storage Service (Amazon S3) can trigger a lambda function.
-		- Microsoft Azure Functions can be invoked when a change happens in Azure Cosmon DB or Azure Blobl Storage.
+		- Microsoft Azure Functions can be invoked when a change happens in Azure Cosmos DB or Azure Blob Storage.
 		- A change in Google cloud firestore or object store service can trigger a cloud function.
 - Write Changes as an Event to a Change log
 - Transaction supervisor - You can use this approach - using a supervisor and setting status - in many different ways to monitor systems and databases for consistency and take action to correct them or generate a notification of the issue.
 
 - Compensating Transactions
+	- A logical set of operations need to complete, if one of the operations fails, we might need to compensate the ones that succeeded.
+
+ - ETL (Extract, Transform and Load)
+	 - Businesses have been using Extract, Transform and Load (ETL) platforms for a long time to move data from one system to another. Data Analytics is becoming an important part of every business, large and small, so it should be no surprise that ETL platforms have become increasingly important.
+	 - All the major cloud providers offer managed ETL services, like AWS Glue, Azure Data Factory and Google Cloud DataFlow. Moving and processing data from one source to another is increasingly important and common in today's cloud native applications.
+
+- Microservices and Data Lakes
+	- In Microservices distributed environment, data aggregation and analytics at the centralized place is challenge in itself. to solve this there is different ways to handle and consider like data lake etc.
+	- Centralized store for aggregated data and access to analytics team over those data and data update or batch update to those centralized data via pipelines or CDC events or webhooks.
+
+- Client Access to Data
+	- A simple data-centric application would generally require you a build and operate a service that performs authentication, authorization, logging, transformations, and validation of data. It does, however need to control who can access what within the data store and validate what's being written.
+	- Restricted Client Tokens (Valet-Key)
+		- A service can create and return a token to a consumer that has limited use.
+		- The token should follow the principle of least privilege, granting the minimum permissions necessary to complete the task. In Microsoft Azure Blob storage, the token also referred to as a shared-access signature, and in Amazon S3, this would be a pre-signed URL.
+	- Database Services with Fine-Granted Access Control
+		- Some databases provide fine-granted access control to data in the database.
+		- Databases such as Google's cloud FireStore allow you to apply security rules that provide access control and data validation.
+
+- GraphQL Data Service
+	- Instead of building and operating a custom service to manage client access to data, you can deploy and configure a GraphQL server to provide clients access to data.
+	- AWS AppSync make it easy to deploy a GraphQL based backend for your client services.
+	- GraphQL uses a schema-first approach, defining nodes (objects) and edges (relationships) as part of a schema definition for the graph structure. Consumers can query the schema for details about the types and relationships across the objects.
+
+- Fast Scalable Data
+	- A large majority of application scaling and performance problems can be attributed to the databases.
+	- Scaling anything and everything can be archived through replication and partitioning.
+	- Sharding Data
+		- Sharding data is about dividing the data store into horizontal partitions, known as shards. Each shard contains the same schema, but holds a subset of the data.
+		- When sharding data, it's important to determine how many shards to use and how to distribute the data across the shards.
+	- Caching Data
+		- Data caching is important to scaling applications and improving performance. Caching is really just about copying the data to a faster storage medium like memory, and generally closer to the consumer.
+		- When working with cache, one of the biggest challenges is keeping the cached data synchronized with the source.
+		- There are different strategies for cache data invalidation, need to consider based on particular usecase.
+
+- Content Delivery Networks
+	- CDN is a group of geographically distributed datacenters, also known as points of presence (POP).
+	- A CDN often is used to cache static content closer to consumers.
+	- Features with CDNs to consider
+		- Rules or behaviors
+		- Application logic
+		- Custom name
+		- File upload acceleration
+		- API acceleration
+
+- Analyzing Data
+	- Streams
+		- Analyzing the data streams in real time is a great way to reduce this latency. Streaming data-processing engines are designed for unbounded datasets.
+		- Stream processing can be used to detect patterns, identify sequences, and look at results.
+	- Batch
+		- Unlike stream processing, which is done in real time as the data arrives, batch processing is generally performed on very large bounded sets of data as part of exploring a data science hypothesis, or at specific intervals to derive business insights.
+		- Data analytics systems typically use a combination of batch and stream processing. The approaches to processing streams and batches have been captured as some well-known architectural patterns, like Lambda architecture.
+	- Data Lakes on Object Storage
+		- Data lakes are large, scalable and generally centralized datastores that allow you to store structured and unstructured data.
+		- It's becoming increasingly common to use fully managed services that allow you to pay for the data loaded in the service and pay-per-job execution.
+		- Cloud vendors have started providing services that align with a serverless cost model for provisioning data lakes. Azure Data Lake and Amazon S3-based AWS Lake Formation are some examples of this.
+	- Data Lakes and Data Warehouses
+		- Data lakes are generally used to store raw and unstructured data, whereas the data in a data warehouse has been processed and organized into a well-defined schema.
+		- It's common to write data into a data lake and then process it from the data lake into a data warehouse.
+
+- Distributed Query Engines
+	- Distributed query engines separate the query engine from the storage engine and use techniques to distribute the query across a pool of workers.
+	- A coordinator is responsible for parsing the query and scheduling work to a pool of workers. The pool of workers then connects to the data stores needed to satisfy the query, fetches the results and merges the results from each of the workers.
+
+- Databases on K8s
+	- Kubernetes dynamic environment can make it challenging to run data storage systems in a Kubernetes cluster.
+	- Running a stateful workload like a database is much different than stateless services.
+	- K8s supports stateful sets and persistent volumes to deploy and operate databases in a K8s cluster.
+
+- Storage Volumes
+	- Persistent volume
+	- Persistent volume claim
+	- Storage class
+
+### Chap.5 DevOps
+- 
