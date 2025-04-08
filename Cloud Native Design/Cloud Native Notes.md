@@ -428,4 +428,54 @@
 	- Storage class
 
 ### Chap.5 DevOps
-- 
+
+- DevOps is a broad concept that encompasses multiple aspects of collaboration and communication between software developers and other IT professionals.
+- DevOps is intended to improve collaboration between development and operations teams throughout the entire process of software development, from planning to delivery to improve deployment frequency, achieve faster time to market, lower the failure rate of new releases, shorten lead time between fixes and improve mean time to recovery.
+- CALMS stands for Collaboration, Automation, Lean, Measurement and Sharing.
+- Automation process is important for high deployment velocity and deployment consistency.
+- One of the key benefits of the cloud is that infrastructure can be automated, IaC - Infrastructure as Code is a method f provisioning and managing infrastructure using code rather than through manual processes.
+- Lean principle technique is used to identify and remove any waste from your processes.
+- Determining whether deployments and releases are successful requires us to have specific metrics in place. The purpose of having measurements is to quickly discover any potential issues with your code or the process so that you can go back and fix it if needed.
+- Your only worry is instrumenting and emitting metrics from within your services and functions.
+- We mentioned only the system and application measurements, but you can't forget about people metrics and the culture aspects. Measurements inform us whether people are healthy or how investments are influencing and affecting things in the business, the amount of money it's making, or how you can innovate faster.
+- Certain cloud platforms also provide built-in metrics and tracing capabilities such as CloudWatch and AWS X-Ray, as well as Microsoft Azure Monitor for activity logs, diagnostic logs, and metrics.
+- Sharing learnings and best practices is also important, both within your organization, and between organizations in a company, as well as among your competitors and the rest of the industry with the purpose of improving the industry for everyone.
+- Site Reliability Engineering (SRE) emerged from Google in the early 2000s. The idea behind an SRE position is to bridge the gap between the traditional research and development team, which code and deploys to production, and the operations team, which tries to keep the production environment up and running.
+- It probably goes without saying that any piece of code that is deployed and released into production needs to be thoroughly tested. With the velocity of deployments and releases that are commonplace for cloud native solutions, you can't survive any longer by doing manual testing.
+- To be able to do proper testing of cloud native solutions, you need to have good test automation in place. Without test automation, you can't do DevOps automation is critical.
+- In most of your testing, you use either one or all of the test doubles. A test double is an object that you can use instead of a real object. The three most common types of test doubles are mocks, fakes and stubs.
+- With mocks, you can define certain expectations about how functions are called. Mocks are used for testing interactions between objects.
+- A fake is a lightweight implementation of your API that behaves like the real thing, but it isn't. You can use fakes when you can't use a real implementation or if using a real implementation is slow or cumbersome to setup and maintain. An example of a fake would be a fake payment or authorization service that you use in your tests.
+- A stub contains zero logic, and it returns only what you tell it to return. Stubs are useful if you need certain objects to return specific values and be in a particular state.
+- Test Automation Pyramid
+	- Regardless of the testing context in what context, be it in cloud native architectures or monolithic architectures, you can't avoid mentioning the test automation pyramid that Mike Cohn wrote about in his blog post back in 2009.
+	- Unit tests
+	- Service tests
+	- UI tests
+	- Canary tests
+	- Load tests
+	- Performance tests
+	- Jepsen tests
+	- Jepsen framework is test framework for distributed systems. 
+	- Security / penetration tests
+	- A/B tests
+	- Acceptance tests
+	- Usability tests
+	- Configuration tests
+	- Smoke tests
+	- Integration tests
+	- Chaos tests
+	- Fuzz tests
+- CI/CD
+	- CI is a practice of automated building, testing and integrating newly developed code with the existing code for the purpose of releasing it. In practical terms, this means building the code in your feature branch, running unit tests, merging the code if passed and finally creating an artifact, such as a binary, a container image, or a compressed file, depending on your type of service.
+	- CD, In this phase you are running additional tests with the goal of having your code always ready to be deployed to production. In practical terms, after your code passed through this stage, there shouldn't be any questions about its stability or quality, and any engineer could easily deploy code to production.
+	![alt text](ci-cd-flow.png)
+-  Mono-Repo vs. Multi-Repo
+- Build (CI)
+- Test (CI)
+- Deploy stage (CD)
+- Release stage (CD)
+- Post Release stage
+
+- Monitoring
+	- 
