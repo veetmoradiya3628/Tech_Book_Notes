@@ -478,4 +478,32 @@
 - Post Release stage
 
 - Monitoring
-	- 
+	- Monitoring is traditionally used to assess and report on the overall health of a system or services.
+	- Few Primary metrics in monitoring:
+		- Error rate
+		- Incoming request rate
+		- Latency
+		- Utilization
+	- One of the favorite tools for monitoring is Grafana, described as the open platform for beautiful analytics and monitoring.
+	- Grafana can connect to different data sources and databases and allows you to create dashboards and graphs based on that data.
+	- Prometheus is a popular option used for scraping and collecting metrics from your services.
+	- Prometheus supports multiple types of metrics
+		- Counter
+			- This metrics type represents an increasing counter that starts at zero. You should use it only for values that increase. You can use this metrics to count the number of requests, errors, restarts, and more.
+		- Gauge
+			- Similar to counter, but the value in this metric can be increased or decreased. You can use this metric to represent memory, CPU usage, process count, and more.
+		- Histogram
+		- Summary
+	- Prometheus also supports defining alerts using a separate component called Alert-manager. Any alerts defined in Prometheus are sent to the Alert manager, and they are managed by it. Alert manager then takes care of silencing, aggregating, and sending notifications through email or other services. (e.g. Slack, PagerDuty)
+	- Observable services
+		- Observability captures everything that monitoring doesn't, if metrics were the gist of the talk in the monitoring context, traces are what are talked about in the observability context.
+		- Practically speaking, monitoring informs you that something is wrong with your service and observability helps you dig deeper, provide traces and investigate why monitoring giving you those results.
+		- One of the reasons why you want to make your services observable is to be able to get data that helps you understand them better.
+	- Logging
+		- Logging is a crucial part that can help make your service and functions more observable.
+	- Distributed tracing tools can be used to identify and debug the flow of logs.
+	- Service health, liveness and readiness
+		- Your service should also include so called health or liveness endpoints. This endpoint, when called, should respond with a value (usually HTTP 200) that indicates whether the service considers itself healthy.
+		- If the service is not ready, Kubernetes marks it as such, and none of the requests through the Kubernetes service will be routed to the unready pod.
+
+- Configuration Management
