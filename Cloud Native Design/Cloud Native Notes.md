@@ -507,3 +507,43 @@
 		- If the service is not ready, Kubernetes marks it as such, and none of the requests through the Kubernetes service will be routed to the unready pod.
 
 - Configuration Management
+
+- The 12 factor manifesto mentions that code and configuration should be strictly seprated, which makes your service easily configurable for different environments.
+- Some of the common configuration settings the app needs are :
+    - Database / queue / messaging connection strings
+    - Credentials (usernames, passwords, API keys, certificates)
+    - Timeouts, ports, dependent service names
+- When developing your services, design them in such a way that you can easily add new configuration settings or remove them without breaking things.
+- A common way to store configuration settings in K8s is using a resource called ConfigMap. the ConfigMap allows for great sepration of configuration from the services, which makes your service more portable.
+- Each ConfigMap has a unique name and a data source. The data source can be one of these three things, Directory, File or Literal value.
+- Single Environment or Multiple Environment variables.
+- A simplest way for storing secrets and configuration settings for functions is to add them to the function configuration / environment. However, this is not necessary the best practice.
+- In AWS, you can use the systems manager parameter store, and in Azure you can use Key Vault. Both managed services provide a secure storage for configuration data management and secret management. You can store passwords, connection strings, certificates, and other configuration settings in a central place.
+
+- Sample CI/CD Flows
+	1. Code complete : the code was written
+	2. Push to Git : Code is commited and pushed to the code repository.
+	3. Pull Code : the build system pulls the latest pushed code.
+	4. Source Code Analysis : static code analysis is run on the source code.
+	5. Build Container : source code is built, copied, and packaged into a container.
+	6. Unit / service tests : unit and service tests are run. If the tests fail, the CI fails and flow is stopped.
+	7. Push to private registry : built and tested image is tagged and pushed to the private registry.
+	8. Image security scanning : any image that's pushed to the registry is scanned for potential vulnerabilities and exploits.
+	9. Test configuration : before deploying containers to an environment, the configuration tests are run. On failure, the flow stops.
+
+- If deploying to staging :
+	1. Deploy to k8s : published container is deployed to K8s.
+	2. Integration tests : integration tests are executed.
+	3. Rollback : if integration tests fail, deployment is rolledback and the flow stops.
+	4. Release : if integration tests pass, deployment gets released and is available in the staging environment.
+	5. Promotion to Prod : when ready, the changes are promoted to the production environment using gradual rollout.
+
+- If deploying to Production :
+	1. Deploy to k8s : published container is deployed to K8s
+	2. Continues canary tests : a set of tests continuously run to catch potential issues as soon as possible.
+	3. Gradual rollout : amount of traffic is being gradually increased. (i.e., more and more traffic is sent to the deployed version)
+	4. Telemetry : Continues monitor telemetry to ensure gradual rollout is working correctly and no issues are introduced with the deployment. If we see failures through telemetry, the changes are rolled back; otherwise, more traffic is routed to the deployed version.
+	5. Release : as soon as 100% of the traffic is flowing to the deployed version, the release is completed.
+
+### Chap.6 Best Practices
+
