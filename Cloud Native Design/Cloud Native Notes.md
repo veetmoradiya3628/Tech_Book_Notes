@@ -547,3 +547,42 @@
 
 ### Chap.6 Best Practices
 
+- Breaking up monolith for a right reasons
+	- Decouple Simple Services First
+	- Use a strangler pattern
+		- When you are decomposing your monolith to move to microservices and functions, you can use a gateway and a pattern such as a strangler pattern. The idea behind the strangler pattern is to use the gateway as a facade while you gradually move the backend monolith to a new architecture, either services, functions, or a combination of both.
+	- The Anticorruption layer and strangler patterns have been proven many times as good approaches to move a monolithic legacy application into a cloud native application because both promote a gradual approach.
+- Come up with a Data Migration Strategy
+	- In a monolith, you are usually working with a centrally shared data store where data is read from and written to by multiple places and services.
+	- To truly move to the cloud native architecture, you need to decouple data as well.
+- Rewrite Any Boilerplate Code
+- Reconsider Frameworks, Languages, Data Structures and Data Stores
+- Ensuring Resiliency
+	- Handle transient failures with retries
+	- Use a Finite Number of Retries
+	- Use Circuit Breakers for Non transient Failures
+	- Graceful degradation
+	- Use a Bulkhead patterns
+	- Implement a health checks and readiness checks
+	- Define CPU and Memory limits for Your Containers
+	- Implement Rate Limiting and Throttling
+- Ensuring Security
+	- Incorporate security in your designs
+	- Grant least-privileged access
+	- Use separate accounts / subscriptions / tenants
+	- Securely store All secrets
+- Encrypt Data in Transit
+- Use Federated Identity Management
+- Use Role-Based Access Control
+- Isolate Kubernetes Pods
+- Working with Data
+	- Use Managed Databased and Analytics Services
+		- Use a Datastore that best fits Data Requirements
+		- Keep Data in Multiple Regions or Zones
+		- Use Data Partitioning and Replication for Scale
+		- Avoid Over fetching and Chatty IO
+		- Don't Put business logic in the Database
+		- Test with Production like Data
+		- Handle Transient Failures
+- Performance and Scalability
+- 
