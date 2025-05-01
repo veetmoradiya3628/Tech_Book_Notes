@@ -585,4 +585,41 @@
 		- Test with Production like Data
 		- Handle Transient Failures
 - Performance and Scalability
-- 
+	- Design Stateless Services That Scale Out
+		- Services should be designed to scale out. Scaling out is an approach to increasing the scale of a service by adding more instances of a service.
+	- Use Platform Autoscaling Features (K8s - HPA)
+	- Use Caching
+		- Caching is a technique that can help improve the performance of your component by temporarily storing frequently used data in storage that's close to the component.
+	- Use Partitioning to Scale Beyond Service Limits
+- Functions
+	- Write Single-Purpose Functions
+	- Don't chain functions
+	- Keep Functions Light and Simple
+	- Make Functions Stateless
+	- Separate Function Entry Point From the Function Logic
+	- Avoid Long Running Functions
+	- Use Queues for Cross Functions Communication
+- Operations
+	- Deployments and Releases are separate Activities
+	- Keep Deployments small
+	- CI/CD Definition Lives with the Component
+	- Consistent Application Deployment
+	- Use Zero Downtime Releases
+	- Don't Modify Deployed Infrastructure
+	- Use Containerized Build
+	- Describe Infrastructure using Code
+	- Use Namespaces to Organize Services in K8s
+	- Isolate the Environments
+	- Separate Function Source Code
+	- Correlate Deployments with Commits
+- Logging, Monitoring and Alerting
+	- Use a Unified Logging System
+	- Use Correlation IDs
+	- Include Context with Log Entries
+	- Common and Structured Logging Format
+	- Tag your metrics Appropriately
+	- Avoid alert fatigue
+	- Define and Alert on KPI
+	- Continues testing in production
+	- Start with basic metrics
+- Service Communication
