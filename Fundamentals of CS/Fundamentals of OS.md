@@ -111,3 +111,11 @@
     - Watch out for concurrency
 - The Heap
     - Large, Dynamic place for memory allocations
+	- 
+
+- #### Memory Management
+- #### Inside the CPU
+- #### Process Management
+- #### Storage Management
+- #### Socket Management
+- #### More OS Concepts
