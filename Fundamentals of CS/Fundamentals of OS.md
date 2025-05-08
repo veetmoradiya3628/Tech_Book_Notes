@@ -111,9 +111,40 @@
     - Watch out for concurrency
 - The Heap
     - Large, Dynamic place for memory allocations
-	- 
+	- Stores large data
+	- Remain until explicitly removed
+	- All functions can access
+	- Dynamic, grows low to high
+	- malloc, free, new
+	- Pointers
+		- Points to a memory address in the heap
+		- A pointer can in stack, data or heap
+		- Stores the address of first byte
+		- Pointer type helps determine size
+		- Heap is random
+		- Stack space limited
+		- Cache locality in stack
+	- What is escape analysis ??
+		- compiler optimization technique
+	- Program break
+		- where the process ends
+		- Points to the top of the heap
+		- Not recommended now its replaced with mmap
+	- Slab memory allocation 
+
+- Process demo :-
+
+```
+cat /proc/<pid>/maps 
+
+sudo cat /proc/204/maps
+```
 
 - #### Memory Management
+
+	- SRAM, DRAM, SDRAM, DDR Ram, Virtual Memory
+	- 
+
 - #### Inside the CPU
 - #### Process Management
 - #### Storage Management
