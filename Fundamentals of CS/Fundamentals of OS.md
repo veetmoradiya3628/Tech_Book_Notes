@@ -143,7 +143,29 @@ sudo cat /proc/204/maps
 - #### Memory Management
 
 	- SRAM, DRAM, SDRAM, DDR Ram, Virtual Memory
-	- 
+	- What is Memory ?
+		- Stores data
+		- Volatile
+			- RAM - Random access memory
+		- Non-Volatile
+			- ROM - Read Only Memory
+	- SRAM 
+		- Static RAM, Complex, expensive but fast
+		- 1 bit -> 1 flip flop -> 6 transistors
+		- constant power
+		- Used it CPU caches, SSDs
+	- DRAM
+		- Dynamic RAM, cheaper, slower
+		- 1 bit -> 1 capacitor, 1 transistor
+		- Capacitors, lose their state
+		- need to be refreshed
+	- Double Data Rate RAMs
+	- DDR4 vs DDR5 SDRAM
+	- burst
+	- prefetch buffer io
+	- channels
+	- DRAM internals
+		- DIMM, Bank, Rows, Columns, Cells (1 cell 1 bit)
 
 - #### Inside the CPU
 - #### Process Management
