@@ -623,3 +623,27 @@
 	- Continues testing in production
 	- Start with basic metrics
 - Service Communication
+	- Design for backward and forward compatibility
+		- With backward compatibility, you ensure that new functionality added to a service or component does not break any existing service.
+	- Define Service contracts that do not leak internal details
+		- A service that exposes an API should define contracts and test against the contracts when releasing updated. for example, a REST based service would generally define a contract in the OpenAPI format or as documentation, and consumer of this service would build to this contract.
+	- Prefer Async communication
+		- Use Async communication whenever possible. It works well with distributed systems and decouples the execution.
+	- Use Efficient serialization techniques
+	- Use Queues or Streams to Handle Heavy Loads and Traffic Spikes
+	- Batch Requests for Efficiency
+	- Split Up large messages
+		- Claim-check pattern used for efficient message communication.
+	- Containers
+	- Store Images in a trusted registry
+	- Utilize the Docker build cache
+	- Don't run containers in Privileged mode
+	- Use Explicit Container Image Tags
+	- Keep container images small
+	- Run One Application per container
+	- Use verified images from trusted repositories
+	- Use vulnerability scanning tools on images
+	- Don't store Data in Containers
+	- Never store secrets or configuration inside an Image
+
+### Chap.7 Portability
