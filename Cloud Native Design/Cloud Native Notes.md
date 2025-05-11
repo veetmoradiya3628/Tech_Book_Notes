@@ -647,3 +647,15 @@
 	- Never store secrets or configuration inside an Image
 
 ### Chap.7 Portability
+- Portability is sometimes a concern when building cloud native applications. The application might have a requirement to be deployed across multiple cloud providers or even on-premises.
+- Why make applications portable ?
+	- There are many good reasons to make applications portable. Portability should be a requirement, and the trade-offs and costs associated with the feature should be considered.
+	- Some applications are made to be portable only out of  fear of vender lock-in. Vendor lock-in happens when an application has dependencies on services or APIs that are only available from a specific cloud provider.
+- The Costs of Portability
+	- Application portability generally comes with a price tag, and with larger applications this cost can be significant.
+- Data Gravity and Portability
+	- The concept is fairly simple : data wants to be near the applications using it. As the data grows, its gravitational force increases, pulling applications and additional data to it.
+	- Most of the cloud vendors provide data migration services that can make it easier to move data around, but with large amounts of data, this can still be a large effort. Moving data without taking an application offline can be challenging and expensive. 
+- **some theory topics skipped**
+- Portability is a feature that a cloud native application must consider. Make sure that you treat it as a requirement and understand the potential trade-offs and costs. In addition to engineering costs, for example, you will need to consider operational and infrastructure costs. some planning and good development practices can make it much easier to make an application portable.
+
