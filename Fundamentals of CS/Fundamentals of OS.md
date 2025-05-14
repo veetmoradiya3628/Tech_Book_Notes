@@ -166,9 +166,24 @@ sudo cat /proc/204/maps
 	- channels
 	- DRAM internals
 		- DIMM, Bank, Rows, Columns, Cells (1 cell 1 bit)
+	- MMU - Memory management unit
+	- Read from memory to CPU cache / RAM will happen via 64 bytes block not as a single instruction
+	- Sense amplifier is write ahead logging concept in RAM concept
+	- Data types are aligned
+		- 1, 4 or 8 bytes 
+		- Certain sizes are placed in specific addresses
+	- Memory access takes 50 - 100 ns
+	- Virtual Memory
+		- 
+
 
 - #### Inside the CPU
 - #### Process Management
 - #### Storage Management
 - #### Socket Management
 - #### More OS Concepts
+
+
+#### Hands On
+- Memory management and analysis with c code in Linux (http://geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
+- Linux file system and its architecture
