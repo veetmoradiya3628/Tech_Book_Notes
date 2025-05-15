@@ -174,7 +174,14 @@ sudo cat /proc/204/maps
 		- Certain sizes are placed in specific addresses
 	- Memory access takes 50 - 100 ns
 	- Virtual Memory
-		- 
+		- Limitations of physical memory
+			- Fragmentation
+				- One space, memory must be contiguous
+				- External vs. Internal fragmentation
+				- Fixed size block allocation
+			- Shared Memory
+			- Isolation
+			- Large programs
 
 
 - #### Inside the CPU
