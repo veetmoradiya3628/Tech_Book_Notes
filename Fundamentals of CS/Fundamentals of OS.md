@@ -180,8 +180,27 @@ sudo cat /proc/204/maps
 				- External vs. Internal fragmentation
 				- Fixed size block allocation
 			- Shared Memory
+				- Shared libraries
+					- Most processes uses libraries
+					- OS loads the library code once
+					- Map the virtual page to the library physical code
+					- Libc
+					- /proc/[pid]/maps
+				- CoW - copy on write concept
 			- Isolation
 			- Large programs
+				- Swaps
+		- fixed block size call it paging
+		- page size is often 4kb
+		- Virtual memory and fragmentation
+		- Page Tables
+		- MMU & TLB
+	- DMA
+		- Direct Memory Access
+		- Data from network / disk must pass through CPU (Peripherals Read)
+		- DMA allows direct access from network / disk to RAM, works with directly with physical address since there is no MMU available from CPU.
+		- IOMMU (allows IO) with virtual address
+	- Virtual Memory space is dedicated to process but threads share the virtual memory space.
 
 
 - #### Inside the CPU
@@ -194,3 +213,5 @@ sudo cat /proc/204/maps
 #### Hands On
 - Memory management and analysis with c code in Linux (http://geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
 - Linux file system and its architecture
+- DMA signals & DMA Attacks
+- 
