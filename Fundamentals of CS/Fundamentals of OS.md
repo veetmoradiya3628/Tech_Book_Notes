@@ -202,8 +202,18 @@ sudo cat /proc/204/maps
 		- IOMMU (allows IO) with virtual address
 	- Virtual Memory space is dedicated to process but threads share the virtual memory space.
 
-
 - #### Inside the CPU
+	- Basic components
+		- ALU (Arithmetic logic unit)
+		- CU (Control Unit)
+		- MMU (Memory management Unit)
+		- Registers
+		- Caches (L1, L2, L3)
+		- Bus
+	- 
+
+
+
 - #### Process Management
 - #### Storage Management
 - #### Socket Management

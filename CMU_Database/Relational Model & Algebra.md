@@ -1,0 +1,50 @@
+(https://www.youtube.com/playlist?list=PLSE8ODhjZXjYDBpQnSymaectKjxCy6BYq)
+
+- Relational Model
+- Relational Algebra
+- Alternative Data Models
+
+
+- Flat File Database 
+	- There are multiple issues there
+- data models
+	- Relational
+	- Key/Value
+	- Graph
+	- Document/JSON/XML/Object
+	- Wide-Column/Column Family
+	- Array (Vector, Matrix, Tensor)
+	- Hierarchical
+	- Network
+	- Semantic
+	- Entity-Relationship
+- Schema
+- Relational model
+	- The relational model defines a database abstraction based on relations to avoid maintenance overhead.
+	- Structure
+	- Integrity
+	- Manipulation
+- Table
+- Primary Keys
+- Foreign Keys
+- Constraints
+- DML (Data Manipulation Languages)
+- Relational Algebra
+	- Select
+		- Choose a subset of the tuples from a relation that satisfy a selection predicate.
+	- Projection
+		- Generate a relation with tuples that contains only the specified attributes
+	- Union
+		- Generate a relation that contains all tuples that appear in either only one or both input relations.
+	- Intersection
+		- Generate a relation that contains all tuples that appear in both of the input relations.
+	- Difference
+		- Record appear in first but not in second.
+	- Product
+		- Combined output with cartesian product.
+	- Join
+		- Common parameter match of two relations.
+- Document Data Model
+	- A collection of documents with key value pair collection.
+- Vector Data Model
+	- At their core, these systems use specialized indexes to perform NN searches quickly.

@@ -1,0 +1,21 @@
+{
+	"nodes":[
+		{"id":"a57fe4f7219cc1a3","type":"text","text":"RDBMS with Go","x":-500,"y":-160,"width":250,"height":60},
+		{"id":"eed812f7c90e91c6","type":"text","text":"Storage Engine Basics\n\n- Page & its design\n","x":-440,"y":140,"width":250,"height":100},
+		{"id":"03ac5830a48275c7","x":-110,"y":160,"width":290,"height":60,"type":"text","text":"Table & Record Management"},
+		{"id":"e00b39c1cea1779b","x":220,"y":160,"width":250,"height":60,"type":"text","text":"SQL Parser & CLI"},
+		{"id":"f156b397957cbf5e","x":-160,"y":300,"width":250,"height":60,"type":"text","text":"Query Execution Engine"},
+		{"id":"43712fd4bd1953fe","x":95,"y":-40,"width":250,"height":60,"type":"text","text":"Indexing"},
+		{"id":"20f929a22a984180","x":-565,"y":330,"width":250,"height":60,"type":"text","text":"Transactions"},
+		{"id":"0974d71cd7d22480","x":240,"y":-160,"width":250,"height":60,"type":"text","text":"Optimization & Testing"}
+	],
+	"edges":[
+		{"id":"e9a1893a5ccb0eb1","fromNode":"a57fe4f7219cc1a3","fromSide":"bottom","toNode":"eed812f7c90e91c6","toSide":"top"},
+		{"id":"cb3d038b7024a065","fromNode":"a57fe4f7219cc1a3","fromSide":"bottom","toNode":"03ac5830a48275c7","toSide":"top"},
+		{"id":"3c68177640a2759b","fromNode":"a57fe4f7219cc1a3","fromSide":"bottom","toNode":"e00b39c1cea1779b","toSide":"top"},
+		{"id":"a5ff0337ceadaa26","fromNode":"a57fe4f7219cc1a3","fromSide":"bottom","toNode":"f156b397957cbf5e","toSide":"top"},
+		{"id":"113d9f6915e23af4","fromNode":"a57fe4f7219cc1a3","fromSide":"bottom","toNode":"43712fd4bd1953fe","toSide":"top"},
+		{"id":"db47bc04b5314397","fromNode":"a57fe4f7219cc1a3","fromSide":"bottom","toNode":"20f929a22a984180","toSide":"top"},
+		{"id":"3db141c0061cc3b3","fromNode":"a57fe4f7219cc1a3","fromSide":"bottom","toNode":"0974d71cd7d22480","toSide":"top"}
+	]
+}
