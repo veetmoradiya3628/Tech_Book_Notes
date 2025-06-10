@@ -1,0 +1,58 @@
+
+- Disk based Architecture
+- Storage Hierarchy
+	- CPU Registers
+	- CPU Caches
+	- DRAM
+	- SSD
+	- HDD
+	- Network storage
+- Volatile vs. Non-volatile (Memory vs. Disk)
+- Sequential vs. Random Access
+- DBMS will want to maximize sequential access.
+- Disk oriented DBMS
+	- Disk
+		- Database files
+			- Directory (metadata)
+			- Pages (header)
+	- Memory
+		- Buffer Pool
+	- Execution Engine
+
+- The DBMS stores a database as one or more files on disk typically in a proprietary format.
+- Storage manager is responsible for maintaining a database's files
+- It organizes the files as a collection of pages.
+- A page is a fixed size block of data
+- Each page is given a unique identifier (pageId)
+- Three different notions of pages in DBMS:
+	- Hardware pages (usually 4KB)
+	- OS Pages (usually 4KB, x64 2 MB / 1GB)
+	- Database Page (512B - 32KB)
+- Different DBMSs manage pages in files on disk in different ways
+	- Heap file organization
+	- Tree file organization
+	- Sequential / Sorted File Organization (ISAM)
+	- Hashing File Organization
+- Heap File
+	- Page Directory
+		- The DBMS maintains special pages that tracks the location of data pages in the database files.
+		- One entry per database object.
+- VACCUM is garbage collector for data sync in PG.
+- free space map & data files via extension in Postgres
+- Visibility Map for planner decisions
+- Page Header
+	- Every page contains a header of meta data about the page's contents.
+	- Page Size
+	- Checksum
+	- DBMS Version
+	- Transaction Visibility
+	- Compression / Encoding Meta-data
+	- Schema Information
+	- Data Summary / Sketches
+- Page Layout
+	- Row oriented storage model
+		1. Tuple-oriented storage
+		2. Log-structured storage
+		3. Index-organized storage
+- Slotted pages
+
