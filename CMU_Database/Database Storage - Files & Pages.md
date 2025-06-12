@@ -55,4 +55,8 @@
 		2. Log-structured storage
 		3. Index-organized storage
 - Slotted pages
-
+	- The most common layout scheme is called slotted pages.
+	- The slot array maps "slots" to the tuples starting position offsets.
+	- The header keeps track of:
+		- The \#of used slots
+		- The offset of the starting location of the last slot used.
