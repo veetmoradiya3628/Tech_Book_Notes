@@ -30,4 +30,22 @@
 	- A tuple is essentially a sequence of bytes prefixed with a header that contains meta-data about it.
 	- It it the job of the DBMS to interpret those bytes into attribute types and values.
 	- The DBMS's catalogs contain the schema information about tables that the system uses to figure out the tuple's layout.
-- 
+- Word aligned tuples
+	- All attributes in a tuple must be word aligned to enable the CPU to access it without any unexpected behavior or additional work.
+	- Padding is solution for empty space.
+	- Reordering - switch the order of attributes in a tuples physical layout to make sure they are aligned.
+- Large Values
+	- Most DBMSs do not allow a tuple to exceed the size of a single page.
+	- To store values that are larger than a page, the DBMS uses separate overflow storage pages.
+- External Value storage
+	- Some systems allow you to store a large value in an external file.
+- System Catalogs
+	- A DBMS stores meta-data about databases in its internal catalogs.
+	- Tables, columns, indexes, views
+	- Users, permissions
+	- Internal statistics
+	- Almost every DBMS stores the database's catalog inside itself. (as tables)
+
+- pg_column_size - function for column size in storage.
+
+- numeric, null column bitmap, special values etc representation.

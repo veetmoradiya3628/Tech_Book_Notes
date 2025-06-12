@@ -7,5 +7,6 @@
 - B / B+ Trees implementation & other data structures used in database systems
 - MemTable, SSTable & Summary table structures
 - Bloom filters
+- bitmap representation
 
 - Separation of Storage and Compute by Neon DB
