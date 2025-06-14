@@ -10,3 +10,4 @@
 - bitmap representation
 
 - Separation of Storage and Compute by Neon DB
+- Apache pinot - distributed OLAP database
