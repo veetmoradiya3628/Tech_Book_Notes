@@ -210,7 +210,112 @@ sudo cat /proc/204/maps
 		- Registers
 		- Caches (L1, L2, L3)
 		- Bus
-	- 
+	- One processer can have more than 1 core, generally in power of 2
+	- L1 private cache for core
+	- L3 cache is shared across the CORES
+	- processor is connected to main memory via Bus
+	- DSM - Distributed shared memory, Non uniform memory access (NUMA)
+	-  ALU
+		- Arithmetic - + - / *
+		- XOR/OR/AND
+		- Core of compute
+	- CU
+		- Control Unit
+		- Fetches instructions
+		- Decodes instructions
+		- Executes instructions
+	- Registers
+		- Smallest ultrafast unit of storage
+			- 32 or 64 bit
+		- In the CPU core
+		- Many registers types
+		- PC, IR, SP, BP
+		- General purpose
+	- MMU
+		- Memory management unit
+		- Responsible for memory access
+		- Translating virtual to physical address
+			- TLB - Translation lookaside buffer
+			- TLB must* be flushed on context switch
+	- L caches
+		- L1, L2 and L3
+		- L1 - 1 ns, ~128 KB
+		- L2 - 5 ns, ~256-2 MB
+		- L3 shared - 15 ns, ~64 MB
+		- Main Memory - 50-100 ns
+		- Cache invalidation challenges
+		- Some CPUs only have L1, and L2 (shared)
+		- L1 cache is two types
+			- L1D (data) 
+			- L1I (Instructions)
+			- CU can fetch data and instructions at same time
+	- RISC
+		- Reduced Instruction set
+		- Simple instructions - each single task - single task
+		- Low power, predictable
+		- Use registers
+		- Arm
+	- CISC
+		- Complex Instruction set
+		- One instruction, lots of tasks, multiple cycle
+		- More power, unpredictable
+		- x86 (Intel/AMD)
+	- Example of CISC vs. RISC
+		- a = a + b
+		- CISC
+			- 1 instruction
+			- ADD a, b
+		- RISC 
+			- 4 instruction
+			- LDR r0, a
+			- LDR r1, b
+			- ADD r0, r1
+			- STR a1, r0
+	- Clock speed
+		- How many cycles per second
+		- e.g. 3 GHz - 3 billion clock cycles per second
+		- in RISC could mean 3 billion per second but less in CISC
+		- cost of fetching / decoding (pipelining helps)
+	- Commands
+		- show L caches
+			- `sysctl -a | grep cachesize`
+		- show number of cores
+			- `sysctl -n hw.physicalcpue`
+		- show CPU architecture
+			- `uname -m`
+	
+	- Instruction Life Cycle
+		- Fetch, Decode, Execute, Read, Write
+		- Instruction
+			- Fetch from memory (MMU)
+			- Decode (CU)
+			- Execute (ALU)
+			- Memory read (optional)
+			- Write (to register / memory)-
+	- Pipelining and Parallelism
+		- Notice how parts of the CPU are mostly idle
+		- Pipelining helps
+		- While decoding, we can fetch another instruction
+		- While ALU executing, we can decode another instruction
+		- Pipeline applies to the HTTP as well (HTTP post 1.1)
+	- Parallelism
+		- App can spin multiple processes/threads
+		- Each go into it in a CPU core
+	- Hyper threading
+		- Sharing cores
+		- Hyper threading exposes a single core as multiple logical cores
+		- Dedicated registers (e.g. PC) shared CU/ALU/L cache
+	- SIMD
+		- Single instruction multiple data
+		- With a single instruction add multiple values
+		- Vectors
+		- Gaming / DB Btrees
+		- E.g. ARM Neon
+
+- Workload identification for backend applications or any applications
+	- IO bound
+	- CPU bound
+
 
 
 

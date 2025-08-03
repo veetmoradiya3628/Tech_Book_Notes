@@ -8,6 +8,8 @@
 - MemTable, SSTable & Summary table structures
 - Bloom filters
 - bitmap representation
+- Hashing in database
+- btree and b+ tree
 
 - Separation of Storage and Compute by Neon DB
 - Apache pinot - distributed OLAP database
