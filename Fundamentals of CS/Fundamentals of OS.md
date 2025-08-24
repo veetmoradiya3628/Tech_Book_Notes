@@ -311,22 +311,163 @@ sudo cat /proc/204/maps
 		- Vectors
 		- Gaming / DB Btrees
 		- E.g. ARM Neon
-
-- Workload identification for backend applications or any applications
-	- IO bound
-	- CPU bound
-
-
-
+	- Workload identification for backend applications or any applications
+		- IO bound
+		- CPU bound
 
 - #### Process Management
+ - A dive into process
+ - Process vs. Thread
+	 - Process
+		 - An instance of a program
+		 - Has dedicated code, stack, heap, data section
+		 - Has context in the CPU (pc, lr, etc...)
+		 - Process Control Block
+	 - PCB
+		 - Kernel needs metadata about the process
+		 - PCB Contains
+			 - PID, process state, pc, registers
+			 - process control info
+			 - page table
+			 - Accounting (CPU/Memory usage)
+			 - Memory management info (pointer to code / stack etc.)
+			 - IO info (FDs)
+			 - IPC, semaphores, mutexes, shared memory, messages etc.
+	 - Kernel process table
+		 - Kernel needs to manage processes
+		 - A mapping table from PID to PCB
+		 - Process table
+		 - Quick lookup
+		 - In kernel space
+	 - Thread
+		 - A thread is a light weight process
+		 - Shared code/heap, data and PCB
+		 - Stack is different and PC
+		 - Thread stack lives in same VM
+	 - Thread control block
+		 - Kernel needs metadata about the threads
+		 - TCB contains
+			 - TID, Thread state, PC, registers
+			 - Process control info 
+			 - Accounting
+			 - Memory management info (Pointer to stack etc.)
+			 - Pointer to parent PCB
+	 - Kernel Thread table
+		 - Kernel needs to manage threads
+		 - A mapping table from TID to TCB
+		 - Thread table
+		 - Quick lookup
+		 - In kernel space
+	 - Shared memory
+		 - Multiple processes / threads can share memory
+		 - mmap
+		 - Virtual memory different, physical memory same
+		 - Shared buffers in databases
+	 - Fork
+		 - Fork creates a new process
+		 - Child must have new virtual memory
+		 - But OS uses CoW so pages can be shared unless a write happens
+		 - Redis Asynchronous durability
+	 - Summary
+		 - Processes have dedicated VM
+		 - Threads belong to the same process
+		 - Threads share parent process memory
+	
+ - Context Switching
+	 - CPU Process
+		 - CPU doesn't really know what a process is
+		 - OS loads data into CPU registers (pc, sp, bp, etc.)
+		 - Pointer to Page Table mapping (ptbr - page table base register)
+		 - Called "context"
+		 - Executes instructions
+	 - Context switch
+		 - To switch context we save current context and load new context
+		 - Save the current registers to current process PCB (memory write)
+		 - Load the new process PCB to CPU registers (memory read)
+		 - pc, bp, sp, lr, ptbr and more
+	 - TLB flush
+		 - TLB stores virtual memory mapping cache
+		 - Slow
+		 - processes CANNOT share VM mapping
+		 - Threads of same process are faster to switch
+			 - Same memory, paging
+			 - As long as threads of the same process
+	 - TLB ASID
+	 - When does context switch happens
+		 - Scheduling algorithms
+		 - Preemptive multitasking
+		 - IO Wait
+	 - Preemptive multitasking
+		 - Some processes run for a long time
+		 - OS must switch those out
+		 - Time slice
+		 - Windows 3.1 bug where other processes starve
+	 - Scheduling algorithms
+		 - FCFS
+		 - SJF
+		 - Round robin
+ - Concurrency
+	 - Split your program into processes or threads
+	 - CPU time is precious, its commodity, need to keep it busy, can one task be split to concurrent tasks
+	 - CPU bound vs. IO bound workload
+		 - CPU bound
+			 - Encryption, Compression, DB planning, sorting, Protocol parsing (HTTP/2, QUIC)
+			 - we want to limit starvation of those
+		 - IO bound
+			 - Database queries, network connection write/read, file reads/writes
+	 - Multi-threaded vs. Multi-process
+		 - Multi-process
+			 - Spin multiple processes
+			 - Isolated
+			 - e.g. NGINX, Postgres
+		 - Multi-threaded
+			 - parent process spins multiple threads
+			 - Share memory with parent
+			 - e.g. MySQL, Libuv
+	 - Challenges
+		 - Thread safety
+	 - Mutexes
+		 - Mutex is binary lock (mutual exclusion)
+		 - One thing at a time
+	 - Mutex Gotchas
+		 - Mutex has ownership
+		 - The thread that locks mutex must unlock
+		 - if a thread terminates the mutex can remain locked
+		 - can cause deadlock
+		 - Two-phase locking
+	 - Semaphores
+		 - Semaphores can be used for mutual exclusion
+		 - Signal increments, Wait decrements (automatically)
+		 - Wait blocks when semaphore = 0
+		 - Any thread with access to the semaphore can signal / wait
+	 - Summary
+		 - Concurrent programming improves performance
+		 - Can use processes or threads
+		 - Challenging as need to deal with race conditions
+		 - Using Mutex / Semaphores help
+
+
 - #### Storage Management
 - #### Socket Management
 - #### More OS Concepts
 
 
+
+- Everything in Linux is file and everything in Windows is Object
+
 #### Hands On
 - Memory management and analysis with c code in Linux (http://geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/)
 - Linux file system and its architecture
 - DMA signals & DMA Attacks
-- 
+- ELF file in linux
+- task_struct in linux for PCB
+- Thread implementation in Kernel
+- Why and how threads are not secure / safe ?
+- Postgres processes & its architecture
+- pg_bouncer & how does multiple query on single client connection works, does it have query ID mechanism ?
+- Copy On Write mechanism
+- Python CoW bug
+- Scheduling algorithm walk through and implement by own
+- libuv for NodeJS, IOuring etc
+- mutex and use in cpp to avoid threading issues
+
