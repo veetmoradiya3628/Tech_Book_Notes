@@ -448,6 +448,111 @@ sudo cat /proc/204/maps
 
 
 - #### Storage Management
+- Persistent Storage
+	- Persistent
+		- RAM is volatile, if power goes we lose data
+		- Need to persist data for certain use cases
+		- Magnetic Tape, HDD, SSD, Flash
+	- HDD
+		- consists of platters, heads, tracks and sectors
+		- Geometrical sector vs disk sector
+		- The OS knows the physical layout of the HDD
+		- Traditionally the OS addressed using CHS method,
+			- Cylinder / Head / Sector
+	- LBA
+		- Logical block addressing
+		- The entire disk is an array of blocks
+		- Disk controller does the "Translation"
+	- SSD
+		- SSD uses NAND Technology
+		- Physical page (4 KiB, 16 KiB etc.)
+		- Physical block (collection of pages)
+		- Min read/write is page, erase by block
+		- Logical block maps to pages (Flash translation layer)
+		- SSD Write
+			- We find a free physical block and map it
+			- No update in SSD, its a remove and add
+			- SSD Write Amplification
+		- Wear leveling
+			- NAND cells have write limit
+				- Write endurance / program
+			- Cold vs hold pages
+				- Page written once and never touched
+				- While other pages are updated all the time
+			- Some pages will die before others
+		- Over provisioning
+			- SSD over-provision an area for GC/WL
+	- We need persisted storage
+	- Storage is abstracted as blocks
+	- The OS access logical blocks
+- File Systems (Layer above storage)
+	- An abstraction above present storage
+	- Users like files / directories
+	- Writing and reading to a file translates to blocks
+	- Promotes caching
+	- Must allocate a block (1 or more LBAs)
+	- file system block - collection of LBAs
+	- Examples of File systems
+		- FAT (FAT16, FAT32)
+		- NTFS
+		- APFS (Apple File System)
+		- EXT4
+		- XFS
+		- btrfs
+	- Terminologies
+		- PBA - Physical block address - internal to the drive , aka physical sector size
+		- LBA - Logical block address - exposed to OS, aka logical sector size
+		- File system block size
+		- 1 PBA -> 1 or more LBAs
+		- 1 FS block = 1 or more LBAs
+	- `lsblk -o NAME,PHY-SEC,LOG-SEC`
+	- FAT32
+		- File allocation table
+		- Basic idea is Array of 32 bit integers
+		- The index is the LBA (or logical sector traditionally)
+		- The content is the next LBA, until we reach end
+		- 32 bit is really 28 because we need to reserve some bits
+		- Cluster is a logical grouping of LBAs
+		- Clustering creates more internal fragmentation, wasted space, can't be used by others.
+	- Blocks everywhere
+	- OS page cache
+		- File system blocks read from disk are cached
+		- Block number maps to virtual memory page
+		- FS block <= OS VM Page (often)
+		- Reads  checks the cache first then disk and updates cache
+		- Writes go to the cache first, then disk
+		- Block number maps to LBAs
+	- `filefrag -v test-1.pem`
+	- inodes and block information used by Linux or OS for the file management
+	- file modes
+		- O_APPEND
+		- O_DIRECT
+		- O_SYNC
+	- Partitions
+		- Disks are exposed as big array of LBAs
+		- Partitions start from LBA and end in an LBA
+		- Provides logical segmentation
+		- Each partition can have its own FS
+		- Each FS different block size (cluster)
+	- Partition alignment
+	- Summary
+		- File systems exposes files and directories
+		- Itself has a structure and storage
+		- Linked to the OS page cache
+		- Translation of POSIX read, fs block, to pages
+- What really happens in a file IO ?
+	- POSIX
+		- standard UNIX based system API calls for Linux
+	- So many layers
+	- Translation of POSIX read, fs block, to pages
+	- Page cache/delayed
+- Demo
+	- lsblk command line tool 
+	- fdisk
+	- partition create / delete, alignment
+	- mount unmount disk part
+	- namespace & cgroup
+
 - #### Socket Management
 - #### More OS Concepts
 
@@ -469,5 +574,8 @@ sudo cat /proc/204/maps
 - Python CoW bug
 - Scheduling algorithm walk through and implement by own
 - libuv for NodeJS, IOuring etc
-- mutex and use in cpp to avoid threading issues
-
+- mutex and use in CPP / Go to avoid threading issues
+- Disk controller and its usage
+- File system page cache
+- De fragmentation in hard drive etc
+- 
