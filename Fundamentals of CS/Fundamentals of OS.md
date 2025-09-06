@@ -554,6 +554,121 @@ sudo cat /proc/204/maps
 	- namespace & cgroup
 
 - #### Socket Management
+- Sockets, connections and queues
+	- Socket
+		- When a process listens on an IP/Port it produces a socket
+		- Socket is a file (at least in linux)
+		- The process owns the socket
+		- Can be shared during fork
+	- SYN Queue, Accept Queues
+		- When a socket is created we get two queues with it
+		- SYN Queue, stores incoming SYNs
+		- Accept Queue, stores completed connections
+		- The size of the queues is determined by the backlog
+		- Not really queues but hash tables
+	- Connection, Receive and Send Queue
+		- Completed connections are placed in the accept queue
+		- When a process accepts a connection is created
+		- Accept returns a file desc for the connection
+		- Two new queues created with the connection
+		- Send queue stores connection outgoing data
+		- Receive queue stores incoming connection data
+	- Connection establishment
+		- TCP three way handshake
+		- SYN / SYN-ACK / ACK
+		- Backend
+			- Server listens on an address: port
+			- Client connects
+			- Kernel does the handshake creating a connection
+			- Backend process "Accepts" the connection
+	- Problems with accepting connections
+	- Socket Sharding
+		- Normally listening on active port/Ip fails
+		- But you can override it with SO_REUSEPORT
+		- Two distinct sockets different processes on the same Ip/port pair
+	- Summary
+		- Kernel manages networking
+		- Socket represents a port/ip
+		- Each connected client gets a connection
+		- Kernel managed data structures
+- Reading and sending data
+	- Send and receive buffers
+	- Client sends data on a connection
+	- Kernel puts data in receive queue
+	- Kernel ACKs (may delay) and update window
+	- App calls read to copy data
+- Problem with reading and sending
+	- Backend doesn't read fast enough
+	- Receive queue is full
+	- Clients slows down
+- Socket programming patterns
+	- Single Listener / Single Worker Thread
+	- Single Listener / Multiple Worker Thread
+	- Single Listener / Multiple Worker threads with load balancing
+	- Multiple Acceptor Threads single socket
+	- Multiple listener on the same port
+- Asynchronous IO
+	- Non blocking reads and writes
+	- Blocking operations
+		- Read, write and accepts are blocking
+		- The process cannot move their program counter
+		- Read blocks when no data
+		- accept blocks when no connections
+		- Leads to context switches and slow down
+	- Async I/O
+		- Read blocks when no data in receive buffers
+		- Accept blocks when no connections in accept queue
+		- Ready approach
+			- Ask the OS to tell us if a file is ready
+			- When it is ready, we call it without blocking
+			- Select, epoll, kqueue
+		- Completion approach
+			- Ask the OS (or worker thread to do the blocking io)
+			- When completed notify
+			- IOCP, io_uring
+		- Doesn't work with storage files
+	- SELECT (polling)
+		- Select takes a collection of file descriptors for kernel to monitor
+		- Select is blocking (with a timeout)
+		- When any is ready, select returns
+		- Process checks which one is ready (loop w/FD_ISSET)
+		- Process calls read/write/accept etc. on the file descriptor
+		- Pros & Cons
+			- Pros
+				- Avoid reading unready resources
+				- async
+			- Cons
+				- But slow we have to loop through all of then O(n)
+				- Lots of copying from user and kernel space 
+				- Supports fixed size of file descriptions
+	- epoll (eventing)
+		- Register an interest list of the fds (once) in the kernel
+		- Kernel keeps working and updates the ready list
+		- User calls **epoll_wait**, kernel builds an events array of ready list
+		- drawbacks
+			- Complex
+				- Level triggered vs. edge triggered
+			- Only in linux
+			- Too many syscalls
+			- Doesn't work on files
+	- io_uring
+		- Based on completion
+		- Kernel does the work
+		- Shared memory, user puts "jobs"
+		- Kernel does the work and writes results
+		- Fast non-blocking
+		- security is a big issue (shared memory)
+		- Google disabled it for now
+- Cross platform
+	- Node (through lib_uv) supports all platforms async io
+- Summary
+	- Some kernel syscalls are blocking
+	- Process put to sleep
+	- Async io is a way around it
+	- Ready based or completion based
+
+
+
 - #### More OS Concepts
 
 
@@ -578,4 +693,7 @@ sudo cat /proc/204/maps
 - Disk controller and its usage
 - File system page cache
 - De fragmentation in hard drive etc
+- Zero copy for performance improvement
+- Nigel algorithm
+- Flow control sliding windows
 - 
