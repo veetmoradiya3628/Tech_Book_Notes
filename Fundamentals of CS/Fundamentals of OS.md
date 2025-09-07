@@ -667,11 +667,109 @@ sudo cat /proc/204/maps
 	- Async io is a way around it
 	- Ready based or completion based
 
-
-
 - #### More OS Concepts
-
-
+- Compilers and Linkers
+	- Machine Code
+		- Programs run on machine code
+		- Specific to the CPU
+		- Each CPU has different instructions set
+		- RICS vs CISC
+	- Assembly
+		- Closest to the machine code
+		- Still sometimes CPU specific
+		- Easier to write
+		- Not easy enough though
+	- High level languages
+		- HLL are more convenient
+		- Abstractions to hide complexity
+		- Need to compile for a CPU
+		- Compiler turns code to machine code
+		- Linking creates executable file
+	- Compiling
+		- Compiler produces machine code in form of object files
+		- Each object file may present a source file
+		- Object files are not ready to be run
+		- They need to be linked and create an executable
+		- E.g. gcc, clang, rustc
+	- Linking
+		- Linkers creates an executable file
+		- Finds and links all object files required and create one file
+		- The file is an "executable"
+		- Executable files have types
+		- E.g. ld, gold linker, lld, mold (new)
+	- Executable file formats
+		- The executable file is a program
+		- Specific format so the OS knows how to create process
+		- Created by linker
+		- Example ELF Linux
+	- Executable files formats
+		- exe PE - windows
+		- ELF - Linux
+		- Mach-O
+	- Interpreted languages
+		- Compiled program doesn't work everywhere
+		- Must match the CPU/OS
+		- Can i write my code once and run it everywhere ?
+		- Interpreted languages
+		- Python / JavaScript / Java
+		- Must have a runtime, python.exe
+		- Python.exe is a compiled program for every OS/CPU
+		- Your code hello.py runs everywhere
+			- Windows python.exe hello.py
+			- Linux ./python hello.py
+		- Same for node and JavaScript
+		- The trick is each line interrupted
+		- If you see + do this, if you see - do this
+		- Slower
+		- Byte code (not string code)
+	- JIT - Just In Time compilation
+		- I'm interpreting this code a lot
+		- Let me compile it directly to machine code
+		- Put it on the heap
+		- Mark memory as executable
+		- Point the CPU program counter to it
+	- Garbage collection
+		- Memory management is tricky
+		- Some languages manages it for you
+			- e.g. Go, Python, Java
+		- Some languages you have to do it
+			- e.g. C, C++
+		- GC is part of the runtime
+		- Tags every object and tracks it
+		- Can cause slow downs
+- Kernel and User Mode (Mode switch)
+	- Virtual address of a process two parts
+	- Kernel and User
+	- Kernel maps to dedicated physical memory
+	- User pages map to different physical memory
+		- Page table help the mapping
+	- The CPU can be in user or kernel mode
+	- In user mode user code executes
+	- When kernel mode kernel code executes
+		- Syscalls, drivers
+	- User mode can't access kernel pages
+	- Kernel mode can access both
+	- Kernel mode switch cost
+- Virtualization and Containerization
+	- One Machine One OS - very limiting, One at a time
+	- Virtual Machines - kernel on top of kernel
+	- Containerization - shared kernel with each other, as jails
+	- Virtualization
+		- Many OS on top of One base OS
+		- Hypervisor controls upper OS
+		- Proxies syscalls to lower kernel
+		- Full isolation but lots of redundancy
+		- Can limit CPU/Memory for each VM
+		- E.g. VMWare Oracle VirtualBox
+	- Containerization
+		- Containers isolated by **namespace**
+			- Mount fs namespace
+			- Network namespace
+			- Process namespace
+		- Limited by **cgroups**
+			- CPU/Memory usage
+		- All containers share kernel!
+		- E.g. docker
 
 - Everything in Linux is file and everything in Windows is Object
 
@@ -696,4 +794,5 @@ sudo cat /proc/204/maps
 - Zero copy for performance improvement
 - Nigel algorithm
 - Flow control sliding windows
-- 
+- socket programming hands on with c or go
+
