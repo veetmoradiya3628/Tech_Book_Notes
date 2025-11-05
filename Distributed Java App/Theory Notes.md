@@ -31,4 +31,26 @@
 - No common goal, not a distributed systems
 
 ##### Cluster Coordination Service and Distributed Algorithms
+- Node
+	- A process running on a dedicated machine
+- Cluster
+	- Collection of computers / nodes connected to each other.
+- Challenges of Master-Workers architecture
+	- Automatic and system leader election is not a trivial task to solve, even among people.
+	- Arriving to an agreement on a leader in a large cluster of nodes is even harder.
+	- By default each node knows only about itself - service registry and discovery is required
+	- Failure detection mechanism is necessary to trigger automatic leader reelection in a cluster
+- Apache Zookeeper
+	- high performance coordination service designed specifically for distributed systems.
+- Zookeeper abstraction and data model
+	- Znodes
+		- Persistent 
+		- Ephemeral
+- Leader election algorithm
+
+- Install, setup and use zookeeper command line client tool for visualization and debugging
+- Zookeeper threading model for client library
+	- Two threads gets created
+		- Event thread
+		- IO thread
 - 
