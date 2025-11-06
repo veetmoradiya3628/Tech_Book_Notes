@@ -53,4 +53,22 @@
 	- Two threads gets created
 		- Event thread
 		- IO thread
-- 
+
+- Watchers and triggers
+	- The watcher allows us to get a notification when a change happens.
+- The Herd Effect
+	- Try to avoid having this in our algorithm
+- Failure detection with Zookeeper
+- Leader Re-election Algorithm
+- Use subscription, event driven architecture to detect failures in the cluster
+- Fault tolerance
+	- Re elect a new leader automatically
+- Should be horizontal scalable
+	- Grow on demand
+
+
+##### Hands on
+- Election and re election algorithm in distributed systems
+	- Watch predecessor znode algorithm
+- Auto-header using Zookeeper
+
