@@ -67,8 +67,21 @@
 	- Grow on demand
 
 
+- Service Discovery & Registry
+	- Dynamic configuration
+	- Service Registry with Zookeeper
+		- Peer to peer communication
+	- Apache Zookeeper is used by many companies and projects for service discovery in production
+	- There are many other technologies that offer comparable capabilities
+		- etcd
+		- consul
+		- Netflix Eureka etc
+	-  Automated service discovery allows the system to be dynamic as nodes can be added to removed at any point.
+
+
 ##### Hands on
 - Election and re election algorithm in distributed systems
 	- Watch predecessor znode algorithm
 - Auto-header using Zookeeper
+- implement fully automated service registry and discovery using zookeeper.
 
