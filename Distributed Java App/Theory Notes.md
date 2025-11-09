@@ -78,10 +78,64 @@
 		- Netflix Eureka etc
 	-  Automated service discovery allows the system to be dynamic as nodes can be added to removed at any point.
 
+- Network Communication
+	- Multithreading - shared memory (locks + semaphores) for communication
+	- Distributed systems - Network communication
+	- TCP/IP model
+		- Data Link layer
+			- physical data delivery
+			- Ethernet Protocol
+		- Internet layer
+		- Transport layer
+			- UDP
+			- TCP
+		- Application
+			- FTP 
+			- SMTP
+			- DNS
+			- HTTP
+	- Data packaging and serialization, de-serialization
+	- HTTP Protocol
+		- Hypertext Transfer Protocol
+		- Request - Response
+		- Request structure
+			- method - GET, HEAD, POST, PUT, DELETE etc.
+			- path
+			- protocol version
+			- headers
+			- body (optional)
+		- Response structure
+			- status code - 1xx, 2xx, 3xx etc
+			- response header
+			- response message
+- Sync communication, Async communication
+- Completable future & connection pooling (support on HTTP2.0)
 
+- Message delivery semantics
+	- Server Failure scenarios
+	- At most once semantics
+		- The client send a request to the server only once
+		- Use cases
+			- Messages to a logging or monitoring service
+			- Sending promotional messages and it's not worth redelivery
+	- At least once semantics
+		- If client does not receive a response it will resend the request
+		- Works well for idempotent operations
+	- idempotents operations
+		- Operation performed multiple times having same effect or same behavior as an single time performed.
+		- Making some non-idempotent operations, idempotent is hard.
+- Complex Data Delivery - Serialization & Deserialization
+	- Serialization Formats
+		- JSON
+			- If we want something human readable, language independent with native support in browser we would prefer this.
+		- Java Object Serialization
+			- If we want something simple, fast to develop with native JVM support we would go for Standard Java Object Serialization
+		- Protocol Buffer
+			- If performance, bandwidth and security are more important to us
 ##### Hands on
 - Election and re election algorithm in distributed systems
 	- Watch predecessor znode algorithm
 - Auto-header using Zookeeper
 - implement fully automated service registry and discovery using zookeeper.
-
+- Build Multi threaded Http Webserver & Client in core Java
+- Have hands on with JSON, Java Object Serialization, Protobuff
