@@ -132,6 +132,19 @@
 			- If we want something simple, fast to develop with native JVM support we would go for Standard Java Object Serialization
 		- Protocol Buffer
 			- If performance, bandwidth and security are more important to us
+
+##### Distributed Document Search
+- List of documents, sorted by relevance
+- Search algorithms
+	- Word count of the search terms
+		- problem: The algorithm favors larger documents
+		- To solve this we may consider term frequency in document
+		- TF-IDF Algorithm
+			- Term Frequency - Inverse Document Frequency (tf-idf)
+			- statistical algorithm
+			- Works well with large number of documents
+
+
 ##### Hands on
 - Election and re election algorithm in distributed systems
 	- Watch predecessor znode algorithm
