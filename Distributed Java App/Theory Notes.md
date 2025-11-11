@@ -143,7 +143,15 @@
 			- Term Frequency - Inverse Document Frequency (tf-idf)
 			- statistical algorithm
 			- Works well with large number of documents
+- Data Partitioning
+	- Problems Dimensions
+		- D - Number of documents
+		- T - Number of search terms
+	- Deciding how to parallelize the workload, its critical
+	- here documents are expected to grow so will go by parallelizing documents divide.
+- Parallel Term Frequency Calculation
 
+##### Load Balancing
 
 ##### Hands on
 - Election and re election algorithm in distributed systems
@@ -152,3 +160,4 @@
 - implement fully automated service registry and discovery using zookeeper.
 - Build Multi threaded Http Webserver & Client in core Java
 - Have hands on with JSON, Java Object Serialization, Protobuff
+- Implement distributed search using TF-IDF algorithm with all component from scratch & do some hands on within this area

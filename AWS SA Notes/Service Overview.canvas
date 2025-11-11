@@ -1,0 +1,27 @@
+{
+	"nodes":[
+		{"id":"41f74ca664ce3d73","type":"text","text":"- Amazon Athena\n- Amazon EMR\n- Amazon Glue\n- Amazon Managed Service For Apache Spark\n- Amazon Data Firehose\n- Amazon Kinesis Data Streams\n- AWS Lake Formation\n- Amazon Managed Service For Apache Kafka\n- Amazon OpenSearch Service\n- Amazon QuickSight","x":-995,"y":-55,"width":480,"height":300},
+		{"id":"a408f8acae69809f","type":"text","text":"Analytics","x":-880,"y":-165,"width":250,"height":50},
+		{"id":"3b6609b675457930","type":"text","text":"Application Integration","x":-480,"y":-165,"width":250,"height":60},
+		{"id":"df6b79ca4e2f701b","type":"text","text":"- AWS AppSync\n- Amazon EventBridge\n- Amazon Simple Notification Service\n- Amazon Simple Queue Service\n- AWS Step Functions","x":-480,"y":-55,"width":315,"height":193},
+		{"id":"c0196e0c31dc1a97","type":"text","text":"Cloud Financial Management","x":-120,"y":-165,"width":250,"height":60},
+		{"id":"f7e5a9ad0002cd40","type":"text","text":"- AWS Budgets\n- AWS Cost And Usage Report\n- AWS Cost Explorer","x":-120,"y":-55,"width":255,"height":151},
+		{"id":"dc742bc5c14cd3e7","type":"text","text":"Compute","x":240,"y":-165,"width":250,"height":60},
+		{"id":"5c0d06ed3a9e77e2","type":"text","text":"- AWS Auto Scaling\n- AWS Batch\n- AWS EC2\n- Amazon EC2 Auto Scaling\n- AWS Elastic Beanstalk\n- AWS Fargate\n- AWS Lambda\n- AWS Outposts\n- AWS Wavelength","x":240,"y":-55,"width":400,"height":263},
+		{"id":"99591ddd599be9e9","x":670,"y":-165,"width":250,"height":60,"type":"text","text":"Container"},
+		{"id":"6e02ecb7181882b9","x":670,"y":-55,"width":370,"height":108,"type":"text","text":"- Amazon Elastic Container Registry\n- Amazon Elastic Container Service\n- Amazon Elastic Kubernetes Service (EKS)"},
+		{"id":"b78cd27ca35f840a","type":"text","text":"**AWS Services**","x":-920,"y":-680,"width":250,"height":60}
+	],
+	"edges":[
+		{"id":"32b063244a88fdb1","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"a408f8acae69809f","toSide":"top"},
+		{"id":"36ae78c1f508cf80","fromNode":"a408f8acae69809f","fromSide":"bottom","toNode":"41f74ca664ce3d73","toSide":"top"},
+		{"id":"7393dc932c5bf912","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"3b6609b675457930","toSide":"top"},
+		{"id":"bc8d15c7d6372e5e","fromNode":"3b6609b675457930","fromSide":"bottom","toNode":"df6b79ca4e2f701b","toSide":"top"},
+		{"id":"bff3df0c83df8c9c","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"c0196e0c31dc1a97","toSide":"top"},
+		{"id":"abb7262250c27de8","fromNode":"c0196e0c31dc1a97","fromSide":"bottom","toNode":"f7e5a9ad0002cd40","toSide":"top"},
+		{"id":"28844669a89a20dc","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"dc742bc5c14cd3e7","toSide":"top"},
+		{"id":"ef4987c433b6116e","fromNode":"dc742bc5c14cd3e7","fromSide":"bottom","toNode":"5c0d06ed3a9e77e2","toSide":"top"},
+		{"id":"14f7f6d9fbf9906f","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"99591ddd599be9e9","toSide":"top"},
+		{"id":"1b44485ddc2572cd","fromNode":"99591ddd599be9e9","fromSide":"bottom","toNode":"6e02ecb7181882b9","toSide":"top"}
+	]
+}
