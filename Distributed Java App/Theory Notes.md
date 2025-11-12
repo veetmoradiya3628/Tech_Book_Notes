@@ -152,7 +152,47 @@
 - Parallel Term Frequency Calculation
 
 ##### Load Balancing
+- Distributes network traffic across a cluster of application servers
+- Prevents any single application server from being a performance bottleneck.
+- Monitors application server's health, load balancers make our system more reliable.
+- Cloud Auto-scaling with load balancers
+- Types of load balancers
+	- Hardware Load balancers
+		- more reliable
+	- Software Load balancers
+		- Nginx or HA Proxy
+- Load balancing strategies and algorithms
+	1. Round Robin
+	2. Weighted Round Robin
+	3. Source IP Hash
+		- Open session
+		- Local server caching
+	4. Least Connections
+	5. Weighted Response Time
+	6. Agent Based Policy
+- The best load balancing strategy is different for each distributed system.
+- Load Balancing Routing and Networking Layers
+	- Transport Layer Load Balancing
+		- Layer 4 
+		- TCP packets source and destination
+	- Application Layer Load balancing
+		- Layer 7
+		- smarter routing decision based on HTTP header
+		- TCP & HTTP headers
+- HA Proxy
+	- Reliable, High performance TCP / HTTP Load balancer
+	- Free and open source
+	- It is easy to set up
+	- haproxy.cfg
+		- global section
+		- proxies section
+			- defaults
+			- frontend
+			- backend
+			- listen
 
+##### Distributed Message Brokers
+- 
 ##### Hands on
 - Election and re election algorithm in distributed systems
 	- Watch predecessor znode algorithm
@@ -161,3 +201,4 @@
 - Build Multi threaded Http Webserver & Client in core Java
 - Have hands on with JSON, Java Object Serialization, Protobuff
 - Implement distributed search using TF-IDF algorithm with all component from scratch & do some hands on within this area
+- Hands on with HA Proxy and configuration for Load balancing

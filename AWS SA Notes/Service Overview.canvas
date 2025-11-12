@@ -8,9 +8,15 @@
 		{"id":"f7e5a9ad0002cd40","type":"text","text":"- AWS Budgets\n- AWS Cost And Usage Report\n- AWS Cost Explorer","x":-120,"y":-55,"width":255,"height":151},
 		{"id":"dc742bc5c14cd3e7","type":"text","text":"Compute","x":240,"y":-165,"width":250,"height":60},
 		{"id":"5c0d06ed3a9e77e2","type":"text","text":"- AWS Auto Scaling\n- AWS Batch\n- AWS EC2\n- Amazon EC2 Auto Scaling\n- AWS Elastic Beanstalk\n- AWS Fargate\n- AWS Lambda\n- AWS Outposts\n- AWS Wavelength","x":240,"y":-55,"width":400,"height":263},
-		{"id":"99591ddd599be9e9","x":670,"y":-165,"width":250,"height":60,"type":"text","text":"Container"},
-		{"id":"6e02ecb7181882b9","x":670,"y":-55,"width":370,"height":108,"type":"text","text":"- Amazon Elastic Container Registry\n- Amazon Elastic Container Service\n- Amazon Elastic Kubernetes Service (EKS)"},
-		{"id":"b78cd27ca35f840a","type":"text","text":"**AWS Services**","x":-920,"y":-680,"width":250,"height":60}
+		{"id":"99591ddd599be9e9","type":"text","text":"Container","x":670,"y":-165,"width":250,"height":60},
+		{"id":"6e02ecb7181882b9","type":"text","text":"- Amazon Elastic Container Registry\n- Amazon Elastic Container Service\n- Amazon Elastic Kubernetes Service (EKS)","x":670,"y":-55,"width":370,"height":108},
+		{"id":"b78cd27ca35f840a","type":"text","text":"**AWS Services**","x":-920,"y":-680,"width":250,"height":60},
+		{"id":"c49d442185a2811f","x":42,"y":-558,"width":250,"height":60,"type":"text","text":"Databases"},
+		{"id":"c6884f91c0737d96","x":392,"y":-660,"width":308,"height":240,"type":"text","text":"- Amazon Aurora\n- Amazon Document DB\n- Amazon ElastiCache\n- Amazon Keyspaces (for Apache Cassandra)\n- Amazon Neptune\n- Amazon RDS\n- Amazon Redshift"},
+		{"id":"c09659b943e244a3","x":-144,"y":-769,"width":250,"height":60,"type":"text","text":"End User Computing"},
+		{"id":"0c85e203dcfe03a5","x":296,"y":-881,"width":250,"height":112,"type":"text","text":"- Amazon WorkSpaces\n- Amazon AppStream 2.0"},
+		{"id":"aa462ed2b6de556f","x":-1173,"y":-475,"width":250,"height":60,"type":"text","text":"Frontend Web and Mobile"},
+		{"id":"fb8791e93788cd79","x":-1278,"y":-288,"width":283,"height":123,"type":"text","text":"- AWS Amplify\n- Amazon API Gateway"}
 	],
 	"edges":[
 		{"id":"32b063244a88fdb1","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"a408f8acae69809f","toSide":"top"},
@@ -22,6 +28,12 @@
 		{"id":"28844669a89a20dc","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"dc742bc5c14cd3e7","toSide":"top"},
 		{"id":"ef4987c433b6116e","fromNode":"dc742bc5c14cd3e7","fromSide":"bottom","toNode":"5c0d06ed3a9e77e2","toSide":"top"},
 		{"id":"14f7f6d9fbf9906f","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"99591ddd599be9e9","toSide":"top"},
-		{"id":"1b44485ddc2572cd","fromNode":"99591ddd599be9e9","fromSide":"bottom","toNode":"6e02ecb7181882b9","toSide":"top"}
+		{"id":"1b44485ddc2572cd","fromNode":"99591ddd599be9e9","fromSide":"bottom","toNode":"6e02ecb7181882b9","toSide":"top"},
+		{"id":"43be7c34fea10db5","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"c49d442185a2811f","toSide":"top"},
+		{"id":"69aca62b852b6cd6","fromNode":"c49d442185a2811f","fromSide":"right","toNode":"c6884f91c0737d96","toSide":"left"},
+		{"id":"17b9d6d17f0f7b6b","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"c09659b943e244a3","toSide":"top"},
+		{"id":"67a65c33d774ef46","fromNode":"c09659b943e244a3","fromSide":"right","toNode":"0c85e203dcfe03a5","toSide":"left"},
+		{"id":"7368b259d226668c","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"aa462ed2b6de556f","toSide":"top"},
+		{"id":"548692341a188d50","fromNode":"aa462ed2b6de556f","fromSide":"bottom","toNode":"fb8791e93788cd79","toSide":"top"}
 	]
 }
