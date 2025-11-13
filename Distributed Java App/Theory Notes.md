@@ -192,7 +192,39 @@
 			- listen
 
 ##### Distributed Message Brokers
-- 
+- Synchronous Network Communication
+- Intermediatory software that passes messages between sender(s) and receiver(s)
+	- Additional capabilities like:
+		- Data transformation
+		- Validation
+		- Queuing
+		- Routing
+- Full decoupling between senders and receivers
+- Sync queue to Async queue
+- Pub/Sub system
+- To avoid the message broker from being a single point of failure or a bottleneck
+- Use cases
+	- Distributed Queue
+	- Publisher / Subscriber
+- Apache Kafka
+	- Distributed streaming platform
+	- Open source
+	- highly scalable and fault tolerance
+	- Good distributed system
+	- Components
+		- Topic
+		- Publisher
+		- Subscriber
+		- Topic Partitioning
+		- Consumer groups
+		- Record consists - Key, Value, Timestamp
+- Kafka as a Distributed System
+	- Scaling Kafka Topics
+	- Consumers & Topic Partitions
+	- Kafka Topic replication (Leader & Followers mechanism)
+	- Data stored in disk for backup and resilience
+- Order of messages FIFO maintains in single partition per topic
+- If consumer group having multiple members, only one of the member gets the message from the partition.
 ##### Hands on
 - Election and re election algorithm in distributed systems
 	- Watch predecessor znode algorithm
