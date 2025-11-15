@@ -225,6 +225,83 @@
 	- Data stored in disk for backup and resilience
 - Order of messages FIFO maintains in single partition per topic
 - If consumer group having multiple members, only one of the member gets the message from the partition.
+
+##### Distributed Storage & Databases
+- Storage in Distributed Systems
+	- Storage types
+		- File system
+		- Databases
+	- Types of Databases
+		- Relational database
+		- Non-relational database
+	- Distributed Databases
+		- Availability
+		- Scalability
+		- Fault Tolerance
+	- Centralized Database
+		- Single point of failure
+		- Performance Bottleneck
+- Database Sharding
+	- Sharding - Partitioning a large dataset into multiple smaller chunks of data called shards.
+	- Using sharding we can split a large database into smaller pieces living on different machines
+	- Scalability & High Availability
+	- sharding in SQL
+		- by Row (Horizontally)
+		- by Column (Vertically)
+	- sharding in NoSQL
+		- by group of documents
+	- Sharding based on key
+	- Sharding strategy
+		1. Hash based sharding
+		2. Range based sharding
+	- Sharding Disadvantages
+		- Operational complexity
+		- Concurrency control
+		- Scalability issue in Relational database
+- Dynamic sharding with consistent hashing
+	- Hash based sharding strategy
+	- Dynamic cluster resizing
+	- Asymmetric nodes
+	- Consistent Hashing with circular distribution
+		- Unique records distribution among all the distributed database nodes
+		- Virtual nodes
+- Replication vs Sharding
+
+| Sharding                                                          | Replication                                                                              |
+| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Splitting the data and placing each chunck on a different machine | Creating identical copies of all the data, and placing each copy on a different machine. |
+| No Redundancy                                                     | Full Redundancy                                                                          |
+	- High availability
+	- Fault Tolerance
+	- Scalability / Performance
+- Replicated Database Architecture
+	- Master - Slave Architecture
+	- Master - Master Architecture
+- Database Consistency model
+	- Eventual consistency
+	- Strict Consistency
+- Quorum consensus
+	- Record has version
+	- R - minimum no. of nodes a reader needs to read from
+	- W - minimum no. of nodes a writer needs to write to
+	- N - Number of nodes in the database cluster
+	- Strict Consistency
+		- R + W > N
+	- Optimizing for reads or writes
+- MongoDB
+	- Write semantics
+	- Read preferences
+		- Primary Preferred
+		- Nearest
+	- ReplicationSet
+	- Sharding Strategies in MongoDB
+		- Hash based
+		- Range based
+
+##### Cloud Computing & Distributed Systems
+- IaaS, PaaS & SaaS
+- cloud architecture (regions and zones) and fundamental building blocks
+- Users, Regions, Instances etc
 ##### Hands on
 - Election and re election algorithm in distributed systems
 	- Watch predecessor znode algorithm
@@ -234,3 +311,6 @@
 - Have hands on with JSON, Java Object Serialization, Protobuff
 - Implement distributed search using TF-IDF algorithm with all component from scratch & do some hands on within this area
 - Hands on with HA Proxy and configuration for Load balancing
+- Setup distributed kafka cluster in local & docker env and have hands with Java Library for interaction
+- Hands on MongoDB for all database operations and setup
+	- Data Replication & Sharding setup in Mongodb
