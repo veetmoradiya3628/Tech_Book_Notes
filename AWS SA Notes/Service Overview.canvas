@@ -1,22 +1,28 @@
 {
 	"nodes":[
 		{"id":"41f74ca664ce3d73","type":"text","text":"- Amazon Athena\n- Amazon EMR\n- Amazon Glue\n- Amazon Managed Service For Apache Spark\n- Amazon Data Firehose\n- Amazon Kinesis Data Streams\n- AWS Lake Formation\n- Amazon Managed Service For Apache Kafka\n- Amazon OpenSearch Service\n- Amazon QuickSight","x":-995,"y":-55,"width":480,"height":300},
-		{"id":"a408f8acae69809f","type":"text","text":"Analytics","x":-880,"y":-165,"width":250,"height":50},
 		{"id":"3b6609b675457930","type":"text","text":"Application Integration","x":-480,"y":-165,"width":250,"height":60},
 		{"id":"df6b79ca4e2f701b","type":"text","text":"- AWS AppSync\n- Amazon EventBridge\n- Amazon Simple Notification Service\n- Amazon Simple Queue Service\n- AWS Step Functions","x":-480,"y":-55,"width":315,"height":193},
 		{"id":"c0196e0c31dc1a97","type":"text","text":"Cloud Financial Management","x":-120,"y":-165,"width":250,"height":60},
 		{"id":"f7e5a9ad0002cd40","type":"text","text":"- AWS Budgets\n- AWS Cost And Usage Report\n- AWS Cost Explorer","x":-120,"y":-55,"width":255,"height":151},
 		{"id":"dc742bc5c14cd3e7","type":"text","text":"Compute","x":240,"y":-165,"width":250,"height":60},
-		{"id":"5c0d06ed3a9e77e2","type":"text","text":"- AWS Auto Scaling\n- AWS Batch\n- AWS EC2\n- Amazon EC2 Auto Scaling\n- AWS Elastic Beanstalk\n- AWS Fargate\n- AWS Lambda\n- AWS Outposts\n- AWS Wavelength","x":240,"y":-55,"width":400,"height":263},
+		{"id":"5c0d06ed3a9e77e2","type":"text","text":"- AWS Auto Scaling\n- AWS Batch\n- AWS EC2\n- Amazon EC2 Auto Scaling\n- AWS Elastic Beanstalk\n- AWS Fargate\n- AWS Lambda\n- AWS Outposts\n- AWS Wavelength","x":240,"y":-55,"width":430,"height":295},
 		{"id":"99591ddd599be9e9","type":"text","text":"Container","x":670,"y":-165,"width":250,"height":60},
-		{"id":"6e02ecb7181882b9","type":"text","text":"- Amazon Elastic Container Registry\n- Amazon Elastic Container Service\n- Amazon Elastic Kubernetes Service (EKS)","x":670,"y":-55,"width":370,"height":108},
 		{"id":"b78cd27ca35f840a","type":"text","text":"**AWS Services**","x":-920,"y":-680,"width":250,"height":60},
-		{"id":"c49d442185a2811f","x":42,"y":-558,"width":250,"height":60,"type":"text","text":"Databases"},
-		{"id":"c6884f91c0737d96","x":392,"y":-660,"width":308,"height":240,"type":"text","text":"- Amazon Aurora\n- Amazon Document DB\n- Amazon ElastiCache\n- Amazon Keyspaces (for Apache Cassandra)\n- Amazon Neptune\n- Amazon RDS\n- Amazon Redshift"},
-		{"id":"c09659b943e244a3","x":-144,"y":-769,"width":250,"height":60,"type":"text","text":"End User Computing"},
-		{"id":"0c85e203dcfe03a5","x":296,"y":-881,"width":250,"height":112,"type":"text","text":"- Amazon WorkSpaces\n- Amazon AppStream 2.0"},
-		{"id":"aa462ed2b6de556f","x":-1173,"y":-475,"width":250,"height":60,"type":"text","text":"Frontend Web and Mobile"},
-		{"id":"fb8791e93788cd79","x":-1278,"y":-288,"width":283,"height":123,"type":"text","text":"- AWS Amplify\n- Amazon API Gateway"}
+		{"id":"c49d442185a2811f","type":"text","text":"Databases","x":42,"y":-558,"width":250,"height":60},
+		{"id":"c6884f91c0737d96","type":"text","text":"- Amazon Aurora\n- Amazon Document DB\n- Amazon ElastiCache\n- Amazon Keyspaces (for Apache Cassandra)\n- Amazon Neptune\n- Amazon RDS\n- Amazon Redshift","x":392,"y":-660,"width":403,"height":300},
+		{"id":"c09659b943e244a3","type":"text","text":"End User Computing","x":-144,"y":-769,"width":250,"height":60},
+		{"id":"0c85e203dcfe03a5","type":"text","text":"- Amazon WorkSpaces\n- Amazon AppStream 2.0","x":296,"y":-881,"width":250,"height":112},
+		{"id":"9db0c9196ffa6de1","x":-1427,"y":-680,"width":250,"height":60,"type":"text","text":"Machine Learning"},
+		{"id":"03fef1517beb5ef3","x":-1872,"y":-671,"width":232,"height":256,"type":"text","text":"- Amazon Polly\n- Amazon SageMaker\n- Amazon Transcribe\n- Amazon Comprehend\n- Amazon Rekognition\n- Amazon Lex\n- Amazon Kendra\n- Amazon Translate"},
+		{"id":"494f48baa1eceac5","x":-1756,"y":-269,"width":264,"height":134,"type":"text","text":"- AWS IoT Analytics\n- AWS IoT Core\n- AWS IoT Events\n- AWS IoT Greengrass"},
+		{"id":"f01e754b125eabd6","x":-1427,"y":-840,"width":250,"height":60,"type":"text","text":"Management and Governance"},
+		{"id":"17545ff624af5708","x":-1427,"y":-475,"width":250,"height":60,"type":"text","text":"Internet of Things (IoT)"},
+		{"id":"fb8791e93788cd79","type":"text","text":"- AWS Amplify\n- Amazon API Gateway","x":-1443,"y":-55,"width":283,"height":123},
+		{"id":"aa462ed2b6de556f","type":"text","text":"Frontend Web and Mobile","x":-1302,"y":-175,"width":250,"height":60},
+		{"id":"a408f8acae69809f","type":"text","text":"Analytics","x":-880,"y":-175,"width":250,"height":50},
+		{"id":"9537ca1a088190c0","x":-1932,"y":-1120,"width":292,"height":380,"type":"text","text":"- AWS CloudFormation\n- AWS CloudTrail\n- Amazon CloudWatch\n- Amazon CloudWatch Logs\n- AWS Compute Optimizer\n- AWS Config\n- AWS Health Dashboard\n- AWS Control Tower\n- AWS License Manager\n- AWS Management Console\n- AWS Organizations\n- AWS Systems Manager\n- AWS Trusted Advisor"},
+		{"id":"6e02ecb7181882b9","type":"text","text":"- Amazon Elastic Container Registry\n- Amazon Elastic Container Service\n- Amazon Elastic Kubernetes Service (EKS)","x":1040,"y":-189,"width":370,"height":108}
 	],
 	"edges":[
 		{"id":"32b063244a88fdb1","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"a408f8acae69809f","toSide":"top"},
@@ -28,12 +34,18 @@
 		{"id":"28844669a89a20dc","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"dc742bc5c14cd3e7","toSide":"top"},
 		{"id":"ef4987c433b6116e","fromNode":"dc742bc5c14cd3e7","fromSide":"bottom","toNode":"5c0d06ed3a9e77e2","toSide":"top"},
 		{"id":"14f7f6d9fbf9906f","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"99591ddd599be9e9","toSide":"top"},
-		{"id":"1b44485ddc2572cd","fromNode":"99591ddd599be9e9","fromSide":"bottom","toNode":"6e02ecb7181882b9","toSide":"top"},
 		{"id":"43be7c34fea10db5","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"c49d442185a2811f","toSide":"top"},
 		{"id":"69aca62b852b6cd6","fromNode":"c49d442185a2811f","fromSide":"right","toNode":"c6884f91c0737d96","toSide":"left"},
 		{"id":"17b9d6d17f0f7b6b","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"c09659b943e244a3","toSide":"top"},
 		{"id":"67a65c33d774ef46","fromNode":"c09659b943e244a3","fromSide":"right","toNode":"0c85e203dcfe03a5","toSide":"left"},
 		{"id":"7368b259d226668c","fromNode":"b78cd27ca35f840a","fromSide":"bottom","toNode":"aa462ed2b6de556f","toSide":"top"},
-		{"id":"548692341a188d50","fromNode":"aa462ed2b6de556f","fromSide":"bottom","toNode":"fb8791e93788cd79","toSide":"top"}
+		{"id":"548692341a188d50","fromNode":"aa462ed2b6de556f","fromSide":"bottom","toNode":"fb8791e93788cd79","toSide":"top"},
+		{"id":"7300c2dd2cc1782c","fromNode":"b78cd27ca35f840a","fromSide":"left","toNode":"17545ff624af5708","toSide":"right"},
+		{"id":"158a1c340a7d407c","fromNode":"17545ff624af5708","fromSide":"bottom","toNode":"494f48baa1eceac5","toSide":"top"},
+		{"id":"d56dc9154343b960","fromNode":"b78cd27ca35f840a","fromSide":"left","toNode":"9db0c9196ffa6de1","toSide":"right"},
+		{"id":"59bcc3bdbe13f4b8","fromNode":"9db0c9196ffa6de1","fromSide":"left","toNode":"03fef1517beb5ef3","toSide":"right"},
+		{"id":"e51be73b60121875","fromNode":"b78cd27ca35f840a","fromSide":"left","toNode":"f01e754b125eabd6","toSide":"right"},
+		{"id":"72d3533da1b35ab3","fromNode":"f01e754b125eabd6","fromSide":"left","toNode":"9537ca1a088190c0","toSide":"right"},
+		{"id":"590a7f134d83b17a","fromNode":"99591ddd599be9e9","fromSide":"right","toNode":"6e02ecb7181882b9","toSide":"left"}
 	]
 }
