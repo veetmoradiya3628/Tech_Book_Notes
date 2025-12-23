@@ -89,3 +89,124 @@
 - WAF stands for Web Application Firewall
 - Managed service provided by AWS that helps protect web applications from common web exploits that could affect application availability, compromise security or consume excessive resources.
 - Protect against SQL Injection, cross-site scripting, distributed denial of service (DDoS) attack
+
+##### AWS Backup
+- AWS Backup is a secure service that automates and governs data backup (protection) in the AWS cloud and on-premises.
+- incremental backup, automated backup etc
+- Cost per monthly
+
+##### AWS EBS - Elastic Block Storage
+- Amazon Elastic Block Storage is a persistent block-level storage (volume) service designed to be used with Amazon EC2 instances. EBS is AZ specific & automatically replicated within its AZ to protect from component failure, offering high availability and durability.
+- Types of EBS
+	- Types of SSD
+		- General purpose - gp2
+		- Provisioned IOPS SSD - io1
+	- Types of HDD
+		- Throughput Optimized HDD (st1)
+		- Cold HDD (sc1)
+- Backup/Migration
+- Provisioned capacity
+- Instance Store (ephemeral storage)
+	- Massive IOPS
+
+##### AWS EFS - Elastic File Storage
+- Amazon Elastic File Storage (Amazon EFS) provides a scalable, fully managed elastic distributed file system based on EFS.
+- persistent file storage
+- scales to petabytes
+- Types
+	- Standard
+	- Infrequent access storage (EFS-IA)
+- Access modes
+	- Performance modes
+		- General purpose 
+		- Max I/O
+	- Throughput modes
+		- Bursting
+		- Provisioned
+
+##### AWS FSx for Windows File Server
+- Amazon FSx for windows file server is an FSx solution that offers a scalable and shared file storage system on the Microsoft Windows server.
+
+##### AWS FSx for Lustre
+- Amazon FSx for Lustre is an FSx solution that offers scalable storage for the Lustre system (parallel and high-performance file storage system)
+
+##### AWS S3
+- S3 stands for Simple storage service. Amazon S3 is object storage that allows us to store any kind of data in the bucket.
+- Object storage
+- Files are stored in bucket
+- 0 to 5 TB
+- bucket names must be unique gloabally
+- Versioning
+- Static website hosting
+- Encryption
+- Objects lock
+- Transfer Acceleration
+- Access Control List
+- Bucket policy
+- CORS
+- Access Point
+- Life cycle
+- Replication
+- S3 classes
+	- S3 Standard
+	- S3 Standard-IA
+	- S3 Express One Zone
+	- S3 Intelligent Tiering
+	- S3 One Zone-IA
+	- S3 Glacier Instance Retrieval
+	- S3 Glacier Flexible Retrieval
+	- S3 Glacier Deep Archive
+
+##### S3 Glacier
+- Amazon S3 Glacier is a web service with vaults that offers long-term data archiving and data backup.
+- It is the cheapest S3 storage class and offers 99.999999999% of data durability.
+- S3 Glacier data retrieval options
+	- Expedited retrievals
+	- Standard retrievals
+	- Bulk retrievals
+- Peta bytes of data scale
+
+##### AWS Storage Gateway
+- AWS Storage gateway is a hybrid cloud storage service that allows your on-premises storage & IT infrastructure to seamlessly integrate with AWS cloud storage services. It can be AWS provided hardware or compatible virtual machine.
+- Volume gateway (iSCSI)
+- File gateway (NFSv4 / SMB)
+- Tape gateway (VTL)
+
+##### AWS Elastic Disaster Recovery
+- AWS Elastic Disaster Recovery (AWS DRS) ensures fast and reliable recovery of both on-premises and cloud-based applications.
+
+##### AWS CodeBuild
+- AWS CodeBuild is a continues integration service in the cloud used to compile source code, run tests, and build packages for deployment.
+- Code services includes
+	- AWS CodeBuild
+	- AWS CodeCommit
+	- AWS CodeDeploy
+	- AWS CodePipeline
+
+##### AWS CodeDeploy
+- AWS CodeDeploy is a service that helps to automate application deployments to a variety of compute services such as Amazon EC2, AWS Fargets, AWS ECS and on-premises instances.
+- Use cases
+	- In-place deployment
+	- Blue/green deployment
+
+##### AWS CodeArtifact
+- AWS CodeArtifact is a fully managed comprehensive software artifact repository service.
+- Centralized Artifact Repository
+- Support multiple package formats
+- Security and Access Control
+- Dependency resolution
+- Integration with popular tools
+
+##### AWS X-Ray
+- AWS X-Ray is a service that allows visual analysis or allows to trace microservices based applications.
+- Tracing service
+
+##### AWS CodeGuru
+- CodeGuru is a developer tool designed to enhance code quality and optimize application performance by offering intelligent recommandations.
+
+##### Amazon Elastic Transcoder
+- Amazon Elastic Transcoder delivers a cloud-based service for media transcoding, offering developers and businesses a scalable, intuitive and cost-effective method to convert media files into formats suitable for diverse devices, including smartphones, tablets and computers.
+- Transcoding pipelines, jobs, system transcoding presets, custom transcoding presets
+
+##### Amazon Managed Blockchain (AMB)
+- A service by AWS built on Blockchain with reliable APIs and without specialized infrastructure that powers your application with actionable, real-time blockchain data, allowing you to focus on innovation and speed to market with fully managed blockchain infrastructure.
