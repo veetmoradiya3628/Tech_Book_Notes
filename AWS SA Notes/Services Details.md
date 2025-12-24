@@ -1,4 +1,5 @@
 
+#### Analytics
 ##### Amazon Athena
 - Amazon Athena is an interactive serverless service used to analyze data directly in Amazon Simple Storage Service using Standard SQL ad-hoc queries
 - charged based on amount of data scanned by each query
@@ -15,6 +16,42 @@
 - AWS Glue is a serverless ETL (Extract, transform and load) service used to categorize data and move them between various data stores and streams.
 - AWS Glue Data Catalog - central repository
 - managed ETL flow kind of.
+
+##### Amazon Managed Service for Apache Flink
+- The Amazon Managed Service for Apache Flink stands as a holistic data streaming platform, adept at managing the intricacies involved in configuring and linking data origins and destinations, all while requiring minimal coding efforts.
+- Use cases
+	- Rapidly deliver streaming data to destinations
+	- Create real-time analytics apps
+- Pricing based on Kinesis processing units (KPUs)
+- Stateful computation over Data Streams
+##### Amazon Data Firehose
+- Amazon Data Firehose is a serverless service used to capture, transform and load streaming data into data stores and analytics services.
+- Kinesis Data Firehose delivery streams
+
+##### Amazon Kinesis Data Streams
+- Amazon kinesis is a service used to collect, process and analyze real-time streaming data. It can be an alternative to Apache Kafka.
+- Kinesis family consists
+	- Kinesis Data Streams
+	- Kinesis Data Analytics
+	- Kinesis Data Firehose
+	- Kinesis Video Streams
+
+##### AWS Lake Formation
+- AWS Lake Formation is a cloud service that is used to create, manage and secure data lakes. It automates the complex manual steps required to create data lakes.
+- There is centralized access management for data in data lakes.
+##### Amazon Managed Streaming for Apache Kafka
+- Amazon MSK is a managed cluster service used to build and execute Apache Kafka applications for processing streaming data.
+- Apache Kafka Access Control Lists (ACLs)
+
+##### Amazon OpenSearch Service
+- Amazon OpenSearch service is a managed service that allows users to deploy, manage and scale ElasticSearch clusters in the AWS Cloud.
+
+##### Amazon Quick Sight
+- A scalable cloud-based BI service providing clear insights to collaborators worldwide.
+- Connects to various data sources, consolidating them into single data dashboards.
+
+#### Application Integration
+- 
 
 ##### Amazon GuardDuty
 - Managed Thread detection service offered by AWS that continuously monitors and analyzes activity within AWS account to identify potential security threats and vulnerabilities.
