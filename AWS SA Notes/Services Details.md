@@ -51,7 +51,66 @@
 - Connects to various data sources, consolidating them into single data dashboards.
 
 #### Application Integration
-- 
+
+##### AWS AppSync
+- AWS AppSync is a serverless service used to build GraphQL API with real-time data synchronization and offline programming features.
+- AWS provides an Amplify Framework that helps build mobile and web applications using GraphQL APIs
+
+##### Amazon EventBridge
+- serverless event bus service for Software-as-a-Service (SaaS) and AWS services.
+- It is fully managed service that takes care of event ingestion, delivery, security, authorization, error handling, and required infrastructure management tasks to setup and run a highly scalable serverless event bus. EventBridge was formerly called Amazon CloudWatch Events, and it uses the same CloudWatch Event API.
+- Key concepts
+	- Event buses
+	- Events
+	- Schema registry
+	- Rules
+	- Targets
+
+##### Amazon SNS (Simple Notification Service)
+- Amazon Simple Notification Service (Amazon SNS) is a web service that makes it easy to set up, operate, and send notifications from the cloud.
+- topics and subscribers
+- Standard Topics
+	- When incoming message are not in order. In other words, messages can be delivered as they are received.
+- FIFO topics
+	- designed to maintain order of the messages between the applications, especially when the events are critical. Duplication will be avoided in this case.
+
+##### Amazon SQS (Simple Queue Service)
+- Amazon SQS is a serverless service used to decouple (loose couple) serverless applications and components.
+- queue represents a temporary repository between the producer and consumer of messages.
+- messages have fixed size of 256 KB
+- Standard Queue
+	- unlimited number of transactions per second
+	- messages gets delivered in any order
+	- messages can be sent twice or multiple times
+- FIFO Queue
+	- 300 messages per second
+	- Support batches of 10 messages per operation, results in 3000 messages per second.
+- Delay Queue
+	- Delay queue is a queue that allows users to postpone/delay the delivery of messages to a queue for a specific number of seconds.
+	- Messages can be delayed for 0 seconds - 15 minutes
+- Dead-Letter Queue
+	- Dead letter queue is a queue for those messages that are not consumed successfully. It is used to handle message failure. Visibility Timeout is the amount of time during which SQS prevents other consumers from receiving (poll) and processing the messages.
+
+##### AWS Step Functions
+- Step functions allow developers to offload application orchestration into fully managed AWS services. This means you can just modularize your code to steps and let AWS worry about handling partial failure cases, retries, or error handling scenarios.
+- Types of step functions
+	- Standard Workflow
+		- Standard workflow can be used for long-running, durable and auditable workflows
+	- Express Workflow
+		- Express workflow is designed for high volume, and event processing workloads.
+- based on task and state machines
+	- Tasks can be defined by using an activity or an AWS Lambda function
+	- State machines can express an algorithm that contains relations, input/output
+- execution modes
+	- best effort execution
+	- at least once
+	- at most once
+	- exactly once execution
+
+#### Cloud Financial Management
+
+##### AWS budgets
+
 
 ##### Amazon GuardDuty
 - Managed Thread detection service offered by AWS that continuously monitors and analyzes activity within AWS account to identify potential security threats and vulnerabilities.
