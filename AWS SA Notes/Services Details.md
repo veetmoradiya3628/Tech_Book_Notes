@@ -110,7 +110,21 @@
 #### Cloud Financial Management
 
 ##### AWS budgets
+- AWS Budgets enables the customer to set custom budgets to track cost and usage from the simplest to the complex use cases.
+- set reservation utilization or coverage targets allowing you to get alerts by email or SNS notification when metrics reach the threshold.
+- AWS budgets can now be created monthly, quarterly, or annually budgets for the AWS resource usage or the AWS costs.
 
+##### AWS Cost and Usage Report
+- AWS Cost & Usage report is a service that allows users to access the detailed set of AWS cost and usage data available including metadata about AWS resources, pricing, Reserved instances, and Savings Plans.
+- updates reports up to three times a day.
+- AWS Organizations set-up a Cost and Usage report, service control policy (SCP) can be used.
+
+##### AWS Cost Explorer
+- AWS Cost Explorer is a UI-tool that enables users to analyze the costs and usage with the help of a graph, the Cost Explorer cost and usage reports, and/or the Cost Explorer RI report. It can be accessed from the Billing and Cost Management console.
+- Reserved Instance Reports
+	- RI Utilization reports
+	- RI Coverage reports
+- Access the data programmatically using the Cost Explorer API
 
 ##### Amazon GuardDuty
 - Managed Thread detection service offered by AWS that continuously monitors and analyzes activity within AWS account to identify potential security threats and vulnerabilities.
