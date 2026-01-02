@@ -126,6 +126,223 @@
 	- RI Coverage reports
 - Access the data programmatically using the Cost Explorer API
 
+#### Compute
+
+##### AWS Auto Scaling
+- AWS Auto Scaling keeps on monitoring your application and automatically adjusts the capacity required for steady and predictable performance.
+- Allows creating scaling plans for EC2 Instance, EC2 tasks, DynamoDB, Aurora Read replicas
+- Launch configuration vs. Launch Template
+- Health check & CloudWatch Events for monitoring
+- No cost for configuration but cost for resources that we will use
+
+##### AWS Batch
+- AWS Batch allows developers, scientists, and engineers to run thousands of computing jobs in the AWS platform.
+- Executes workloads on EC2 and AWS Fargate
+- Components
+	- Jobs
+	- Job Definitions
+	- Job Queues
+	- Compute environments
+		- managed vs. unmanaged
+	- Schedular
+
+##### AWS EC2
+- Elastic Compute Cloud
+- Virtual machine in cloud environment
+- Can scale up & down automatically based on the traffic
+- Instance types
+- EBS Volume
+	- Elastic Block Storage
+	- block-level storage that is assigned to your single EC2 instance
+	- Types
+		- General purpose (SSD)
+		- Provisioned IOPS (SSD)
+		- Throughput optimized Hard disk drive
+		- Cold Hard Disk Drive
+		- Magnetic
+- Instance Store
+	- Instance store is the ephemeral block-level storage for the EC2 instance
+- AMI
+	- Amazon Machine Image
+	- AMI decides OS, installs dependencies, libraries, data of your EC2 instances
+	- Multiple instances can be launched with single AMI
+- Security Groups
+	- Virtual firewall to EC2 instance
+	- defines the type of port and kind of traffic to allow
+	- stateful
+	- by default outbound traffic is allowed and needs to define the inbound rules
+- Key pair for login to instance (public and private key)
+- Tag for resource tagging
+- Pricing On-demand, Savings plan, Reserved Instances, and Spot instances
+- Placement groups
+	- Spread placement
+	- Partition placement
+
+##### EC2 Auto Scaling
+- region-specific service
+- ASG is a collection of the minimum number of EC2 used for high availability
+- provides features as fault tolerance, health check, scaling policies, and cost management
+
+##### AWS Elastic Beanstalk
+- Beanstalk is a compute service for deploying and scaling applications developed in many popular programming languages.
+- Platform as a Service
+- AWS Elastic Beanstalk is the best way to deploy your application in the fastest and simplest way.
+- provides the user interface / dashboard to monitor your application.
+- Two types of environments
+	- Web Tier environment
+	- Worker environment
+- Deployment models
+	- All at once
+	- Rolling
+	- Rolling with additional batch
+	- Immutable
+	- Traffic splitting
+- We can swap the environment in backend at runtime.
+
+##### AWS Fargate
+- AWS Fargate is a serverless compute service that is used for containers by Amazon Elastic Container service (ECS) and Amazon Elastic Kubernetes Service (EKS).
+- Amazon EFS volumes for persistent storage
+- Ephemeral storage for non persistent storage
+- Auto scale in built
+- Built in integration with Amazon CloudWatch, Container Insights
+
+##### AWS Lambda
+- AWS Lambda is a serverless compute service through which you can run your code without provisioning any servers.
+- It only runs your code when needed and also scales automatically when the request count increases.
+- Pay per use principle
+- Lambda can be triggered in response to the events
+- Lambda Functions
+- Lambda Layers
+	- A lambda layer is a container/archive which contains additional code such as libraries, dependencies, or custom runtimes.
+	- Allows Up to 5 Layers
+- Lambda event
+- Lambda @ Edge
+	- It is the feature of Amazon CloudFront which allows you to run your code closer to the location of Users of your application.
+	- It improves performance and reduces latency.
+	- Lambda @ Edge runs your code in response to the event created by the CDN.
+
+##### AWS Outposts
+- AWS Outposts enables running AWS services locally and accessing a variety of services within the local AWS region.
+- Hybrid Cloud Deployment
+- Edge computing
+- Data processing at remote locations
+- Application modernization
+
+##### AWS Wavelength
+- Amazon Wavelength is used to create mobile applications with exceptionally low latencies.
+- Integrates storage and computing resources directly into the 5G edge networks of communications service providers (CSPs)
+- Wavelength zones
+- Wavelength services
+
+#### Containers
+##### Amazon Elastic Container Registry
+- Amazon Elastic Container Registry is a managed service that allows users to store, manage, share and deploy container images and artifacts. It is mainly integrated with Amazon Elastic Container Service (ECS) for simplifying the production workflow.
+- Lifecycle policies
+- AWS marketplace
+- IAM with each registry access level control
+- Public gallery
+
+##### Amazon Elastic Container Service (ECS)
+- Amazon ECS is a regional container orchestration service like Docker that allows to execute, stop and manager containers on a cluster.
+- Task definition with JSON format
+- Service as a configuration object to run and maintain several tasks simultaneously in a cluster.
+- Task schedular responsible for attaching tasks within your cluster based on the task definitions.
+- Use cases includes Microservices, Batch Jobs 
+- Fargate launch type vs. EC2 Launch type
+
+##### Amazon Elastic Kubernetes Service (EKS)
+- Amazon EKS is a service that enables users to manage Kubernetes applications in the AWS cloud or on-premises. Any standard Kubernetes application can be migrated to EKS without altering the code.
+- EKS cluster has two components :-
+	- Amazon EKS control plane
+	- Amazon EKS nodes
+- Control planes includes etcd, Kubernetes API server
+- Two methods to create a cluster
+	- eksctl
+	- AWS management console and AWS CLI
+- For pod scheduling
+	- Self-managed nodes
+	- Amazon EKS managed node groups
+	- AWS Fargate
+- Easy integration with other AWS services for networking, storage etc
+
+#### Database
+
+##### Amazon Aurora
+- Fully managed RDS services offered by AWS. It's only compatible with PostgreSQL / MySQL, as per AWS Aurora provides 5 times throughput then MySQL and 3 times throughput then PostgreSQL.
+- supported by region which have minimum 3 AZs
+- up to 15 read replicas
+- 128 TB per database instance scale
+- two instances
+	- Primary DB instance
+	- Aurora Replica
+- Aurora Global database
+- Aurora Multi master
+- Aurora Serverless
+- Fault tolerance and Self-healing feature
+
+##### Amazon DocumentDB
+- DocumentDB is a fully managed document database service by AWS which supports MongoDB workloads.
+- highly recommended for storing, querying, and indexing JSON data.
+- maximum up to 64 TB
+- provides up to 15 read replicas with single-digit millisecond latency.
+- supports RBAC
+
+##### Amazon ElastiCache
+- ElastiCache is a fully managed in-memory data store. It works with both Redis and Memcached protocol based engines.
+- data is in key-value format
+- Shard having collection of primary nodes and read-replicas
+- Multi AZ possible by placing a read replicas in another AZ
+- Use cases
+	- To store web sessions
+	- Caching database results
+	- Live polling and gaming dashboards
+
+##### Amazon Keyspaces (for Apache Cassandra)
+- Keyspaces is an Apache Cassandra compatible database in AWS. It is fully managed, high availability and scalable.
+- Compatible with CQL (Cassandra Query Language) 
+- Two modes
+	- On-demand capacity mode
+	- Provisioned capacity mode
+- PITR - Point in time recovery
+- Replicated across 3 AZs for high availability
+
+##### Amazon Neptune
+- Amazon Neptune is a graph database service used as a web service to build and run applications that require connected datasets.
+
+##### Amazon RDS
+- RDS (Relational database system) in AWS makes it easy to operate, manage and scale in the cloud.
+- Engines supported by RDS:
+	- MySQL
+	- SQL
+	- MariaDB
+	- PostgreSQL
+	- Oracle
+	- Amazon Aurora
+- DB instances
+	- Standard
+	- Burstable Performance
+	- Memory optimized
+- Multi AZ deployment
+- Storage types
+	- General purpose (SSD)
+	- Provisioned IOPS (SSD)
+- Monitoring, backup & restore
+
+##### Amazon Redshift
+- Amazon redshift is a fast and powerful, fully managed, petabyte-scale data warehouse service in the cloud. This service is highly scalable to a petabyte or more for $1000 per terabyte per year.
+- Single node (160 GB)
+- Multi-node
+	- Leader and compute node
+- Massively parallel processing (MPP)
+- Maximum retention period is 35 days
+
+
+#### End User Computing
+
+##### Amazon Workspaces
+ - TODO
+
+
 ##### Amazon GuardDuty
 - Managed Thread detection service offered by AWS that continuously monitors and analyzes activity within AWS account to identify potential security threats and vulnerabilities.
 - Region specific Integrate with CloudTrail, EventBridge & Lambda services
@@ -320,3 +537,6 @@
 
 ##### Amazon Managed Blockchain (AMB)
 - A service by AWS built on Blockchain with reliable APIs and without specialized infrastructure that powers your application with actionable, real-time blockchain data, allowing you to focus on innovation and speed to market with fully managed blockchain infrastructure.
+
+##### AWS Device Farm
+- AWS Device Farm is a cloud-based application testing service that lets developers test iOS, Android and Fire OS apps on real, physical mobile devices and desktop browsers hosted by Amazon Web Services.
