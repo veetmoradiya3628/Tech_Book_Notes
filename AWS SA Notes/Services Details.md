@@ -340,7 +340,112 @@
 #### End User Computing
 
 ##### Amazon Workspaces
- - TODO
+ - Amazon Workspaces is a managed service used to provision virtual Windows or Linux desktops for users across the globe.
+
+#### Frontend Web and Mobile
+
+##### Amazon App Stream 2.0
+- Amazon App Stream 2.0 is a managed AWS service that streams desktop and SaaS applications to users via a browser, removing the need for local installs or complex infrastructure.
+- Cost effective, Reliable, Remote Workforce support
+
+##### AWS Amplify
+- AWS Amplify is a set of tools and services provided by Amazon Web Services (AWS) that enables developers to build scalable and secure web and mobile applications quickly. 
+- It supports popular frontend frameworks like React, Angular and Vue.js, making it easier for developers to integrate with their existing workflows.
+- Use Version control, Modularize app, IaC, Environment management, CI/CD, Data validation and sanitization
+- To build personal blog website, e-commerce mobile app, event scheduling apps etc
+
+##### Amazon API Gateway
+- Amazon API Gateway is a service which creates, publishes, maintains, monitors and secures APIs at any scale.
+- It handles the tasks involved in processing concurrent API calls.
+- HTTP based
+- Enables stateless and client-server communication
+- Edge-optimized endpoint
+
+#### Internet of Things (IoT)
+
+##### AWS IoT Analytics
+- AWS IoT Analytics streamlines the intricate process of analyzing extensive amounts of IoT data, eliminating the need for constructing a complex and costly IoT analytics platform.
+- Features
+	- Collect
+	- Process
+	- Store
+	- Analyze
+	- Hosted Notebooks
+	- Automated execution
+	- Incremental Data Capture
+	- Visualization
+- Use cases
+	- Contextual Data Enrichment
+	- Predictive Maintenance
+	- Proactive Supply Replenishment
+	- Process Efficiency Monitoring
+
+##### AWS IoT Core
+- AWS IoT core is a cloud service that enables users to connect IoT devices (wireless devices, sensors, and smart appliances) to the AWS cloud without managing servers.
+- supported protocols
+	- MQTT
+	- MQTT over WSS
+	- HTTPS
+- supports bi-directional communication and LoRaWAN
+- It integrates with Amazon services well
+
+##### AWS IoT Events
+- AWS IoT Events is a monitoring service that allows users to monitor and respond to device fleets events in IoT applications.
+- It helps to create event logic using conditional statements and trigger alerts when  an event occurs.
+- AWS IoT Events accepts data from many IoT sources like sensor devices, AWS IoT Core and AWS IoT Analytics.
+
+##### AWS IoT Greengrass
+- AWS IoT Greengrass is a cloud service that groups, deploys and manages software for all devices at once and enables edge devices to communicate securely.
+- Greengrass core is a device that enables the communication between AWS IoT core and the AWS IoT Greengrass
+- provides AWS Lambda functions and Docker containers as an environment for code execution.
+
+
+#### Machine Learning
+
+##### Amazon Polly
+- Text to speech conversion
+- pay for the text converted
+- different language supports, Neural-text-to-speech 
+
+##### Amazon SageMaker
+- Amazon SageMaker is a cloud service that allows developers to prepare, build, train, deploy and manage machine learning models.
+
+##### Amazon Comprehend
+- Document processing
+- Amazon Comprehend employs natural language processing (NLP) to extract insights from document content. 
+- Document processing workflow enhancement
+- PII from documents
+
+##### Amazon Rekognition
+- Amazon Rekognition is a cloud based service that employs advanced computer vision technology to analyze images and videos without requiring expertise in machine learning.
+- Object and text detection
+- Object, Sense and Concept detection
+- Text detection
+- People tracking
+- Facial analysis
+
+##### Amazon Lex
+- Amazon Lex, an AWS service, enables developers to build chatbots with natural conversion capabilities, leveraging the technology behind Alexa. 
+- Lex simplifies speech recognition and facilitates the creation of engaging chatbots for intuitive user interfaces.
+
+##### Amazon Transcribe
+- Amazon Transcribe is a service used to convert audio (speech) to text using a Deep Learning process known as automatic speech recognition (ASR).
+
+##### Amazon Kendra
+- Amazon Kendra is a cutting-edge search solution powered by AI, utilizing natural language processing (NLP) and machine learning to provide highly accurate and context-aware search results.
+- Contextual search
+- Machine Learning
+- Easy Integration
+- Security
+- Simplicity
+
+##### Amazon Translate
+- Neural Machine Translation - Uses neural networks for accurate and natural text translations
+- Language pairs
+- Source-target conversion
+
+
+#### Management and Governance
 
 
 ##### Amazon GuardDuty
