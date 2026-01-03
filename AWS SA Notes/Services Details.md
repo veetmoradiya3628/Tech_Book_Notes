@@ -550,6 +550,7 @@
 - Agent-based discovery
 - AWS partner network (APN)
 - Migration Hub
+- Application dependencies, utilization and configurations.
 
 ##### AWS Database Migration Service
 - AWS Database migration service is a cloud-service used to migrate relational databases from on-premises, Amazon EC2 or Amazon RDS to AWS Securely.
@@ -613,12 +614,141 @@
 - Refactor or re-architect
 	- modify the applications architecture to fully utilize cloud-native features.
 
+##### AWS Transform
+- modern replacement for Application Discovery Service and provides agentless, on-premises environment analysis.
+
 #### Network & Content Delivery
 
 ##### AWS Application Migration Service
+- The AWS Application Migration Service streamlines and automates the conversion of your source servers to operate seamlessly on AWS, reducing the need for labor-intensive and error-prone manual tasks.
 
+##### Amazon CloudFront
+- Amazon CloudFront is a content delivery network (CDN) service that securely delivers any kind of data to customers worldwide with low latency, low network and high transfer speeds.
+- Uses edge locations to cache copies of the data for the lowest latency.
+- Lambda @ Edge
+- Access controls
+	- Signed URLs
+	- Singed Cookies
+	- Geo Restriction
+	- Origin Access Identity (OAI)
 
+##### AWS Direct Connect
+- AWS Direct Connect is a cloud service that helps to establish a dedicated connection from an on-premises network to one or more VPCs in the same region.
+- Private VIF
+- Methods to connect
+	- AWS Managed VPN
+	- AWS Direct Connect
+	- AWS Direct Connect plus VPN
+	- AWS VPN CloudHub
+	- Transit VPC
+	- VPC Peering
+	- AWS PrivateLink
+	- VPC Endpoints
+- Direct connect gateway - Globally available service used to connect multiple Amazon VPCs across different regions or AWS accounts
+	- Transit gateway
+	- Virtual private gateway
+- scale by 1 Gbps and 10 Gbps connections based on the capacity needed.
+- Ideal for applications that requires consistent, high-bandwidth connectivity (dedicated connection to AWS).
+- VPN is suitable for applications that need same connection that can be quickly established, as it can be set up faster and with more flexibility than direct connect.
 
+##### AWS Elastic Load Balancer
+- It distributes the incoming traffic to multiple targets such as Instances, Containers, Lambda Functions, IP addresses etc
+- spans single or multiple AZs
+- provides high availability, scaling and security for the application.
+- Types of ELB
+	- Application Load Balancer
+	- Network Load Balancer
+	- Gateway Load Balancer
+	- Class Load balancer - old generation
+- Listeners
+- Target groups
+- Health check
+
+##### AWS PrivateLink
+- AWS PrivateLink is a network service used to connect to AWS services hosted by other AWS accounts (referred to as endpoint services) or AWS Marketplace
+- Interface endpoint
+
+##### Amazon Route 53
+- Route53 is a managed DNS (Domain Name System) service where DNS is a collection of rules and records intended to help clients / users understand how to reach any server by its domain name.
+- Route 53 hosted zone
+	- public host zone
+	- private host zone
+- Route53 TTL
+- CNAME vs. Alias
+- A, AAAA, CNAME, Alias
+- CAA, MX, NAPTR, NS, SOA, SPF, SRV, TXT
+- Routing policies
+	- Simple
+	- Failover
+	- Geo-location
+	- Latency based
+- Domain registrar != DNS
+
+##### AWS Transit Gateway
+- AWS Transit gateway is a network hub used to interconnect multiple VPCs. It can be used to attach all hybrid connectivity by controlling your organizations entire AWS routing configuration in one place.
+- IPSec VPN
+- Transit Gateway Network manager
+- Transit Gateway vs. VPC Peering
+
+##### AWS VPC
+- Amazon VPC is a service that allows users to create a virtual dedicated network for resources.
+- Security group
+	- Default
+	- Custom
+- NACL
+	- Default NACL
+	- Custom NACL
+- Components
+	- Subnets
+	- Route tables
+	- NAT Devices
+	- NAT Instances
+	- NAT Gateway
+	- DHCP Options set
+	- PrivateLink
+- Types of endpoints
+	- Interface endpoints
+	- Gateway Load balancer endpoints
+	- Gateway endpoints
+	- Egress only internet gateway
+- VPN
+	- AWS Site-to-site VPN
+	- AWS Client VPN
+
+##### AWS Global Accelerator
+- AWS Global accelerator is a networking service designated to improve application performance, availability and security by routing user traffic through the AWS Global network.
+- Enhanced Network performance
+- High availability
+- Deterministic Routing
+- DDoS Protection
+- Use cases
+	- Global traffic manager
+	- API acceleration
+	- Global static IP
+	- Low-latency gaming & media workloads
+
+#### Security, Identity & Compliance
+##### AWS Certificate Manager (ACM)
+- AWS Certificate manager is a service that allows a user to provide, manage, renew and deploy public and private secure sockets layers / TLS x.509 certificates.
+- direct issue new certificate vs. importing existing third-party certificate.
+
+##### AWS Nitro Enclaves
+- AWS Nitro enclaves are isolated, hardened virtual environments with in an Amazon EC2 instance.
+
+##### Amazon Cognito
+- Amazon Cognito is a service used for authentication, authorization and user management for web and mobile applications.
+- User pools
+- Identity pools
+- Federated Identity
+
+##### Amazon Detective
+- Regional service
+- GuardDuty is pre requisites
+- Triage security findings / alerts, incident investigation, Thread hunting
+
+##### AWS Directory Service
+- AWS Directory service also known as AWS Managed Microsoft Active Directory (AD), enables multiple ways to use Microsoft AD with other AWS services.
+- AD Connector
 ##### Amazon GuardDuty
 - Managed Thread detection service offered by AWS that continuously monitors and analyzes activity within AWS account to identify potential security threats and vulnerabilities.
 - Region specific Integrate with CloudTrail, EventBridge & Lambda services
@@ -692,6 +822,8 @@
 - WAF stands for Web Application Firewall
 - Managed service provided by AWS that helps protect web applications from common web exploits that could affect application availability, compromise security or consume excessive resources.
 - Protect against SQL Injection, cross-site scripting, distributed denial of service (DDoS) attack
+
+#### Storage
 
 ##### AWS Backup
 - AWS Backup is a secure service that automates and governs data backup (protection) in the AWS cloud and on-premises.
@@ -778,6 +910,9 @@
 ##### AWS Elastic Disaster Recovery
 - AWS Elastic Disaster Recovery (AWS DRS) ensures fast and reliable recovery of both on-premises and cloud-based applications.
 
+
+#### Developer Tools
+
 ##### AWS CodeBuild
 - AWS CodeBuild is a continues integration service in the cloud used to compile source code, run tests, and build packages for deployment.
 - Code services includes
@@ -806,6 +941,8 @@
 
 ##### AWS CodeGuru
 - CodeGuru is a developer tool designed to enhance code quality and optimize application performance by offering intelligent recommandations.
+
+#### Media Services & Blockchain
 
 ##### Amazon Elastic Transcoder
 - Amazon Elastic Transcoder delivers a cloud-based service for media transcoding, offering developers and businesses a scalable, intuitive and cost-effective method to convert media files into formats suitable for diverse devices, including smartphones, tablets and computers.
