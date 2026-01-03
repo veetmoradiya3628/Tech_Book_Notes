@@ -16,6 +16,7 @@
 - AWS Glue is a serverless ETL (Extract, transform and load) service used to categorize data and move them between various data stores and streams.
 - AWS Glue Data Catalog - central repository
 - managed ETL flow kind of.
+- Better for batch processing.
 
 ##### Amazon Managed Service for Apache Flink
 - The Amazon Managed Service for Apache Flink stands as a holistic data streaming platform, adept at managing the intricacies involved in configuring and linking data origins and destinations, all while requiring minimal coding efforts.
@@ -106,6 +107,7 @@
 	- at least once
 	- at most once
 	- exactly once execution
+- Step functions built-in retry and catch fields provide exponential backoff retries and error handling, allowing you to skip non-critical steps while logging failures.
 
 #### Cloud Financial Management
 
@@ -177,7 +179,7 @@
 - Placement groups
 	- Spread placement
 	- Partition placement
-
+- Reserved Instances for baseline traffic and spot instances for unpredictable spikes optimizes both cost and performance.
 ##### EC2 Auto Scaling
 - region-specific service
 - ASG is a collection of the minimum number of EC2 used for high availability
@@ -327,6 +329,7 @@
 	- General purpose (SSD)
 	- Provisioned IOPS (SSD)
 - Monitoring, backup & restore
+- Replication is asynchronous
 
 ##### Amazon Redshift
 - Amazon redshift is a fast and powerful, fully managed, petabyte-scale data warehouse service in the cloud. This service is highly scalable to a petabyte or more for $1000 per terabyte per year.
@@ -335,7 +338,10 @@
 	- Leader and compute node
 - Massively parallel processing (MPP)
 - Maximum retention period is 35 days
-
+- PARALLEL option allows for efficient handling of large files by loading data in parallel.
+- MANIFEST option ensures that all files in the dataset are properly accounted for during the ingestion process, making this the most appropriate configuration.
+- GZIP for compressing data
+- UNLOAD command for export data from redshift to S3
 
 #### End User Computing
 
@@ -360,7 +366,7 @@
 - HTTP based
 - Enables stateless and client-server communication
 - Edge-optimized endpoint
-
+- To enforce CORS we can use Access-Control-Allow-Origin header for configuration
 #### Internet of Things (IoT)
 
 ##### AWS IoT Analytics
@@ -379,6 +385,7 @@
 	- Predictive Maintenance
 	- Proactive Supply Replenishment
 	- Process Efficiency Monitoring
+- IoT Analytics provides an automated way of analyzing data from IoT devices. Channel is concept for data analytics.
 
 ##### AWS IoT Core
 - AWS IoT core is a cloud service that enables users to connect IoT devices (wireless devices, sensors, and smart appliances) to the AWS cloud without managing servers.
@@ -399,7 +406,22 @@
 - Greengrass core is a device that enables the communication between AWS IoT core and the AWS IoT Greengrass
 - provides AWS Lambda functions and Docker containers as an environment for code execution.
 
+##### AWS IoT SiteWise
+- Industrial data collection, organization and monitoring
+- Factories, plants and industrial equipment monitoring
+- focus on industrial machines and processes
+- AWS IoT SiteWise plug-in  for amazon managed Grafana can be used to visualize equipment data in near-real time using visualization options in Grafana dashboards.
 
+##### AWS IoT FleetWise
+- Vehicle data collection and normalization
+- Automotive manufacturers and connected vehicle fleets
+- Focused on vehicle and automotive data
+
+##### AWS IoT TwinMaker
+- Build digital twins (virtual, real-time visual models) of systems
+- Visualizing and simulating complex physical environments
+- AWS IoT Twin Maker to create a digital twin from the collected data
+- AWS IoT Twin Maker plug-in for amazon managed Grafana used for building dashboards embedding 3D scenes and display data insights about the physical systems.
 #### Machine Learning
 
 ##### Amazon Polly
@@ -408,7 +430,8 @@
 - different language supports, Neural-text-to-speech (NTTS)
 
 ##### Amazon SageMaker
-- Amazon SageMaker is a cloud service that allows developers to prepare, build, train, deploy and manage machine learning models.
+- Amazon Sage Maker is a cloud service that allows developers to prepare, build, train, deploy and manage machine learning models.
+- Sage Maker Canvas supports importing datasets from Amazon S3 directly.
 
 ##### Amazon Comprehend
 - Document processing
@@ -535,6 +558,7 @@
 
 ##### AWS Systems Manager
 - AWS Systems manager is a service which helps users to manage EC2 and on-premises systems at scale. It not only detects the insights about the state of the infrastructure but also easily detects problems as well.
+- Systems manager documents for defining service actions
 
 ##### AWS Trusted Advisor
 - Trusted advisor itself provides checks based on Best Practices in the Cost Optimization, Security, Fault tolerance and performance improvement categories.
@@ -775,6 +799,7 @@
 		- AWS managed
 		- Customer managed policies
 	- Inline policies
+- IAM Access Analyzer to analyze IAM access details across the account / organization & it can be integrated with security hub to send findings directly in Security Hub.
 
 ##### Amazon Inspector
 - Amazon Inspector is a vulnerability management service which continuously scans AWS resources for software vulnerabilities and network accessibility.
@@ -953,3 +978,19 @@
 
 ##### AWS Device Farm
 - AWS Device Farm is a cloud-based application testing service that lets developers test iOS, Android and Fire OS apps on real, physical mobile devices and desktop browsers hosted by Amazon Web Services.
+
+##### AWS Service Catalog
+- Constraints 
+	- Template constraint
+	- Launch constraint
+
+##### AWS Data Exchange
+- AWS Data exchange is a service for securely sharing and using third-party data on AWS.
+- With AWS Data Exchange data is stored in an Amazon S3 bucket and is securely shared with the subscribers as a product, subscribers can browse and subscribe to any data set from the AWS Data exchange catalog in AWS Marketplace.
+
+##### Amazon Timestream
+- it is a fast, scalable, serverless, time-series database service from AWS.
+- purpose-built for IoT, operational monitoring (DevOps), and application telemetry, efficiently storing and analyzing trillions of time-stamped data points to provide real-time analytics and insights at a fraction of the cost of traditional databases.
+- support for scheduled queries
+
+
