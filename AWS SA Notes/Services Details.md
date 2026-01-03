@@ -405,7 +405,7 @@
 ##### Amazon Polly
 - Text to speech conversion
 - pay for the text converted
-- different language supports, Neural-text-to-speech 
+- different language supports, Neural-text-to-speech (NTTS)
 
 ##### Amazon SageMaker
 - Amazon SageMaker is a cloud service that allows developers to prepare, build, train, deploy and manage machine learning models.
@@ -415,6 +415,7 @@
 - Amazon Comprehend employs natural language processing (NLP) to extract insights from document content. 
 - Document processing workflow enhancement
 - PII from documents
+- Built in feature for sentiment analysis, language detection, key phase extraction
 
 ##### Amazon Rekognition
 - Amazon Rekognition is a cloud based service that employs advanced computer vision technology to analyze images and videos without requiring expertise in machine learning.
@@ -427,6 +428,7 @@
 ##### Amazon Lex
 - Amazon Lex, an AWS service, enables developers to build chatbots with natural conversion capabilities, leveraging the technology behind Alexa. 
 - Lex simplifies speech recognition and facilitates the creation of engaging chatbots for intuitive user interfaces.
+- Amazon Lex is not good with natural language processing task such as sentiment analysis, language detection, or custom entity recognition.
 
 ##### Amazon Transcribe
 - Amazon Transcribe is a service used to convert audio (speech) to text using a Deep Learning process known as automatic speech recognition (ASR).
@@ -438,20 +440,114 @@
 - Easy Integration
 - Security
 - Simplicity
-
+- Provides intelligent search capabilities for indexed content.
 ##### Amazon Translate
 - Neural Machine Translation - Uses neural networks for accurate and natural text translations
 - Language pairs
 - Source-target conversion
 
+##### Amazon Personalize
+- Provides personalized product recommendation
+
+##### Amazon Fraud Detection
+- Detects Fraudulent activities in transactions.
 
 #### Management and Governance
 
+##### AWS CloudFormation
+- AWS CloudFormation is a service that collects AWS and third-party resources and manages them throughout their life cycles, by launching them together as a Stack.
+- Template is used to create, update and delete an entire stack as a single unit without managing resources individually
+- Templates - JSON or YAML
+- Stack
+- Nested Stack
+- Change sets
+- Stack updates
+- AWS CloudFormation Registry
+
+##### AWS CloudTrail
+- Audit service in AWS account
+- global service that permits users to enable operational and risk auditing of the AWS account
+- allows users to view, search, download, archive, analyze and respond to account activity across the AWS Infrastructure
+
+##### Amazon CloudWatch
+- Amazon CloudWatch is a service that helps to monitor and manage services by providing data and actionable insights for AWS applications and infrastructure resources.
+- It collects monitoring data in form of logs, metrics and events from AWS resources.
+- Alarms
+- statsd & collectd protocol for log observability
+
+##### Amazon CloudWatch Logs
+- Amazon CloudWatch logs is a service provided by AWS that enables you to monitor, store and access log data from various AWS resources and applications.
+- Log collection
+- Log storage
+- Real-time monitoring
+- Log queries
+- Log retention
+- Log streams
+
+##### AWS Compute Optimizer
+- AWS Compute optimizer assists in optimizing the provisioning of various AWS resources, including Amazon EC2 instances, Amazon EBS volumes, ECS services on AWS Fargate, and AWS Lambda functions.
+- It analyzes utilization data to prevent both overprovisioning and under provisioning ensuring that resources are efficiently allocated to meet workload demands.
+- Tailored Rightsizing Recommendations
+- Utilize external metrics
+- Facilitate migration to AWS Graviton CPUs
+- Licensing optimizations
+
+##### AWS Config
+- AWS Config is a service that continuously monitors and evaluates the configurations of the AWS resources (services).
+- Config rules
+- Aggregator
+- Conformance pack
+- Custom rules and its compliance requirements
+
+##### AWS Health Dashboard
+- AWS Health dashboard keeps you informed about service events, scheduled modifications, and account notifications, enabling effective management and action-taking.
+- Swift resolution and proactive management
+- Receive Proactive notifications
+- Prepare for Lifecycle Events
+- Efficient Event monitoring
+- Incident troubleshooting
+
+##### AWS Control Tower
+- AWS Control Tower is an extension to AWS Organizations providing additional controls.
+- Creates a Landing zone which is a well-architected multi-account baseline based on AWS best practices.
+- OU - Organizational Units
+- Integrates with AWS Identity center
+- SCP at OUs
+- Guardrails
+	- Preventive guardrails
+	- Detective guardrails
+- policies
+- Account Factory
+- Pre-approved account configuration
+
+##### AWS License Manager
+- AWS License manager is a service that manages software licenses in AWS and on-premises environments from vendors such as Microsoft, SAP, Oracle and IBM
+- Supports BYOL - Bring your own license
+
+##### AWS Management Console
+- AWS Management console is a web application that consists of many service consoles for managing Amazon Web Services.
+
+##### AWS Organizations
+- AWS Organizations is a global service that enables users to consolidate and manage multiple AWS accounts into an organization.
+- The main account is the management account
+- Other accounts are member account and can be part of single organization.
+- Service Control Policies (SCPs) can be created to provide governance boundaries for the OUs.
+
+##### AWS Systems Manager
+- AWS Systems manager is a service which helps users to manage EC2 and on-premises systems at scale. It not only detects the insights about the state of the infrastructure but also easily detects problems as well.
+
+##### AWS Trusted Advisor
+- Trusted advisor itself provides checks based on Best Practices in the Cost Optimization, Security, Fault tolerance and performance improvement categories.
+- Optimization of cost & efficiency
+- Address security gaps
+- performance improvement 
+
+#### Migration & Transfer
 
 ##### Amazon GuardDuty
 - Managed Thread detection service offered by AWS that continuously monitors and analyzes activity within AWS account to identify potential security threats and vulnerabilities.
 - Region specific Integrate with CloudTrail, EventBridge & Lambda services
-
+- Does not automatically remediate non-compliant configurations.
 ##### AWS IAM
 - Identity and access management
 - Control access to AWS resources securely
