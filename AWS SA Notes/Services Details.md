@@ -544,6 +544,81 @@
 
 #### Migration & Transfer
 
+##### AWS Application Discovery Service
+- AWS Application Discovery service helps you plan application migration projects. It automatically identifies servers, virtual machines (VMs) and network dependencies in your on-premises data centers.
+- Agentless discovery
+- Agent-based discovery
+- AWS partner network (APN)
+- Migration Hub
+
+##### AWS Database Migration Service
+- AWS Database migration service is a cloud-service used to migrate relational databases from on-premises, Amazon EC2 or Amazon RDS to AWS Securely.
+- MySQL - MySQL - homogeneous migration
+- MySQL - Amazon Aurora - heterogeneous migration
+- Task endpoints
+- AWS SCT - Schema Conversion Tool helps to perform heterogeneous migration.
+
+##### AWS DataSync
+- AWS DataSync is a secure, reliable, managed migration service that automates the movement of data online between storage systems.
+- AWS DataSync helps you simplify your migration planning and reduce costs associated with the data transfer.
+- AWS Storage Gateway
+
+##### AWS Migration Hub
+- AWS Migration Hub (Migration Hub) offers a centralized platform for discovering current servers, planning migrations, and monitoring application migration progress.
+- Migration hub allows visualization of connections and status regardless of the migration tool used.
+- Streamlined process
+- Guided expertise
+- Effective resources
+- No cost
+
+##### AWS Transfer Family
+- AWS Transfer Family is a fully managed & secure service that enables transfer of files using SFTP, FTPS & FTP.
+- The destination storage services to which files are transferred are S3 and EFS.
+
+##### AWS Snow Family
+- The AWS Snow Family includes devices for transferring large datasets to and from AWS and enabling data processing at the edge, even in rugged or remote locations.
+- Snow Devices
+	- AWS Snowcone
+		- Lightweight, portable, ideal for remove field
+		- SSD & HDD
+		- 4.5 pound / 2.1 kg
+	- AWS Snowball
+		- Compute optimized and storage optimized 
+		- Tamper-resistant and designed for extreme environments 
+		- on device computing
+	- AWS Snowblade
+		- high performance and compact device, designed specifically for tactical edge scenarios
+	- AWS Snow Edge
+		- Enhanced edge computing device capable of supporting even larger and more complex workloads.
+		- Ideal for intermittent connectivity environment.
+
+##### Seven Common migration strategies (7Rs)
+- 7Rs
+	- Retire
+	- Retain
+	- Rehost
+	- Relocate
+	- Repurchase
+	- Replatform
+	- Refactor or re-architect
+- Retain
+	- "lift and shift" applications are moved to cloud without any modifications
+- Relocate
+	- "drop and shop" strategy involves moving instances or objects within an AWS environment such as to a different VPC, Region or AWS account
+- Repurchase
+	- exiting application is replaced with a new version or product offering 
+- Replatform
+	- "lift, tinker and shift" or "lift and reshape"
+	- migrating to cloud with additional optimization and cost reduction
+- Refactor or re-architect
+	- modify the applications architecture to fully utilize cloud-native features.
+
+#### Network & Content Delivery
+
+##### AWS Application Migration Service
+
+
+
 ##### Amazon GuardDuty
 - Managed Thread detection service offered by AWS that continuously monitors and analyzes activity within AWS account to identify potential security threats and vulnerabilities.
 - Region specific Integrate with CloudTrail, EventBridge & Lambda services
