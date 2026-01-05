@@ -36,6 +36,7 @@
 	- Kinesis Data Analytics
 	- Kinesis Data Firehose
 	- Kinesis Video Streams
+- Kinesis worker count etc
 
 ##### AWS Lake Formation
 - AWS Lake Formation is a cloud service that is used to create, manage and secure data lakes. It automates the complex manual steps required to create data lakes.
@@ -108,6 +109,7 @@
 	- at most once
 	- exactly once execution
 - Step functions built-in retry and catch fields provide exponential backoff retries and error handling, allowing you to skip non-critical steps while logging failures.
+- Sync express workflow vs. Async express workflow
 
 #### Cloud Financial Management
 
@@ -281,6 +283,10 @@
 - Aurora Multi master
 - Aurora Serverless
 - Fault tolerance and Self-healing feature
+- Aurora replicas in the same region and enabling automation failover for high availability provides low latency and performance
+- Aurora replicas in different region which is Aurora Global Database adds cross region latency
+- Aurora serverless ideal for workloads with variable demand but not ideal for large-scale read-heavy workloads.
+- Switchover vs. Failover
 
 ##### Amazon DocumentDB
 - DocumentDB is a fully managed document database service by AWS which supports MongoDB workloads.
@@ -298,6 +304,8 @@
 	- To store web sessions
 	- Caching database results
 	- Live polling and gaming dashboards
+- Redis cluster mode allows us to scale cluster horizontally by re-sharing data across multiple shards.
+- ElastiCache does not support auto scaling in redis mode.
 
 ##### Amazon Keyspaces (for Apache Cassandra)
 - Keyspaces is an Apache Cassandra compatible database in AWS. It is fully managed, high availability and scalable.
@@ -310,6 +318,8 @@
 
 ##### Amazon Neptune
 - Amazon Neptune is a graph database service used as a web service to build and run applications that require connected datasets.
+- Partitioning the data into subgraphs based on userId or similar identifier reduces the complexity of traversal queries by limiting the data that needs to be searched, leading to better performance.
+- Does not support materialized view in the same way RDBMS does.
 
 ##### Amazon RDS
 - RDS (Relational database system) in AWS makes it easy to operate, manage and scale in the cloud.
@@ -342,6 +352,8 @@
 - MANIFEST option ensures that all files in the dataset are properly accounted for during the ingestion process, making this the most appropriate configuration.
 - GZIP for compressing data
 - UNLOAD command for export data from redshift to S3
+- Distribution style "KEY" allows us to distribute rows based on the values of a specific column.
+- https://docs.aws.amazon.com/redshift/latest/dg/c_best-practices-best-dist-key.html
 
 #### End User Computing
 
@@ -497,6 +509,7 @@
 - It collects monitoring data in form of logs, metrics and events from AWS resources.
 - Alarms
 - statsd & collectd protocol for log observability
+- Synthetic monitoring to simulate user traffic
 
 ##### Amazon CloudWatch Logs
 - Amazon CloudWatch logs is a service provided by AWS that enables you to monitor, store and access log data from various AWS resources and applications.
@@ -555,6 +568,7 @@
 - The main account is the management account
 - Other accounts are member account and can be part of single organization.
 - Service Control Policies (SCPs) can be created to provide governance boundaries for the OUs.
+- For migrating from one org to other org account first make it independent and remove from existing organization.
 
 ##### AWS Systems Manager
 - AWS Systems manager is a service which helps users to manage EC2 and on-premises systems at scale. It not only detects the insights about the state of the infrastructure but also easily detects problems as well.
@@ -568,6 +582,7 @@
 
 #### Migration & Transfer
 
+- Mapping out application dependencies and resource requirements is crucial before initiating the migration. This assessment helps identify interdependencies, configurations, and specific needs of your applications, which is essential for ensuring that all components work correctly after migration and that nothing critical is missed during the transition.
 ##### AWS Application Discovery Service
 - AWS Application Discovery service helps you plan application migration projects. It automatically identifies servers, virtual machines (VMs) and network dependencies in your on-premises data centers.
 - Agentless discovery
@@ -582,11 +597,14 @@
 - MySQL - Amazon Aurora - heterogeneous migration
 - Task endpoints
 - AWS SCT - Schema Conversion Tool helps to perform heterogeneous migration.
+- Full load migration with SCT and CDC for minimal downtime and to handle complex database migration.
+- its used for data migration, not schema optimization. while DMS can apply changes to the target database, it does not perform schema optimization, ignoring manual intervention can lead to performance issues or incompatibilities in the target MySQL environment.
 
 ##### AWS DataSync
 - AWS DataSync is a secure, reliable, managed migration service that automates the movement of data online between storage systems.
 - AWS DataSync helps you simplify your migration planning and reduce costs associated with the data transfer.
 - AWS Storage Gateway
+- DataSync with task retries allows the transfer to resume automatically after network interruptions, ensuring data integrity without manual intervention.
 
 ##### AWS Migration Hub
 - AWS Migration Hub (Migration Hub) offers a centralized platform for discovering current servers, planning migrations, and monitoring application migration progress.
@@ -607,16 +625,20 @@
 		- Lightweight, portable, ideal for remove field
 		- SSD & HDD
 		- 4.5 pound / 2.1 kg
+		- Designed for smaller data transfers (up to 8 TB)
 	- AWS Snowball
 		- Compute optimized and storage optimized 
 		- Tamper-resistant and designed for extreme environments 
 		- on device computing
+		- Snowball Edge storage optimized designed for large data transfer (up to petabytes)
+		- Edge Compute optimized is more suitable for scenarios requiring edge computing capabilities.
 	- AWS Snowblade
 		- high performance and compact device, designed specifically for tactical edge scenarios
 	- AWS Snow Edge
 		- Enhanced edge computing device capable of supporting even larger and more complex workloads.
 		- Ideal for intermittent connectivity environment.
-
+	- AWS Snowmobile
+		- Typically used for exabyte-scale data migrations and for petabytes scale
 ##### Seven Common migration strategies (7Rs)
 - 7Rs
 	- Retire
@@ -951,6 +973,7 @@
 - Use cases
 	- In-place deployment
 	- Blue/green deployment
+- It does support Canary deployment with gradual switch over of traffic by % to new version.
 
 ##### AWS CodeArtifact
 - AWS CodeArtifact is a fully managed comprehensive software artifact repository service.
@@ -993,4 +1016,5 @@
 - purpose-built for IoT, operational monitoring (DevOps), and application telemetry, efficiently storing and analyzing trillions of time-stamped data points to provide real-time analytics and insights at a fraction of the cost of traditional databases.
 - support for scheduled queries
 
-
+##### DynamoDB
+- DAX for read performance optimization
