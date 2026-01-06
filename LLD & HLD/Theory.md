@@ -111,7 +111,10 @@
 
 ### [Background Jobs](https://learn.microsoft.com/en-us/azure/architecture/best-practices/background-jobs#types-of-background-jobs)
 
-#### Event Driven 
+### Triggers
+
+#### Event Driven
+
 - Many types of applications require background tasks that run independently of the user interface (UI). Examples include batch jobs, intensive processing tasks, and long-running processes such as workflows. Background jobs can be executed without requiring user interaction--the application can start the job and then continue to process interactive requests from users. This can help to minimize the load on the application UI, which can improve availability and reduce interactive response times.
 - For example, if an application is required to generate thumbnails of images that are uploaded by users, it can do this as a background job and save the thumbnail to storage when it's complete--without the user needing to wait for the process to be completed. In the same way, a user placing an order can initiate a background workflow that processes the order, while the UI allows the user to continue browsing the web app. When the background job is complete, it can update the stored orders data and send an email to the user that confirms the order.
 - When you consider whether to implement a task as a background job, the main criterion is whether the task can run without user interaction and without the UI needing to wait for the job to be completed. Tasks that require the user or the UI to wait while they are completed might not be appropriate as background jobs.
@@ -139,3 +142,14 @@
 			- Schedular Agent Supervisor pattern
 		3) Managing recovery for task steps that fail
 			- Compensating Transaction pattern
+#### Schedule Driven
+- Schedule-driven invocation uses a timer to start the background task.
+- Examples
+	- A timer that is running locally within the application or as part of the application's operating system invokes a background task on a regular basis.
+	- A timer that is running in a different application, such as Azure Logic Apps, sends a request to an API or web service on a regular basis. The API or web service invokes the background task.
+	- A separate process or application starts a timer that causes the background task to be invoked once after a specified time delay, or at a specific time.
+- Examples of tasks that are suited to schedule-driven invocation include batch-processing routines (such as updating related-products lists for users based on their recent behavior), routine data processing tasks (such as updating indexes or generating accumulated results), data analysis for daily reports, data retention cleanup, and data consistency checks.
+- Things to consider
+	- If the compute instance that is running the schedular is scaled, you then have multiple instances of the scheduler running. This could start multiple instances of the task. for this to handle idempotence to consider
+	- If tasks run for longer than the period between scheduler events, the schedular might start another instance of the task while the previous one is still running.
+
