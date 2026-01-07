@@ -37,6 +37,7 @@
 	- Kinesis Data Firehose
 	- Kinesis Video Streams
 - Kinesis worker count etc
+- Amazon Kinesis data analytics can be used with API Gateway to ingest and process huge amount of streaming data.
 
 ##### AWS Lake Formation
 - AWS Lake Formation is a cloud service that is used to create, manage and secure data lakes. It automates the complex manual steps required to create data lakes.
@@ -137,6 +138,7 @@
 - Allows creating scaling plans for EC2 Instance, EC2 tasks, DynamoDB, Aurora Read replicas
 - Launch configuration vs. Launch Template
 - Health check & CloudWatch Events for monitoring
+- It can monitor SQS queue size and ASG can be configured to scale up and down based on SQS queue size (no. of messages in queue).
 - No cost for configuration but cost for resources that we will use
 
 ##### AWS Batch
@@ -927,7 +929,7 @@
 - Bucket policy
 - CORS
 - Access Point
-- Life cycle
+- Life cycle policy
 - Replication
 - S3 classes
 	- S3 Standard
@@ -938,6 +940,7 @@
 	- S3 Glacier Instance Retrieval
 	- S3 Glacier Flexible Retrieval
 	- S3 Glacier Deep Archive
+		- for storing data for long term
 
 ##### S3 Glacier
 - Amazon S3 Glacier is a web service with vaults that offers long-term data archiving and data backup.
@@ -1018,3 +1021,7 @@
 
 ##### DynamoDB
 - DAX for read performance optimization
+
+##### Points for Exam
+
+
