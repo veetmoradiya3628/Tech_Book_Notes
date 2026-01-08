@@ -17,6 +17,8 @@
 - AWS Glue Data Catalog - central repository
 - managed ETL flow kind of.
 - Better for batch processing.
+- AWS Glue to crawl the source, extract the data, and load into Amazon S3 in Apache parquet format.
+- for recurring data processing from same source to prevent the old data reprocessing we can utilize the job bookmarks feature.
 
 ##### Amazon Managed Service for Apache Flink
 - The Amazon Managed Service for Apache Flink stands as a holistic data streaming platform, adept at managing the intricacies involved in configuring and linking data origins and destinations, all while requiring minimal coding efforts.
@@ -42,6 +44,7 @@
 ##### AWS Lake Formation
 - AWS Lake Formation is a cloud service that is used to create, manage and secure data lakes. It automates the complex manual steps required to create data lakes.
 - There is centralized access management for data in data lakes.
+- blueprints can be defined in order to identify the data that can be ingested into a data lake.
 ##### Amazon Managed Streaming for Apache Kafka
 - Amazon MSK is a managed cluster service used to build and execute Apache Kafka applications for processing streaming data.
 - Apache Kafka Access Control Lists (ACLs)
@@ -134,7 +137,7 @@
 #### Compute
 
 ##### AWS Auto Scaling
-- AWS Auto Scaling keeps on monitoring your application and automatically adjusts the capacity required for steady and predictable performance.
+- AWS Auto Scaling keeps on monitoring your application and automatically adjusts the capacity required for steady ancd predictable performance.
 - Allows creating scaling plans for EC2 Instance, EC2 tasks, DynamoDB, Aurora Read replicas
 - Launch configuration vs. Launch Template
 - Health check & CloudWatch Events for monitoring
@@ -184,10 +187,12 @@
 	- Spread placement
 	- Partition placement
 - Reserved Instances for baseline traffic and spot instances for unpredictable spikes optimizes both cost and performance.
+- Dedicated instances are very costly instances and only preferred in sovereign and compliance requirement usage cases only.
 ##### EC2 Auto Scaling
 - region-specific service
 - ASG is a collection of the minimum number of EC2 used for high availability
 - provides features as fault tolerance, health check, scaling policies, and cost management
+- simple scaling policy | target tracking policy | scheduled scaling actions
 
 ##### AWS Elastic Beanstalk
 - Beanstalk is a compute service for deploying and scaling applications developed in many popular programming languages.
@@ -342,6 +347,8 @@
 	- Provisioned IOPS (SSD)
 - Monitoring, backup & restore
 - Replication is asynchronous
+- It can be integrated with SNS for RDS event notification
+- Existing database instances cannot be encrypted in place. To enable encryption, you must capture a manual snapshot, create an encrypted copy of that snapshot, and restore it as a new encrypted instance to replace the original.
 
 ##### Amazon Redshift
 - Amazon redshift is a fast and powerful, fully managed, petabyte-scale data warehouse service in the cloud. This service is highly scalable to a petabyte or more for $1000 per terabyte per year.
@@ -762,6 +769,7 @@
 - VPN
 	- AWS Site-to-site VPN
 	- AWS Client VPN
+- VPC endpoints allows AWS service access in secure private subnet environment without internet enabled traffic.
 
 ##### AWS Global Accelerator
 - AWS Global accelerator is a networking service designated to improve application performance, availability and security by routing user traffic through the AWS Global network.
@@ -788,6 +796,7 @@
 - User pools
 - Identity pools
 - Federated Identity
+- Access token for AWS services
 
 ##### Amazon Detective
 - Regional service
@@ -849,6 +858,7 @@
 - feature rotation, management, and retrieve database passwords, OAuth tokens, API keys and other secret credentials.
 - secret can be secured with encryption keys managed by KMS
 - Integrates with AWS CloudTrail and AWS CloudWatch to log and monitor services for centralized auditing.
+- Automatic rotation of MySQL or any RBD or Aurora DB credentials can be configured along with multi region secret replication and periodic rotation.
 
 ##### AWS Security Hub
 - AWS Security Hub is a service that provides an extensive view of the security aspects of AWS and helps to protect the environment against security industry standards and best practices.
@@ -941,6 +951,7 @@
 	- S3 Glacier Flexible Retrieval
 	- S3 Glacier Deep Archive
 		- for storing data for long term
+- bucket policy can not support IP address based restriction
 
 ##### S3 Glacier
 - Amazon S3 Glacier is a web service with vaults that offers long-term data archiving and data backup.
@@ -1024,4 +1035,19 @@
 
 ##### Points for Exam
 
-
+- SNS single topic to fanout multiple SQS queues is supported and used in case if user wants to send notification to multiple consumer. other way around is not supported.
+- s3 access can be restricted based on resource policy and OAI (Origin Access Identity) and not based on security group or NACL rules
+- WAF can be applied to cloud front distribution and not to the target it uses.
+- s3 with CloudFront improves the download performance, s3 transfer acceleration used to improve the upload performance.
+- AWS WAF provides central configuration option for rules to apply in multiple region in multiple AWS accounts at the same time with AWS firewall configuration
+- AWS Shield primary focus is DDoS prevention
+- Global accelerator is not for application performance improvement but it works at TCP UDP level for load balancer to improve overall network performance.
+- Different cost savings plans for optimizing the cost.
+- Lambda function provides an on-failure configuration for resiliency
+- CloudWatch logs are not suitable for huge TBs of application data, while its suitable for application monitoring and other data
+- Amazon Macie is a data security service uses ML and check data protection in AWS
+- SSE KMS provides automatic key rotation and logs the usage in CloudTrail while SSE-S3 provides automatic key rotation but does not audit usage detail in CloudTrail.
+- Live migration supported by DMS with combination with ongoing replication task and DMS replication server.
+- S3 inventory is a tool for auditing and listing metadata about objects in bucket while the lifecycle policy moves the objects from one tier to other tier.
+- Route53 can be integrated with CloudFront distribution to improve the static and dynamic data loading at end user.
+- AWS KMS key can be accessed by EC2 application with EC2 role provided.
