@@ -560,6 +560,7 @@
 - SCP at OUs
 - Guardrails
 	- Preventive guardrails
+	- Data Residency guardrails
 	- Detective guardrails
 - policies
 - Account Factory
@@ -782,6 +783,7 @@
 	- API acceleration
 	- Global static IP
 	- Low-latency gaming & media workloads
+- endpoint groups & endpoints
 
 #### Security, Identity & Compliance
 ##### AWS Certificate Manager (ACM)
@@ -1051,3 +1053,11 @@
 - S3 inventory is a tool for auditing and listing metadata about objects in bucket while the lifecycle policy moves the objects from one tier to other tier.
 - Route53 can be integrated with CloudFront distribution to improve the static and dynamic data loading at end user.
 - AWS KMS key can be accessed by EC2 application with EC2 role provided.
+- Amazon Quicksight offers native, fine-grained access control, allowing you to securely share specific dashboards and visualizations with different users and groups.
+- Amazon S3 File Gateway provides storage for the on-premises application.
+- Network firewall for traffic inspection and traffic filtering for VPC
+- Control tower guardrails.
+- NAT Gateway for public internet connectivity in private subnet
+- CloudFront is not so good for dynamic API data to be cached, in such use cases AWS Global accelerator is preferred over the CloudFront.
+- Patching = Scheduling + Automation + Verification
+- Route53 is suitable for Application layer protocol (HTTP/HTTPS) and not for network layer protocol (UDP / TCP).
