@@ -388,6 +388,7 @@
 - Enables stateless and client-server communication
 - Edge-optimized endpoint
 - To enforce CORS we can use Access-Control-Allow-Origin header for configuration
+- resource policy for the API can be used for restrict the API access based on conditions.
 #### Internet of Things (IoT)
 
 ##### AWS IoT Analytics
@@ -518,7 +519,8 @@
 - It collects monitoring data in form of logs, metrics and events from AWS resources.
 - Alarms
 - statsd & collectd protocol for log observability
-- Synthetic monitoring to simulate user traffic
+- Synthetic monitoring to simulate user traffic & monitor your application's endpoints and APIs.
+- Composite alarm used for simulating multiple conditions for alarms
 
 ##### Amazon CloudWatch Logs
 - Amazon CloudWatch logs is a service provided by AWS that enables you to monitor, store and access log data from various AWS resources and applications.
@@ -1057,7 +1059,29 @@
 - Amazon S3 File Gateway provides storage for the on-premises application.
 - Network firewall for traffic inspection and traffic filtering for VPC
 - Control tower guardrails.
-- NAT Gateway for public internet connectivity in private subnet
+- **NAT Gateway for public internet connectivity in private subnet**
 - CloudFront is not so good for dynamic API data to be cached, in such use cases AWS Global accelerator is preferred over the CloudFront.
 - Patching = Scheduling + Automation + Verification
 - Route53 is suitable for Application layer protocol (HTTP/HTTPS) and not for network layer protocol (UDP / TCP).
+- Lower to higher latency & high to low latency
+	- Instance store >> EBS >> S3 >> S3 Glacier
+- AWS WAF provides an option to block / allow country specific traffic filtering for ALB in VPC 
+- s3 provides option for object immutability by adding object lock, versioning and legal hold permission.
+- s3 gateway vs. s3 interface endpoint
+- EKS node group can work with spot instances for the cost minimization
+- Scheduled reserved instances vs. Convertible reserved instances.
+- S3 compliance mode with retention period vs. governance mode with S3 Object lock
+- EFS is regional service
+- Bill dashboard for high level bill details while cost explorer for visualization and custom report and query possibility
+- Prefer multi AZ over multi Region for high availability because its balance between availability and cost.
+- Trusted advisor provides recommendations based on below 5 categories
+	1. cost optimization
+	2. security
+	3. fault tolerance
+	4. performance
+	5. service limits
+- S3 Batch operations job
+- SNS is pub/sub while SQS is push/pull model
+- FSx for NetApp ONTAP is for Windows and FSX for Lustre for Linux high performant file system with sub-millisecond latencies and a minimum throughput of 6 GBps.
+- EFS is costlier than S3 for storing huge amount of data
+- DynamoDB with on-demand capacity mode vs. provisioned mode 

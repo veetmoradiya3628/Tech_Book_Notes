@@ -153,3 +153,6 @@
 	- If the compute instance that is running the schedular is scaled, you then have multiple instances of the scheduler running. This could start multiple instances of the task. for this to handle idempotence to consider
 	- If tasks run for longer than the period between scheduler events, the schedular might start another instance of the task while the previous one is still running.
 
+#### Returning Results
+- 
+
