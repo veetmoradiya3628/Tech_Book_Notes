@@ -119,7 +119,7 @@
 
 ##### AWS budgets
 - AWS Budgets enables the customer to set custom budgets to track cost and usage from the simplest to the complex use cases.
-- set reservation utilization or coverage targets allowing you to get alerts by email or SNS notification when metrics reach the threshold.
+- **set reservation utilization or coverage targets allowing you to get alerts by email or SNS notification when metrics reach the threshold.**
 - AWS budgets can now be created monthly, quarterly, or annually budgets for the AWS resource usage or the AWS costs.
 
 ##### AWS Cost and Usage Report
@@ -521,6 +521,7 @@
 - statsd & collectd protocol for log observability
 - Synthetic monitoring to simulate user traffic & monitor your application's endpoints and APIs.
 - Composite alarm used for simulating multiple conditions for alarms
+- Logs subscription can be used to integrate it with other AWS services
 
 ##### Amazon CloudWatch Logs
 - Amazon CloudWatch logs is a service provided by AWS that enables you to monitor, store and access log data from various AWS resources and applications.
@@ -629,6 +630,7 @@
 ##### AWS Transfer Family
 - AWS Transfer Family is a fully managed & secure service that enables transfer of files using SFTP, FTPS & FTP.
 - The destination storage services to which files are transferred are S3 and EFS.
+- Can be used in case partner want to share SFTP based files to s3 at run time.
 
 ##### AWS Snow Family
 - The AWS Snow Family includes devices for transferring large datasets to and from AWS and enabling data processing at the edge, even in rugged or remote locations.
@@ -1084,4 +1086,8 @@
 - SNS is pub/sub while SQS is push/pull model
 - FSx for NetApp ONTAP is for Windows and FSX for Lustre for Linux high performant file system with sub-millisecond latencies and a minimum throughput of 6 GBps.
 - EFS is costlier than S3 for storing huge amount of data
-- DynamoDB with on-demand capacity mode vs. provisioned mode 
+- DynamoDB with on-demand capacity mode vs. provisioned mode
+- Aurora database does not have life cycle policy for automated backups.
+- CIDR can be in between of /16 to /24 range.
+- Active Directory can directly attach to File system for restricting access
+- IAM role with EKS Service account to provide access from Kubernetes resource to the AWS services

@@ -154,5 +154,10 @@
 	- If tasks run for longer than the period between scheduler events, the schedular might start another instance of the task while the previous one is still running.
 
 #### Returning Results
-- 
+- Background jobs execute asynchronously in a separate process, or even in a separate location, from the UI or the process that involved the background task. Ideally background tasks are "fire and forgot" operations, and their execution progress has no impact on the UI or the calling process. This means that the calling process doesn't wait for completion of the tasks. Therefore, it cannot automatically detect when the task ends.
+- If we require background tasks to communicate with the calling task to indicate progress or completion, we need some mechanism to be implemented, below is few examples
+	- Write a status indicator value to storage that is accessible to the UI or caller task, which can monitor or check this value when required. Other data that the background task must return to the caller can be placed into the same storage.
+	- Establish a reply queue that the UI or caller listens on. The background task can send messages to the queue that indicate status and completion. Data that the background task must return to the caller can be placed into the messages. If you are using Azure Service Bus, you can use the **ReplyTo** and **CorrelationId** properties to implement this capability.
+	- Expose an API or endpoint from the background task that the UI or caller can access to obtain status information. Data that the background task must return to the caller can be included in the response.
+	- Have the background task call back to the UI or caller through an API to indicate status at predefined points or on completion. This might be through events raised locally or through a publish-and-subscribe mechanism. Data that the background task must return to the caller can be included in the request or event payload.
 
