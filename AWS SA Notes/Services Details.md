@@ -114,6 +114,7 @@
 	- exactly once execution
 - Step functions built-in retry and catch fields provide exponential backoff retries and error handling, allowing you to skip non-critical steps while logging failures.
 - Sync express workflow vs. Async express workflow
+- It can be integrated with other AWS service as well, not only Lambda.
 
 #### Cloud Financial Management
 
@@ -186,6 +187,7 @@
 - Placement groups
 	- Spread placement
 	- Partition placement
+	- cluster placement
 - Reserved Instances for baseline traffic and spot instances for unpredictable spikes optimizes both cost and performance.
 - Dedicated instances are very costly instances and only preferred in sovereign and compliance requirement usage cases only.
 ##### EC2 Auto Scaling
@@ -349,6 +351,7 @@
 - Replication is asynchronous
 - It can be integrated with SNS for RDS event notification
 - Existing database instances cannot be encrypted in place. To enable encryption, you must capture a manual snapshot, create an encrypted copy of that snapshot, and restore it as a new encrypted instance to replace the original.
+- Amazon RDS Custom feature for Oracle provides access to underlying operating systems and configuration.
 
 ##### Amazon Redshift
 - Amazon redshift is a fast and powerful, fully managed, petabyte-scale data warehouse service in the cloud. This service is highly scalable to a petabyte or more for $1000 per terabyte per year.
@@ -363,6 +366,7 @@
 - UNLOAD command for export data from redshift to S3
 - Distribution style "KEY" allows us to distribute rows based on the values of a specific column.
 - https://docs.aws.amazon.com/redshift/latest/dg/c_best-practices-best-dist-key.html
+- client and server side encryption in place
 
 #### End User Computing
 
@@ -522,6 +526,7 @@
 - Synthetic monitoring to simulate user traffic & monitor your application's endpoints and APIs.
 - Composite alarm used for simulating multiple conditions for alarms
 - Logs subscription can be used to integrate it with other AWS services
+- we can integrate CloudWatch metric stream to send the EC2 Auto Scaling status data to Amazon Kinesis Data Firehose.
 
 ##### Amazon CloudWatch Logs
 - Amazon CloudWatch logs is a service provided by AWS that enables you to monitor, store and access log data from various AWS resources and applications.
@@ -691,6 +696,7 @@
 	- Singed Cookies
 	- Geo Restriction
 	- Origin Access Identity (OAI)
+- field-level encryption profile feature
 
 ##### AWS Direct Connect
 - AWS Direct Connect is a cloud service that helps to establish a dedicated connection from an on-premises network to one or more VPCs in the same region.
@@ -811,7 +817,8 @@
 
 ##### AWS Directory Service
 - AWS Directory service also known as AWS Managed Microsoft Active Directory (AD), enables multiple ways to use Microsoft AD with other AWS services.
-- AD Connector
+- AD Connector allows integration between AWS Directory service to connect to on-premises Active Directory. Integrate AD Connector with AWS IAM Identity center.
+
 ##### Amazon GuardDuty
 - Managed Thread detection service offered by AWS that continuously monitors and analyzes activity within AWS account to identify potential security threats and vulnerabilities.
 - Region specific Integrate with CloudTrail, EventBridge & Lambda services
@@ -854,6 +861,7 @@
 - Customer managed CMKs
 - AWS managed CMKs
 - AWS each request on Key Usage gets recorded in a log file in CloudTrail
+- Multi-region KMS key
 
 ##### AWS Resource Access Manager
 - AWS Resource Access Manager (RAM) is a service that permits users to share their resources across AWS accounts or within their AWS organizations
@@ -887,6 +895,7 @@
 - WAF stands for Web Application Firewall
 - Managed service provided by AWS that helps protect web applications from common web exploits that could affect application availability, compromise security or consume excessive resources.
 - Protect against SQL Injection, cross-site scripting, distributed denial of service (DDoS) attack
+- WAF Web ACL with a rate-based rule allows protection against http flood attach for API Gateway exposed APIs
 
 #### Storage
 
@@ -894,6 +903,8 @@
 - AWS Backup is a secure service that automates and governs data backup (protection) in the AWS cloud and on-premises.
 - incremental backup, automated backup etc
 - Cost per monthly
+- Backup vault
+- Backup plan
 
 ##### AWS EBS - Elastic Block Storage
 - Amazon Elastic Block Storage is a persistent block-level storage (volume) service designed to be used with Amazon EC2 instances. EBS is AZ specific & automatically replicated within its AZ to protect from component failure, offering high availability and durability.
@@ -971,8 +982,12 @@
 ##### AWS Storage Gateway
 - AWS Storage gateway is a hybrid cloud storage service that allows your on-premises storage & IT infrastructure to seamlessly integrate with AWS cloud storage services. It can be AWS provided hardware or compatible virtual machine.
 - Volume gateway (iSCSI)
+	- Block level data integration
+	- cached vs stored volumes mode
 - File gateway (NFSv4 / SMB)
+	- Allows file based access to the on-premises systems
 - Tape gateway (VTL)
+	- backup and archival is a purpose
 
 ##### AWS Elastic Disaster Recovery
 - AWS Elastic Disaster Recovery (AWS DRS) ensures fast and reliable recovery of both on-premises and cloud-based applications.
@@ -1037,11 +1052,14 @@
 - support for scheduled queries
 
 ##### DynamoDB
-- DAX for read performance optimization
+- DAX for read performance optimization in single region but it does not improves write performance.
+- Global tables feature is useful where we need automatic multi-region replication
+- Capacity mode vs. provisioned mode vs. on-demand capacity mode
+- In built TTL support
 
 ##### Points for Exam
 
-- SNS single topic to fanout multiple SQS queues is supported and used in case if user wants to send notification to multiple consumer. other way around is not supported.
+- SNS single topic to **fanout** multiple SQS queues is supported and used in case if user wants to send notification to multiple consumer. other way around is not supported.
 - s3 access can be restricted based on resource policy and OAI (Origin Access Identity) and not based on security group or NACL rules
 - WAF can be applied to cloud front distribution and not to the target it uses.
 - s3 with CloudFront improves the download performance, s3 transfer acceleration used to improve the upload performance.
@@ -1062,6 +1080,7 @@
 - Network firewall for traffic inspection and traffic filtering for VPC
 - Control tower guardrails.
 - **NAT Gateway for public internet connectivity in private subnet**
+	- It should be placed in public subnet & should have IGW provisioned in it
 - CloudFront is not so good for dynamic API data to be cached, in such use cases AWS Global accelerator is preferred over the CloudFront.
 - Patching = Scheduling + Automation + Verification
 - Route53 is suitable for Application layer protocol (HTTP/HTTPS) and not for network layer protocol (UDP / TCP).
@@ -1091,3 +1110,9 @@
 - CIDR can be in between of /16 to /24 range.
 - Active Directory can directly attach to File system for restricting access
 - IAM role with EKS Service account to provide access from Kubernetes resource to the AWS services
+- AWS Application Auto Scaling with target tracking policies can be used to scale when ECS or any service metrics breaches trigger an Amazon CloudWatch alarm.
+- MongoDB APIs are not compatible with DynamoDB APIs and vice versa.
+- Amazon RDS Proxy can be created for huge number of Lambda functions to use and improve the database performance and not create direct connection with database endpoints.
+- IAM policy explicit deny always overrides the other actions.
+- Signed cookies vs. Signed URLs in API Gateway
+- AWS Resource Groups Tag Editor to identify or report the resources globally with the application tag.
