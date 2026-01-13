@@ -144,6 +144,7 @@
 - Health check & CloudWatch Events for monitoring
 - It can monitor SQS queue size and ASG can be configured to scale up and down based on SQS queue size (no. of messages in queue).
 - No cost for configuration but cost for resources that we will use
+- ASGAverageCPUUtilization metrics
 
 ##### AWS Batch
 - AWS Batch allows developers, scientists, and engineers to run thousands of computing jobs in the AWS platform.
@@ -233,6 +234,9 @@
 	- It is the feature of Amazon CloudFront which allows you to run your code closer to the location of Users of your application.
 	- It improves performance and reduces latency.
 	- Lambda @ Edge runs your code in response to the event created by the CDN.
+	- It can inspect http header and take the action as per that
+- Provisioned concurrency vs. Reserved concurrency
+- Lambda function URL provides an way to call Lambda function as a HTTP request event
 
 ##### AWS Outposts
 - AWS Outposts enables running AWS services locally and accessing a variety of services within the local AWS region.
@@ -352,6 +356,7 @@
 - It can be integrated with SNS for RDS event notification
 - Existing database instances cannot be encrypted in place. To enable encryption, you must capture a manual snapshot, create an encrypted copy of that snapshot, and restore it as a new encrypted instance to replace the original.
 - Amazon RDS Custom feature for Oracle provides access to underlying operating systems and configuration.
+- Automatic backup must be enabled before going for replica creation.
 
 ##### Amazon Redshift
 - Amazon redshift is a fast and powerful, fully managed, petabyte-scale data warehouse service in the cloud. This service is highly scalable to a petabyte or more for $1000 per terabyte per year.
@@ -623,6 +628,7 @@
 - AWS DataSync helps you simplify your migration planning and reduce costs associated with the data transfer.
 - AWS Storage Gateway
 - DataSync with task retries allows the transfer to resume automatically after network interruptions, ensuring data integrity without manual intervention.
+- Supports data transfer between AWS regions it self as well.
 
 ##### AWS Migration Hub
 - AWS Migration Hub (Migration Hub) offers a centralized platform for discovering current servers, planning migrations, and monitoring application migration progress.
@@ -729,6 +735,8 @@
 - Listeners
 - Target groups
 - Health check
+- Gateway Load Balancer
+	- Recommended for using as a inspection of packets before reading to the target
 
 ##### AWS PrivateLink
 - AWS PrivateLink is a network service used to connect to AWS services hosted by other AWS accounts (referred to as endpoint services) or AWS Marketplace
@@ -745,10 +753,13 @@
 - CAA, MX, NAPTR, NS, SOA, SPF, SRV, TXT
 - Routing policies
 	- Simple
+	- Weighted routing
 	- Failover
 	- Geo-location
 	- Latency based
+	- Multi value answer
 - Domain registrar != DNS
+- Amazon Route53 health checks for multi region can be used for health check monitoring in multiple AWS regions and support active-active failover configuration.
 
 ##### AWS Transit Gateway
 - AWS Transit gateway is a network hub used to interconnect multiple VPCs. It can be used to attach all hybrid connectivity by controlling your organizations entire AWS routing configuration in one place.
@@ -781,6 +792,7 @@
 	- AWS Site-to-site VPN
 	- AWS Client VPN
 - VPC endpoints allows AWS service access in secure private subnet environment without internet enabled traffic.
+- gateway VPC endpoint for access to AWS services internally in private environment
 
 ##### AWS Global Accelerator
 - AWS Global accelerator is a networking service designated to improve application performance, availability and security by routing user traffic through the AWS Global network.
@@ -836,6 +848,7 @@
 - IAM Role
 	- policies attached to user
 - Assume roles
+	- It's best practice to use Assume Role with STS in AWS cross account access.
 - IAM Policies
 	- what level of access an identity or AWS resource will posses.
 	- JSON based documents
@@ -846,6 +859,7 @@
 		- Customer managed policies
 	- Inline policies
 - IAM Access Analyzer to analyze IAM access details across the account / organization & it can be integrated with security hub to send findings directly in Security Hub.
+- Password policy across the AWS account for enforce security requirements
 
 ##### Amazon Inspector
 - Amazon Inspector is a vulnerability management service which continuously scans AWS resources for software vulnerabilities and network accessibility.
@@ -905,6 +919,7 @@
 - Cost per monthly
 - Backup vault
 - Backup plan
+- nightly backup can be configured.
 
 ##### AWS EBS - Elastic Block Storage
 - Amazon Elastic Block Storage is a persistent block-level storage (volume) service designed to be used with Amazon EC2 instances. EBS is AZ specific & automatically replicated within its AZ to protect from component failure, offering high availability and durability.
@@ -937,6 +952,7 @@
 
 ##### AWS FSx for Windows File Server
 - Amazon FSx for windows file server is an FSx solution that offers a scalable and shared file storage system on the Microsoft Windows server.
+- FSx file gateway is for hybrid cloud usecase.
 
 ##### AWS FSx for Lustre
 - Amazon FSx for Lustre is an FSx solution that offers scalable storage for the Lustre system (parallel and high-performance file storage system)
@@ -986,6 +1002,7 @@
 	- cached vs stored volumes mode
 - File gateway (NFSv4 / SMB)
 	- Allows file based access to the on-premises systems
+	- SMB - Native to Windows OS
 - Tape gateway (VTL)
 	- backup and archival is a purpose
 
@@ -1056,6 +1073,8 @@
 - Global tables feature is useful where we need automatic multi-region replication
 - Capacity mode vs. provisioned mode vs. on-demand capacity mode
 - In built TTL support
+- Point in time recovery till last 35 days and also s3 as continues backup target
+- RCU - Read capacity units
 
 ##### Points for Exam
 
@@ -1092,6 +1111,8 @@
 - EKS node group can work with spot instances for the cost minimization
 - Scheduled reserved instances vs. Convertible reserved instances.
 - S3 compliance mode with retention period vs. governance mode with S3 Object lock
+	- governance mode allows users to modify / delete object with user having IAM role
+	- compliance mode not allow at all to remove / delete etc on objects
 - EFS is regional service
 - Bill dashboard for high level bill details while cost explorer for visualization and custom report and query possibility
 - Prefer multi AZ over multi Region for high availability because its balance between availability and cost.
@@ -1116,3 +1137,11 @@
 - IAM policy explicit deny always overrides the other actions.
 - Signed cookies vs. Signed URLs in API Gateway
 - AWS Resource Groups Tag Editor to identify or report the resources globally with the application tag.
+- What is On-Demand Capacity Reservation ?
+- Policy can not be directly assign to identity, policy can be assigned to role and role can be assigned to Identity
+- IAM Execution role
+- VPC flow logs can be sent to one of this targets, CloudWatch or S3 bucket.
+- SSE-S3 does not allow automatic key rotation.
+- Route53 --> ALB --> Targets -- this is highly available web application architecture.
+- AWS Config -- monitor and record / track service config change
+- AWS CloudTrail -- service to record API calls
