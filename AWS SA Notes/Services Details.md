@@ -196,6 +196,9 @@
 - ASG is a collection of the minimum number of EC2 used for high availability
 - provides features as fault tolerance, health check, scaling policies, and cost management
 - simple scaling policy | target tracking policy | scheduled scaling actions
+- dynamic scaling policy
+- predictive scaling policy
+- scheduled scaling policy
 
 ##### AWS Elastic Beanstalk
 - Beanstalk is a compute service for deploying and scaling applications developed in many popular programming languages.
@@ -266,6 +269,7 @@
 - Task schedular responsible for attaching tasks within your cluster based on the task definitions.
 - Use cases includes Microservices, Batch Jobs 
 - Fargate launch type vs. EC2 Launch type
+- An IAM role with the required permissions, assigned to the task definition via `taskRoleArn`, enables an ECS container to access other AWS services.
 
 ##### Amazon Elastic Kubernetes Service (EKS)
 - Amazon EKS is a service that enables users to manage Kubernetes applications in the AWS cloud or on-premises. Any standard Kubernetes application can be migrated to EKS without altering the code.
@@ -300,6 +304,8 @@
 - Aurora replicas in different region which is Aurora Global Database adds cross region latency
 - Aurora serverless ideal for workloads with variable demand but not ideal for large-scale read-heavy workloads.
 - Switchover vs. Failover
+- Auto scaling supported natively
+- Aurora Native functions ?
 
 ##### Amazon DocumentDB
 - DocumentDB is a fully managed document database service by AWS which supports MongoDB workloads.
@@ -398,6 +404,7 @@
 - Edge-optimized endpoint
 - To enforce CORS we can use Access-Control-Allow-Origin header for configuration
 - resource policy for the API can be used for restrict the API access based on conditions.
+- Supports IAM Authentication on API endpoints
 #### Internet of Things (IoT)
 
 ##### AWS IoT Analytics
@@ -806,6 +813,7 @@
 	- Global static IP
 	- Low-latency gaming & media workloads
 - endpoint groups & endpoints
+- regional endpoints
 
 #### Security, Identity & Compliance
 ##### AWS Certificate Manager (ACM)
@@ -1089,6 +1097,7 @@
 - Lambda function provides an on-failure configuration for resiliency
 - CloudWatch logs are not suitable for huge TBs of application data, while its suitable for application monitoring and other data
 - Amazon Macie is a data security service uses ML and check data protection in AWS
+	- Data security and data protection and compliance service
 - SSE KMS provides automatic key rotation and logs the usage in CloudTrail while SSE-S3 provides automatic key rotation but does not audit usage detail in CloudTrail.
 - Live migration supported by DMS with combination with ongoing replication task and DMS replication server.
 - S3 inventory is a tool for auditing and listing metadata about objects in bucket while the lifecycle policy moves the objects from one tier to other tier.
@@ -1124,6 +1133,8 @@
 	5. service limits
 - S3 Batch operations job
 - SNS is pub/sub while SQS is push/pull model
+	- SQS - one to one mapping
+	- SNS - one to man mapping possible
 - FSx for NetApp ONTAP is for Windows and FSX for Lustre for Linux high performant file system with sub-millisecond latencies and a minimum throughput of 6 GBps.
 - EFS is costlier than S3 for storing huge amount of data
 - DynamoDB with on-demand capacity mode vs. provisioned mode
@@ -1145,3 +1156,7 @@
 - Route53 --> ALB --> Targets -- this is highly available web application architecture.
 - AWS Config -- monitor and record / track service config change
 - AWS CloudTrail -- service to record API calls
+- Global accelerator with NLB can provide high performance application architecture
+- NLB works with TCP / UDP traffic
+	- Security with TLS listener and SSL/TLS certificate - data transit security 
+- VPC flow logs provides information on IP address, protocol and services being consumed.
