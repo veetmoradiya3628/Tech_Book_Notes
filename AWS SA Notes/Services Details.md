@@ -378,6 +378,7 @@
 - Distribution style "KEY" allows us to distribute rows based on the values of a specific column.
 - https://docs.aws.amazon.com/redshift/latest/dg/c_best-practices-best-dist-key.html
 - client and server side encryption in place
+- RedShift Spectrum
 
 #### End User Computing
 
@@ -1084,6 +1085,9 @@
 - Point in time recovery till last 35 days and also s3 as continues backup target
 - RCU - Read capacity units
 
+##### AWS App Runner
+- **AWS App Runner** is a **fully managed service to deploy and run containerized web applications and APIs** directly from source code or a container image—**without managing servers, clusters, or load balancers**.
+
 ##### Points for Exam
 
 - SNS single topic to **fanout** multiple SQS queues is supported and used in case if user wants to send notification to multiple consumer. other way around is not supported.
@@ -1097,7 +1101,7 @@
 - Lambda function provides an on-failure configuration for resiliency
 - CloudWatch logs are not suitable for huge TBs of application data, while its suitable for application monitoring and other data
 - Amazon Macie is a data security service uses ML and check data protection in AWS
-	- Data security and data protection and compliance service
+	- 
 - SSE KMS provides automatic key rotation and logs the usage in CloudTrail while SSE-S3 provides automatic key rotation but does not audit usage detail in CloudTrail.
 - Live migration supported by DMS with combination with ongoing replication task and DMS replication server.
 - S3 inventory is a tool for auditing and listing metadata about objects in bucket while the lifecycle policy moves the objects from one tier to other tier.
@@ -1160,3 +1164,4 @@
 - NLB works with TCP / UDP traffic
 	- Security with TLS listener and SSL/TLS certificate - data transit security 
 - VPC flow logs provides information on IP address, protocol and services being consumed.
+- Amazon S3 Storage Lens is an analytics service providing organization-wide visibility into object storage usage, activity, and trends, offering actionable recommendations for cost optimization, performance improvement, and data protection through an interactive dashboard in the AWS console.
