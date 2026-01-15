@@ -45,6 +45,7 @@
 - AWS Lake Formation is a cloud service that is used to create, manage and secure data lakes. It automates the complex manual steps required to create data lakes.
 - There is centralized access management for data in data lakes.
 - blueprints can be defined in order to identify the data that can be ingested into a data lake.
+- Data Lake service
 ##### Amazon Managed Streaming for Apache Kafka
 - Amazon MSK is a managed cluster service used to build and execute Apache Kafka applications for processing streaming data.
 - Apache Kafka Access Control Lists (ACLs)
@@ -199,6 +200,9 @@
 - dynamic scaling policy
 - predictive scaling policy
 - scheduled scaling policy
+- step scaling policy
+- target tracking scaling policy
+- simple scaling policy
 
 ##### AWS Elastic Beanstalk
 - Beanstalk is a compute service for deploying and scaling applications developed in many popular programming languages.
@@ -363,6 +367,7 @@
 - Existing database instances cannot be encrypted in place. To enable encryption, you must capture a manual snapshot, create an encrypted copy of that snapshot, and restore it as a new encrypted instance to replace the original.
 - Amazon RDS Custom feature for Oracle provides access to underlying operating systems and configuration.
 - Automatic backup must be enabled before going for replica creation.
+- Auto scaling of storage based on storage free / occupied metrics data
 
 ##### Amazon Redshift
 - Amazon redshift is a fast and powerful, fully managed, petabyte-scale data warehouse service in the cloud. This service is highly scalable to a petabyte or more for $1000 per terabyte per year.
@@ -379,6 +384,8 @@
 - https://docs.aws.amazon.com/redshift/latest/dg/c_best-practices-best-dist-key.html
 - client and server side encryption in place
 - RedShift Spectrum
+	- Amazon Redshift Spectrum (RS) is an AWS feature that lets you run SQL queries directly on massive datasets (exabytes) in Amazon S3 (data lake) without loading them into a data warehouse, combining it with data already in Redshift for unified analysis, cost-effectively analyzing huge amounts of data, and enabling complex BI, ML, and data sharing for better insights and monetization.
+- OLAP data source
 
 #### End User Computing
 
@@ -604,6 +611,8 @@
 ##### AWS Systems Manager
 - AWS Systems manager is a service which helps users to manage EC2 and on-premises systems at scale. It not only detects the insights about the state of the infrastructure but also easily detects problems as well.
 - Systems manager documents for defining service actions
+- Native feature to configure logging to s3 or CloudWatch target
+- AWS Systems Manager Run command feature can be used to run custom command to set of EC2 instances at scale.
 
 ##### AWS Trusted Advisor
 - Trusted advisor itself provides checks based on Best Practices in the Cost Optimization, Security, Fault tolerance and performance improvement categories.
@@ -749,6 +758,7 @@
 ##### AWS PrivateLink
 - AWS PrivateLink is a network service used to connect to AWS services hosted by other AWS accounts (referred to as endpoint services) or AWS Marketplace
 - Interface endpoint
+	- Interface VPC endpoint is private IP endpoint for gateway API so API can be called via private network and traffic does not leave the AWS VPC.
 
 ##### Amazon Route 53
 - Route53 is a managed DNS (Domain Name System) service where DNS is a collection of rules and records intended to help clients / users understand how to reach any server by its domain name.
@@ -869,6 +879,7 @@
 	- Inline policies
 - IAM Access Analyzer to analyze IAM access details across the account / organization & it can be integrated with security hub to send findings directly in Security Hub.
 - Password policy across the AWS account for enforce security requirements
+- IAM roles can not be attached to IAM groups
 
 ##### Amazon Inspector
 - Amazon Inspector is a vulnerability management service which continuously scans AWS resources for software vulnerabilities and network accessibility.
@@ -993,7 +1004,10 @@
 	- S3 Glacier Flexible Retrieval
 	- S3 Glacier Deep Archive
 		- for storing data for long term
+	- S3 Glacier with Expedited retrievals
+		- cost effective storage for cold tier and which is needed less than a 5 minutes
 - bucket policy can not support IP address based restriction
+- Life cycle policy rules can be created to setup and delete non current version of object as well.
 
 ##### S3 Glacier
 - Amazon S3 Glacier is a web service with vaults that offers long-term data archiving and data backup.
@@ -1013,7 +1027,10 @@
 	- Allows file based access to the on-premises systems
 	- SMB - Native to Windows OS
 - Tape gateway (VTL)
+	- VTL interface
 	- backup and archival is a purpose
+- Amazon FSx File Gateway
+- Amazon S3 File Gateway
 
 ##### AWS Elastic Disaster Recovery
 - AWS Elastic Disaster Recovery (AWS DRS) ensures fast and reliable recovery of both on-premises and cloud-based applications.
@@ -1067,6 +1084,7 @@
 - Constraints 
 	- Template constraint
 	- Launch constraint
+- AWS Service Catalog products are pre-configured, approved IT services (like virtual machines, databases, or applications) that organizations define, manage, and offer to end-users through a curated portal, ensuring users can only deploy resources that meet compliance and governance standards, speeding up provisioning while maintaining control
 
 ##### AWS Data Exchange
 - AWS Data exchange is a service for securely sharing and using third-party data on AWS.
@@ -1084,9 +1102,15 @@
 - In built TTL support
 - Point in time recovery till last 35 days and also s3 as continues backup target
 - RCU - Read capacity units
+- WCU - Write capacity units
+- on-demand mode is designed for unpredictable workload
+- provisioned capacity mode is designed for regular workload / stable workload
 
 ##### AWS App Runner
 - **AWS App Runner** is a **fully managed service to deploy and run containerized web applications and APIs** directly from source code or a container image—**without managing servers, clusters, or load balancers**.
+
+##### Amazon Pinpoint
+- Amazon Pinpoint is a flexible and scalable multichannel marketing communication service offered by Amazon Web Services (AWS). It enables businesses to engage with their customers across various channels—including email, SMS, push notifications, voice messages, and in-app messages—using targeted, personalized, and automated communication campaigns. 
 
 ##### Points for Exam
 
@@ -1101,7 +1125,6 @@
 - Lambda function provides an on-failure configuration for resiliency
 - CloudWatch logs are not suitable for huge TBs of application data, while its suitable for application monitoring and other data
 - Amazon Macie is a data security service uses ML and check data protection in AWS
-	- 
 - SSE KMS provides automatic key rotation and logs the usage in CloudTrail while SSE-S3 provides automatic key rotation but does not audit usage detail in CloudTrail.
 - Live migration supported by DMS with combination with ongoing replication task and DMS replication server.
 - S3 inventory is a tool for auditing and listing metadata about objects in bucket while the lifecycle policy moves the objects from one tier to other tier.
@@ -1120,6 +1143,7 @@
 	- Instance store >> EBS >> S3 >> S3 Glacier
 - AWS WAF provides an option to block / allow country specific traffic filtering for ALB in VPC 
 - s3 provides option for object immutability by adding object lock, versioning and legal hold permission.
+- s3 object lock is bucket level feature and not folder level feature.
 - s3 gateway vs. s3 interface endpoint
 - EKS node group can work with spot instances for the cost minimization
 - Scheduled reserved instances vs. Convertible reserved instances.
@@ -1156,7 +1180,6 @@
 - Policy can not be directly assign to identity, policy can be assigned to role and role can be assigned to Identity
 - IAM Execution role
 - VPC flow logs can be sent to one of this targets, CloudWatch or S3 bucket.
-- SSE-S3 does not allow automatic key rotation.
 - Route53 --> ALB --> Targets -- this is highly available web application architecture.
 - AWS Config -- monitor and record / track service config change
 - AWS CloudTrail -- service to record API calls
@@ -1164,4 +1187,21 @@
 - NLB works with TCP / UDP traffic
 	- Security with TLS listener and SSL/TLS certificate - data transit security 
 - VPC flow logs provides information on IP address, protocol and services being consumed.
-- Amazon S3 Storage Lens is an analytics service providing organization-wide visibility into object storage usage, activity, and trends, offering actionable recommendations for cost optimization, performance improvement, and data protection through an interactive dashboard in the AWS console.
+- Egress with Direct Connect has less data transfer cost compare to internet access
+- ALB sticky sessions (session affinity)  - used for session management in distributed applications.
+- Amazon Kinesis data stream provides ordering of messages in sequence based on partition key.
+- Default ACL for network subnet allows all traffic to go in and out.
+- Online data transfer - efficient way to do is via `AWS DataSync`
+- AWS X-Ray helps developers analyze and debug distributed applications by collecting trace data for individual requests as they pass through the application's components.
+- Event Bridge (CloudWatch API) can be integrated with SNS topic to send an alert when some particular API call is detected.
+- AWS SSO (AWS Identity group) with on-premises  self-managed Microsoft Active Directory, integrate as a two-way trust connect
+- security group inbound / outbound rules for restricted access management
+- What is AWS App2Container (A2C) ?
+- Buffer / Decouple pattern :- API (burst data source) <--> Amazon SQS (Buffer) <--> Amazon RDS (Database)
+- AWS Systems Manager Session Manager - allows secure & browser based access to EC2 instance with managed services.
+- Amazon Athena Federated Query with a DynamoDB connector - allows to query data source other than s3.
+- SQS default allows 256 KB max message size, if want to support message size greater than this then we should use Amazon SQS Extended Client Library to support larger messages
+- Amazon AppFlow - 
+	- Amazon Web Services (AWS) (AWS AppFlow) is a fully managed integration service that securely automates data transfer between Software-as-a-Service (SaaS) applications (like Salesforce, Slack, ServiceNow) and Amazon Web Services (AWS) services (like Amazon S3, Amazon Redshift) without writing code.
+- It is not possible to restore the EBS snapshot in EC2 instance store.
+- Amazon RDS Proxy provides failover downtime solution in efficient way
