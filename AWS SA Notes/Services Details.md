@@ -501,6 +501,7 @@
 
 ##### Amazon Transcribe
 - Amazon Transcribe is a service used to convert audio (speech) to text using a Deep Learning process known as automatic speech recognition (ASR).
+- It supports multiple speaker recognition as well.
 
 ##### Amazon Kendra
 - Amazon Kendra is a cutting-edge search solution powered by AI, utilizing natural language processing (NLP) and machine learning to provide highly accurate and context-aware search results.
@@ -825,11 +826,12 @@
 	- Low-latency gaming & media workloads
 - endpoint groups & endpoints
 - regional endpoints
+- Works well with ALB (HTTPS, DNS) & NLB (TCP & UDP) both.
 
 #### Security, Identity & Compliance
 ##### AWS Certificate Manager (ACM)
 - AWS Certificate manager is a service that allows a user to provide, manage, renew and deploy public and private secure sockets layers / TLS x.509 certificates.
-- direct issue new certificate vs. importing existing third-party certificate.
+- direct issue new certificate vs. impforting existing third-party certificate.
 
 ##### AWS Nitro Enclaves
 - AWS Nitro enclaves are isolated, hardened virtual environments with in an Amazon EC2 instance.
@@ -1120,6 +1122,7 @@
 - s3 with CloudFront improves the download performance, s3 transfer acceleration used to improve the upload performance.
 - AWS WAF provides central configuration option for rules to apply in multiple region in multiple AWS accounts at the same time with AWS firewall configuration
 - AWS Shield primary focus is DDoS prevention
+	- Accelerator as a protected resource can be configured
 - Global accelerator is not for application performance improvement but it works at TCP UDP level for load balancer to improve overall network performance.
 - Different cost savings plans for optimizing the cost.
 - Lambda function provides an on-failure configuration for resiliency
@@ -1128,6 +1131,7 @@
 - SSE KMS provides automatic key rotation and logs the usage in CloudTrail while SSE-S3 provides automatic key rotation but does not audit usage detail in CloudTrail.
 - Live migration supported by DMS with combination with ongoing replication task and DMS replication server.
 - S3 inventory is a tool for auditing and listing metadata about objects in bucket while the lifecycle policy moves the objects from one tier to other tier.
+	- S3 Object lifecycle policy allows old version management as well in versioned bucket.
 - Route53 can be integrated with CloudFront distribution to improve the static and dynamic data loading at end user.
 - AWS KMS key can be accessed by EC2 application with EC2 role provided.
 - Amazon Quicksight offers native, fine-grained access control, allowing you to securely share specific dashboards and visualizations with different users and groups.
@@ -1205,3 +1209,19 @@
 	- Amazon Web Services (AWS) (AWS AppFlow) is a fully managed integration service that securely automates data transfer between Software-as-a-Service (SaaS) applications (like Salesforce, Slack, ServiceNow) and Amazon Web Services (AWS) services (like Amazon S3, Amazon Redshift) without writing code.
 - It is not possible to restore the EBS snapshot in EC2 instance store.
 - Amazon RDS Proxy provides failover downtime solution in efficient way
+- To connect 100s of VPCs in mesh network, we can use AWS Transit Gateway. Network Transit Hub
+- CloudFront CDN is supporting only HTTP / HTTPS
+- Compute savings plan >> EC2 Instance savings plan
+- Private hosted zone in Route 53
+- Amazon Cognito user pool authorizer can be integrated with API Gateway
+- VPC endpoints can be used for EKS internal network configuration as well for private cluster
+- Learn AWS Lake formation
+	- Lake Formation to ingest the data from database to the S3 data lake.
+	- Lake Formation can be used to enforce column-level access control for the Quick Sight users
+- Refer to IOPS and its provisioning with speed and number of IOPS
+- Security group does not support explicit deny rule, only allow rule is allowed for configuration
+- NACL supports both inbound / outbound rules
+- Multi AZ ASG is most scalable and robust for Amazon EC2 instance
+- Hosts vs. Instances in EC2
+- Cooldown period in ASG
+- Resource based vs. identity based policy structure
