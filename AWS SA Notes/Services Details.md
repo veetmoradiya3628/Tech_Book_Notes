@@ -1225,3 +1225,95 @@
 - Hosts vs. Instances in EC2
 - Cooldown period in ASG
 - Resource based vs. identity based policy structure
+
+
+-------
+**Quick Notes**
+
+- EBS Types
+	- General purpose (SSD)
+	- Cold Hard Disk Drive
+	- Magnetic
+	- Provisioned IOPS (SSD)
+	- Throughput optimized Hard disk drive
+- Security group 
+	- Operated at instance level
+	- Allows rules only, cannot deny
+	- Stateful design
+	- Outbound traffic allowed by default; inbound rules required definition
+- Network ACLs operated at the subnet level
+- AWS Batch supports execution on EC2 (including Spot instances) and AWS Fargate
+- AWS Bean stalk supports two environment types
+	1. Web Tier
+	2. Worker Tier
+- AWS Serverless Application Repository
+	- It it a managed repository for serverless applications. it is used by organizations and independent developers to store and share reusable applications.
+- AWS Fargate
+	- AWS Fargate is a serverless compute service for containers used with Amazon ECS and EKS. It simplifies running containers by eliminating the need to manage virtual machines like EC2.
+- eksctl - Command-line tool for creating and managing clusters
+- Kubeflow for ML workflows in Kubernetes environment
+- ECS - Elastic Container services
+	- Fargate vs. EC2 Launch Types
+- ECR - Elastic Container registry
+- AWS App Mesh (for traffic control, security and observability)
+- S3 types
+	- S3 Standard
+	- S3 Standard-IA
+	- S3 Intelligent-Tiering
+	- S3 One Zone-IA
+	- S3 Glacier
+	- S3 Glacier Deep Archive
+	- RRS (reduced redundancy storage)
+- AWS Backup
+- EBS vs. Instance store
+- EFS storage classes
+	- EFS Standard
+	- EFS IA
+	- EFS Archive
+- Amazon S3 Glacier
+	- Retrieval options
+		- Expedited - 1-5 minutes
+		- Standard - 3-5 hours
+		- Bulk - 5-12 hours
+- S3 Glacier select - queries specific archive objects instead of full retrievals
+- AWS Storage Gateway
+	- Volume Gateway - iSCSI
+	- Stored volume
+	- Cached volume
+	- File Gateway (NFSv4/SMB)
+	- Tape Gateway (VTL)
+- Aurora Features
+	- Aurora Global Database
+	- Aurora Multi-master
+	- Aurora serverless
+- DocumentDB from 10GB to 64 TB
+- KeySpaces - Apache Cassandra compatible database in AWS.
+- Cognito user pool vs. Identity pool vs. Federated Identity
+- AWS Cloud map
+	- AWS Cloud map is a service registry that tracks the names, locations, attributes and health of cloud resources, enabling dynamic discovery.
+- Transit gateway vs. VPC peering
+- AWS Direct connect
+- AWS AppSync - GraphQL API
+- AWS Amplify - Full stack web and mobile app development
+- AWS Device Farm - Tests on real devices and browsers
+- Amazon Event Bus
+- AWS SNS
+- Amazon SQS
+- AWS Step Functions
+- ML
+	- Amazon Rekognition
+		- pre-trained models for image and video analytics, including object detection, facial recognition, and scene detection.
+	- NLP
+		- Comprehend
+			- text analysis, sentimental analysis, entity recognition, language detection
+		- Translate
+			- real-time translation between different languages
+		- Lex
+			- conversational interface
+		- Polly
+			- text to speach
+	- Transcribe
+		- speech to text
+	- Textract
+		- Document processing and data extraction
+	- Amazon Personalize - personal recommendation based on user behavior
