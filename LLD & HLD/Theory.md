@@ -161,3 +161,19 @@
 	- Expose an API or endpoint from the background task that the UI or caller can access to obtain status information. Data that the background task must return to the caller can be included in the response.
 	- Have the background task call back to the UI or caller through an API to indicate status at predefined points or on completion. This might be through events raised locally or through a publish-and-subscribe mechanism. Data that the background task must return to the caller can be included in the request or event payload.
 
+#### DNS
+- Domain Name System
+- A domain name system (DNS) translates domain name such as www.example.com to an IP address.
+- DNS is hierarchical, with a few authoritative servers at the top level. Your router or ISP provides information about which DNS server(s) to contact when doing a lookup. Lower level DNS servers cache mappings, which could become stale due to DNS propagation delays. DNS results can also be cached by your browser or OS for a certain period of time, determined by the time to live (TTL).
+	- NS record (name server) - Specifies the DNS servers for your domain / subdomain.
+	- MX record (mail exchange) - Specifies the mail servers for accepting messages.
+	- A record (address) - Points a name to an IP address
+	- CNAME (canonical) - Points a name to another name or CNAME ([example.com](http://example.com/) to [www.example.com](http://www.example.com/)) or to an A record.
+- Services such as [CloudFlare](https://www.cloudflare.com/dns/) and [Route53](https://aws.amazon.com/route53/) provide managed DNS services.
+- DNS route traffic patterns
+	- Weighted round robin
+	- Latency based
+	- Geolocation based
+	- Least connections
+	- Weighted least connections
+	- Random
