@@ -313,3 +313,17 @@
 			- Benchmark - Simulate high-load situations with tools such as ab.
 			- Profile - Enable tools such as the slow query log to help track performance issues.
 		- Benchmarking and profiling might point you to the following optimizations.
+
+#### Caching
+- Caching is the process of storing frequently accessed data in a temporary storage location, called a cache, in order to quickly retrieve it without the need to query the original data source. This can improve the performance of an application by reducing the number of times a data source must be accessed.
+- There are several caching strategies
+	- Refresh Ahead
+	- Write behind
+	- Write through
+	- Cache Aside
+- Also you can have the cache in several places, example:
+	- Client caching
+	- CDN caching
+	- Web Server Caching
+	- Database Caching
+	- Application Caching
