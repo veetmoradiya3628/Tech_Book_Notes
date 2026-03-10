@@ -327,3 +327,47 @@
 	- Web Server Caching
 	- Database Caching
 	- Application Caching
+- Refresh ahead
+	- You can configure the cache to automatically refresh any recently accessed cache entry prior to its expiration.
+	- Refresh-ahead can result in reduced latency vs read-through if the cache can accurately predict which items are likely to be needed in the future.
+	- Disadvantages
+		- Not accurately predicting which items are likely to be needed in the future can result in reduced performance than without refresh-ahead
+- Write behind
+	- In write-behind, the application does the following:
+		- Add/update entry in cache
+		- Asynchronously write entry to the data store, improving write performance
+	- Disadvantage of Write behind
+		- There could be data loss if the cache goes down prior to its contents hitting the data store.
+		- It is more complex to implement write-behind than it is to implement cache-aside or write-through
+- Write through
+	- The application uses the cache as the main data store, reading and writing data to it, while the cache is responsible for reading and writing to the database:
+		- Application adds/updates entry in cache
+		- Cache synchronously writes entry to data store
+		- Return
+	- Write-through is a slow overall operation due to the write operation, but subsequent reads of just written data are fast. Users are generally more tolerant of latency when updating data than reading data. Data in the cache is not stale.
+	- Disadvantages
+		- When a new node is created due to failure or scaling, the new node will not cache entries until the entry is updated in the database. Cache-aside in conjunction with write through can mitigate this issue.
+		- Most data written might never be read, which can be minimized with a TTL.
+- Cache-aside
+	- The application is responsible for reading and writing from storage. The cache does not interact with storage directly. The application does the following:
+		- Look for entry in cache, resulting in a cache miss
+		- Load entry from the database
+		- Add entry to cache
+		- Return entry
+	- Memcached is generally used in this manner. Subsequent reads of data added to cache are fast. Cache-aside is also referred to as lazy loading. Only the requested data is cached, which avoids filling up the cache with data that isn't requested.
+- Types of Caching
+	- Client Caching
+		- Client-side caching refers to the practice of storing frequently accessed data on the client's device rather than the server. This type of caching can help improve the performance of an application by reducing the number of times the client needs to request data from the server.
+		- Web-browser caching for stylesheet, images etc,
+		- Application-level caching on mobile device for better performance
+		- Disadvantage of potential stale data
+	- CDN Caching
+		- A content delivery network (CDN) is a distributed network of servers that are strategically placed in various locations around the world. The main purpose of a CDN is to serve content to end-users with high availability and high performance by caching frequently accessed content on servers that are closer to the end-users.
+	- Web Server Caching
+		- Reverse proxies and caches such as Varnish can serve static and dynamic content directly. Web servers can also cache requests, returning responses without having to contact application servers.
+	- Database Caching
+		- Database caching involves storing frequently accessed data from a database in a temporary storage location (the cache) to reduce the load on the database and improve application performance.
+	- Application Caching
+		- In-memory caches such as memcached and Redis are key-value stores between your application and your data storage.
+		- Cache invalidation algorithms such as LRU, LFU etc
+		- You should avoid using file-based caching as it makes cloning and auto-scaling more difficult.
