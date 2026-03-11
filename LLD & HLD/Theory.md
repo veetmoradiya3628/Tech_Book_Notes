@@ -369,5 +369,27 @@
 		- Database caching involves storing frequently accessed data from a database in a temporary storage location (the cache) to reduce the load on the database and improve application performance.
 	- Application Caching
 		- In-memory caches such as memcached and Redis are key-value stores between your application and your data storage.
-		- Cache invalidation algorithms such as LRU, LFU etc
+		- Cache invalidation algorithms such as LRU, LFU etc.
 		- You should avoid using file-based caching as it makes cloning and auto-scaling more difficult.
+
+#### Asynchronism
+- Asynchronous workflows help reduce request times for expensive operations that would otherwise be performed in-line. They can also help by doing time-consuming work in advance, such as periodic aggregation of data.
+- Back pressure
+	- If queues start to grow significantly, the queue size can become larger than memory, resulting in cache misses, disk reads and even slower performance.
+	- Back pressure can help by limiting the queue size, thereby maintaining a high throughput rate and good response times for jobs already in the queue. Once the queue fills up, clients get a server busy or HTTP 503 status code to try again later.
+	- Clients can retry later with exponential backoff.
+- Task Queues
+	- Task queues receive tasks and their related data, runs them, then delivers their results. They can support scheduling and can be used to run computationally-intensive jobs in the background.
+	- Celery has support for scheduling and primary has python support.
+	- Dead letter queue
+	- Delayed jobs
+	- Priority queues
+- Message Queues
+	- Message queue receive, hold and deliver messages. if an operation is too slow to perform inline, you can use a message queue with the follow workflow:
+		- An application publishes a job to the queue, then notifies the user of job status
+		- A worker picks up the job from the queue, processes it, then signals the job is complete
+	- The user is not blocked and the job is processed in the background. During this time, the client might optionally do a small amount of processing to make it seem like  the task has completed. For example, if posting a tweet, the tweet could be instantly posted to your timeline, but it could take some time before your tweet is actually delivered to all of your followers.
+- Idempotent Operations
+	- Idempotent operations are operations that can be applied multiple times without changing the result beyond the initial application. In other words, if an operation is idempotent, it will have the same effect whether it is executed once or multiple times.
+	- It is also important to understand the benefits of [idempotent](https://en.wikipedia.org/wiki/Idempotence#Computer_science_meaning) operations, especially when using message or task queues that do not guarantee _exactly once_ processing. Many queueing systems guarantee _at least once_ message delivery or processing. These systems are not completely synchronized, for instance, across geographic regions, which simplifies some aspects of their implementation or design. Designing the operations that a task queue executes to be idempotent allows one to use a queueing system that has accepted this design trade-off.
+	- PUT vs PATCH HTTP method
