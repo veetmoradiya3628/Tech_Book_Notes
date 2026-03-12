@@ -393,3 +393,35 @@
 	- Idempotent operations are operations that can be applied multiple times without changing the result beyond the initial application. In other words, if an operation is idempotent, it will have the same effect whether it is executed once or multiple times.
 	- It is also important to understand the benefits of [idempotent](https://en.wikipedia.org/wiki/Idempotence#Computer_science_meaning) operations, especially when using message or task queues that do not guarantee _exactly once_ processing. Many queueing systems guarantee _at least once_ message delivery or processing. These systems are not completely synchronized, for instance, across geographic regions, which simplifies some aspects of their implementation or design. Designing the operations that a task queue executes to be idempotent allows one to use a queueing system that has accepted this design trade-off.
 	- PUT vs PATCH HTTP method
+
+#### Communication
+- Network protocols are a key part of systems today, as no system can exist in isolation - they all need to communicate with each other.
+- HTTP
+	- HTTP is a method for encoding and transporting data between a client and a server. It is a request/response protocol: clients issue requests and servers issue responses with relevant content and completion status info about the request.
+	- HTTP is self-contained, allowing requests and responses to flow through many intermediate routers and servers that perform load balancing, caching, encryption, and compression.
+	- HTTP methods GET, POST, PUT, PATCH, DELETE and its usage
+- TCP
+	- TCP (Transmission Control Protocol) is a connection-oriented, reliable, and ordered protocol used for transmitting data over an IP network.
+	- It establishes a connection between a sender and receiver before data transfer begins, ensures that data packets arrive in the correct sequence without errors, and provides mechanisms for retransmission of lost packets and flow control to manage network congestion.
+- UDP
+	- UDP is connectionless. Datagrams (analogous to packets) are guaranteed only at the datagram level. Datagrams might reach their destination out of order or not at all. UDP does not support congestion control. Without the guarantees that TCP support, UDP is generally more efficient.
+	- UDP can broadcast, sending datagrams to all devices on the subnet. This is useful with DHCP because the client has not yet received an IP address, thus preventing a way for TCP to stream without the IP address.
+	- UDP is less reliable but works well in real time use cases such as VoIP, video chat, streaming, and realtime multiplayer games.
+	- https://www.cs.bu.edu/~jappavoo/jappavoo.github.com/451/papers/memcache-fb.pdf
+	- TCP vs UDP
+- RPC
+	- In an RPC, a client causes a procedure to execute on a different address space, usually a remote server. The procedure is coded as if it were a local procedure call, abstracting away the details of how to communicate with the server from the client program.
+	- Adv vs. DisAdv of RPC
+	- gRPC
+		- gRPC is a high-performance open-source framework for building remote procedure call (RPC) APIs. It is based on the Protocol Buffers data serialization format and supports a variety of programming languages, including C#, Java, and Python.
+- REST
+	- REST is an architectural style enforcing a client/server model where the client acts on a set of resources managed by the server. 
+	- The server provides a representation of resources and actions that can either manipulate or get a new representation of resources. All communication must be stateless and cacheable.
+	- Qualities of RESTful interface
+		- Identify resources (URI in HTTP)
+		- Change with representations (Verbs in HTTP) - verbs, headers, body
+		- Self-descriptive error message (status response in HTTP)
+		- HATEOS (HTTP interface for HTTP)
+- GraphQL
+	- GraphQL is a query language and runtime for building APIs. It allows clients to define the structure of the data they need and the server will return exactly that.
+	- This is in contrast to traditional REST APIs, where the server exposes a fixed set of endpoints and the client must work with the data as it is returned.
