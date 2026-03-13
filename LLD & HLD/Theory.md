@@ -425,3 +425,89 @@
 - GraphQL
 	- GraphQL is a query language and runtime for building APIs. It allows clients to define the structure of the data they need and the server will return exactly that.
 	- This is in contrast to traditional REST APIs, where the server exposes a fixed set of endpoints and the client must work with the data as it is returned.
+
+#### Performance Antipatterns
+- Improper Instantiation ([link](https://learn.microsoft.com/en-us/azure/architecture/antipatterns/improper-instantiation/))
+	- Sometimes new instances of a class are continually created, when it's meant to be created once and then shared. This behavior can hurt performance and is called an _improper instantiation antipattern_.
+	- Problems
+		- CPU overhead
+		- Memory pressure
+		- GC pressure
+		- Cache efficiency
+	- Common Examples
+		- Creating objects in loops
+		- HTTP client creation per request
+		- Database connection creation
+		- Logger instantiation
+	- How to detect ?
+		- heap profiler
+		- CPU profiler
+		- allocation profiler
+	- Solutions
+		- Object reuse
+		- Object pooling
+		- Dependency injection
+		- Singleton pattern
+		- Lazy initialization
+		- Static Factory Method
+- Busy Database ([link](https://learn.microsoft.com/en-us/azure/architecture/antipatterns/busy-database/))
+	- A **Busy Database** occurs when the **database is overloaded with work that should be done by the application or another system component**.
+	- Instead of the database focusing on data storage and retrieval, it becomes responsible for 
+		- heavy computations
+		- business logic
+		- complex processing
+		- excessive queries
+	- Problems
+		- Database becomes bottleneck
+		- Resource contention
+		- Locking and Transaction delays
+	- Solutions
+		- Move logic to application
+		- Use caching
+		- Use read replicas
+		- Pre-computation
+		- Asynchronous processing
+- Extraneous Fetching ([link](https://learn.microsoft.com/en-us/azure/architecture/antipatterns/extraneous-fetching/))
+	- Extraneous Fetching occurs when **an application retrieves more data from the database than it actually needs**.
+	- This wastes
+		- network bandwidth
+		- database CPU
+		- memory
+		- serialization time
+	- Problems
+		- Increased network transfer
+		- Memory waste
+		- Slow serialization
+	- Solutions
+		- Fetch only needed columns
+		- Pagination
+		- Projection APIs
+		- DTO Layer
+	```
+	Simple Mental Rule
+	
+	Database -> store and retrieve data
+	Application -> business logic
+	Cache -> speed
+	Queue -> background work
+	```
+- N + 1 Queries
+	- This occurs when a system makes multiple queries to a database to retrieve related data, instead of using a single query to retrieve all the necessary data.
+- Chatty Interfaces
+	- This occurs when a system makes too many small and frequent requests to an external service or API, instead of making fewer, larger requests.
+- Unbounded data
+	- This occurs when a system retrieves or processes more data than is necessary for the task at hand, leading to increased resource usage and reduced performance.
+- Inefficient algorithms
+	- This occurs when a system uses an algorithm that is not well suited to the task at hand, leading to increased resource usage and reduced performance.
+- No caching pattern
+	- The **No Caching anti-pattern** is a **performance anti-pattern** where an application repeatedly fetches the same data from expensive resources (database, API, disk, or computation) **without storing reusable results in a cache**. This leads to **unnecessary load, higher latency, and poor scalability**.
+	- Problems without caching
+		- High Database load
+		- Slow response time
+		- Poor scalability
+		- Increased Infrastructure Cost
+	- Types of Caching
+		- Application Cache
+		- Distributed Cache
+		- CDN Cache
+		- Database Cache
