@@ -511,3 +511,102 @@
 		- Distributed Cache
 		- CDN Cache
 		- Database Cache
+- Monolithic persistence anti pattern
+	- Putting all of an application's data into a single data store can weaken performance, either because it leads to resource contention or because the data store isn't a good fit for some of the data.
+	- All application components depend on a single shared database schema
+	- Problems
+		- Tight coupling
+		- No independent deployment
+		- Schema ownership problem
+		- Database lock contention
+		- Scaling becomes hard
+	- Solution
+		- Database per service
+	- Initial days (small team) shared database is good
+- Busy Front end anti pattern
+	- The Busy Front End anti-pattern occurs when **resource-intensive work runs on the front-end server**, starving the threads that should be handling user requests.
+	- Symptoms
+		- High response time
+		- CPU spikes
+		- Error codes
+		- Queue build up
+	- Solution
+		- Queue-based load leveling
+	- Example
+		- Video transcoding / processing
+	```
+	Front end - thin layer
+	Backend workers - heavy processing
+	Queue - buffer
+	```
+- Noisy neighbor antipattern
+	- The Noisy Neighbor anti-pattern occurs when one application or tenant consumes disproportionate system resources (CPU, memory, I/O, or network), causing performance degradation for other workloads sharing the same environment.
+	- Problematic areas
+		- Cloud Virtual Machines
+		- Containers
+		- Shared Databases
+	- Symptoms
+		- Random performance spikes
+		- Resource saturation
+		- Uneven workload impact
+	- Solutions
+		- Resource isolation
+		- Separate workloads
+		- Rate limiting
+		- Workload scheduling
+	```
+	Shared resources -> risk of contention
+	
+	Design for
+		- Isolation
+		- Limits
+		- Scheduling
+		- Auto scaling
+	```
+- Chatty I/O
+	- Chatty I/O occurs when an application performs many small remote calls instead of batching them into fewer calls.
+	- Problems
+		- Network calls have overhead
+		- Chatty database access
+	- Solutions
+		- Batch Requests
+		- Aggregation layer
+		- Use bulk database queries
+		- Use caching
+		- GraphQL or Aggregation APIs
+	```
+	Network round trips are expensive
+	AIM for fewer calls & more data per call
+	```
+- Synchronous I/O anti pattern
+	- **Synchronous I/O** means a program **waits until an operation finishes before continuing execution**.
+	- Problematic areas
+		- Web APIs
+		- Microservices
+		- Cloud Applications
+	- Solution
+		- Async I/O
+	```
+	Neven block threads on slow I/O operations
+	Use asynchronous or even-driven models
+	```
+- Retry storm
+	- A retry storm occurs when multiple clients repeatedly retry failed requests simultaneously, causing an exponential increase in load on an already failing system.
+	- Symptoms
+		- Sudden traffic spike
+		- Error rate increases
+		- system can not recover
+	- Solutions
+		- Timeouts
+		- Multiple retry layers
+		- Lack of back off strategy
+		- Exponential backoff
+		- Jitter
+		- Circuit breaker
+		- Retry limits
+		- Queue-based load control
+	```
+	Retries should reduce failure impact,
+	not amplify it
+	```
+	
