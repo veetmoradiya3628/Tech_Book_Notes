@@ -609,4 +609,132 @@
 	Retries should reduce failure impact,
 	not amplify it
 	```
-	
+
+#### Monitoring
+- Distributed applications and services running in the cloud are, by their nature, complex pieces of software that comprise many moving parts. In a production environment, it's important to be able to track the way in which users use your system, trace resource utilization, and generally monitor the health and performance of your system. You can use this information as a diagnostic aid to detect and correct issues, and also to help spot potential problems and prevent them from occurring.
+- Health Monitoring
+	- A system is healthy if it's running and capable of processing requests. The purpose of health monitoring is to generate a snapshot of the current health of the system so that you can verify that all components of the system are functioning as expected.
+	- It enables:
+		- Fault detection
+		- Self healing
+		- Auto scaling
+		- Traffic routing
+		- Alerting
+	- Types of health checks
+		- Liveness checks
+		- Readiness checks
+		- Startup check
+	- Active vs. Passive monitoring
+	- Deep vs. Shallow monitoring
+	- Monitoring stack
+		- Prometheus - metrics
+		- Grafana - visualization
+		- Alert manager - alerts
+	- Health monitoring answers three questions ?
+		- Is the service alive ?
+		- Is it ready to serve traffic ?
+		- Are its dependencies healthy ?
+- Availability Monitoring
+	- Availability monitoring tracks **whether system components are accessible and functioning over time**.
+	- Availability depends on multiple components
+	- Requirements
+		- Real-time availability view
+		- Historical availability view
+		- Failure alerting
+		- Connectivity monitoring
+	- Data sources for Availability monitoring
+		- Synthetic user monitoring
+		- Endpoint monitoring
+		- Application logging
+		- Network failure
+	```
+	Availability (%) = ((Total time - Down time) / Total time) * 100
+	```
+- Performance monitoring
+	- Performance monitoring tracks **how system performance changes under load**.
+	- Performance factors
+		- Key Performance Indicators (KPIs)
+	- Component level performance monitoring
+		- CPU usage
+		- Memory usage
+		- Thread usage
+		- Queue metrics
+		- Disk and network metrics
+		- Middleware metrics
+- Security monitoring
+	- Security monitoring tracks security-related events and activities in the system to protect
+		- system infra
+		- user data
+		- application resources
+	- all system that store sensitive data must implement security monitoring
+	- Monitoring helps detect
+		- unauthorized access
+		- attacks
+		- abnormal behavior
+		- policy violations
+	- Security events to be logged
+		- Authentication events
+		- User operations
+		- Session lifecycle
+	- Detecting security attacks
+		- Brute force attack detection
+		- Distributed Denial of Service (DDoS)
+	- Requirements
+		- Detect intrusion attempts
+		- Detect unauthenticated operations
+		- Detect active attacks
+- Usage monitoring
+	- Usage monitoring tracks how users interact with system features and components.
+	- Purpose
+		- understand feature usage
+		- detect system hotspots
+		- measure user behavior
+		- support billing and quotas
+		- plan capacity growth
+- Instrumentation
+	- adding monitoring hooks into application code to generate telemetry data
+	- includes
+		- logs
+		- metrics
+		- traces
+		- events
+	- purpose
+		- measure system performance
+		- detect failures
+		- diagnose problems 
+		- support debugging in production
+	- Types of data
+		- Logs
+			- logs record discreate events that happen in the system
+		- Metrics
+			- metrics are numeric measurements of system behavior over time.
+		- Distributed tracing
+			- Tracing shows how a request travels through multiple services
+		- Trace logs
+			- Trace logs record internal operations inside the application
+	- Instrumentation data should include sufficient context for debugging
+		- Environment information
+		- Request context
+		- Call stack
+		- Geographic data
+	- Profiling vs. Sampling
+	- best practices
+		- use structured logs
+		- include context in logs
+		- user consistent timestamps
+		- enable profiling carefully
+- Visualization and alerts
+	- Monitoring systems collect large amounts of telemetry data
+	- Visualization helps operators quickly understand system status and detect problems.
+	- Goals
+		- identify trends
+		- detect anomalies
+		- understand system performance
+		- detect failures early
+	- monitoring data should be presented using
+		- dashboards
+		- graphs
+		- charts
+		- reports
+	- alert rules
+	- alert management
