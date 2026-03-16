@@ -738,3 +738,102 @@
 		- reports
 	- alert rules
 	- alert management
+
+#### Cloud Design Patterns
+
+##### Design & Implementation
+- Strangler Flag
+	- Incrementally migrate a legacy system by gradually replacing specific pieces of functionality with new applications and services. As features from the legacy system are replaced, the new system eventually replaces all of the old system's features, strangling the old system and allowing you to decommission it.
+	- Ideas
+		- Old system keeps running
+		- New system is introduced gradually
+		- Requests are progressively routed to the new system
+		- Legacy system is eventually retried
+	- Problem
+		- At some point old system needs to migrate / move to new system for keeping up with modernization
+		- Rewriting everything at once will cause lot of issues
+	- Idea
+		- Introduce facade or proxy between client and the backend
+		- facade decides where to route the request (old or new)
+		- client don't know migration is happening
+	- Process
+		- Introduce facade
+		- build new components
+		- gradually move features
+		- decommission legacy
+	- Adv
+		- Lower Risk
+		- Continues delivery
+		- No big-bang rewrite
+		- easy rollback
+	- Challenges
+		- Data sync
+		- Facade complexity
+		- Performance overhead
+		- long migration
+	- Use when
+		- migrating a large monolith
+		- moving to microservices
+		- replacing outdated platforms
+		- need zero downtime migration
+	- Don't use when
+		- System is small
+		- Rewrite is easier
+		- Requests cannot be intercepted
+		- migration must happen immediately
+- Sidecar
+	- The **Sidecar Pattern** is an architectural pattern where **a helper component runs alongside the main application to provide supporting functionality** (like logging, monitoring, networking, or security) without modifying the application itself.
+	- Idea
+		- main application handles business logic
+		- sidecar component handles supporting or infrastructure tasks
+		- both runs on the same host or container environment
+		- both share the same life cycle
+	- each application instance usually has its own sidecar instance
+	- problem solved
+		- logging
+		- monitoring
+		- config management
+		- networking 
+		- security
+		- service discovery
+	- Common use case
+		- logging sidecar
+		- service mesh proxy
+		- configuration sidecar
+		- monitoring and telemetry
+		- protocol adapter
+	- Advantages
+		- Language independence
+		- Separation of concerns
+		- Reusable infra components
+		- Independent updates
+		- Low latency communication
+	- Dis-adv
+		- Extra resource usage
+		- added complexity
+		- communication overhead
+	- K8s pods
+	- Dapr
+	- Service mesh
+- Static Content Hosting
+	- Deploy static content to a cloud-based storage service that can deliver them directly to the client. This can reduce the need for potentially expensive compute instances.
+	- We can use Content delivery network (CDN) or object storage
+	- Problems solved
+		- Performance bottlenecks
+		- Poor scalability
+		- High infra cost
+		- Increased latency
+	- Core idea is to separate static assets from dynamic application logic
+	- Implementation
+		- Object storage
+		- CDN
+	- Advantages
+		- Better performance
+		- Reduced application load
+		- improved scalability
+		- cost reduction
+		- global availability
+	- Challenges
+		- Cache invalidation
+		- Security
+		- Deployment complexity
