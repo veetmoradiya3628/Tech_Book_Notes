@@ -837,3 +837,103 @@
 		- Cache invalidation
 		- Security
 		- Deployment complexity
+- Leader Election
+	- Coordinate the actions performed by a collection of collaborating instances in a distributed application by electing one instance as the leader that assumes responsibility for managing the others. This can help to ensure that instances don't conflict with each other, cause contention for shared resources, or inadvertently interfere with the work that other instances are performing.
+	- Purpose
+		- Avoid conflicts
+		- Prevent duplicate work
+		- coordinate shared resource access
+	- Problem without coordination
+		- Race conditions
+		- Data inconsistency
+		- Duplicate processing
+		- Resource contention
+	- Core Idea is to elect one instance as leader, others act as followers (workers)
+	- Leader election mechanism
+		- Distributed lock / mutex
+		- Election algorithms
+			- Bully algorithm
+			- Raft Consensus algorithm
+			- Ring algorithm
+		- Heartbeat monitoring
+	```
+	Leader election is fundamentally about turning a distributed system into a logically centralized coordinator
+	```
+- CQRS Pattern
+	- Command Query Responsibility Segregation (CQRS) is a design pattern that segregates read and write operations for a data store into separate data models. This approach allows each model to be optimized independently and can improve the performance, scalability, and security of an application.
+	- Command - write operations (modify data)
+	- Queries - read operations (fetch data)
+	- Problem with CQRS
+		- Read & write have different requirements
+		- complex queries slow down writes
+		- lock contention (reads vs. writes)
+		- poor scalability
+		- security overlap
+	- Arch variants
+		- Same DB (Basic CQRS)
+			- Same DB, different models
+		- Separate DB (Advanced CQRS)
+			- Write DB - optimized for transactions
+			- Read DB - optimized for queries
+			- Sync using
+				- Events
+				- Message queues
+			- Eventual consistency
+	- CQRS + Event sourcing
+		- Write side - stores events (not state)
+		- Read side - Builds materialized views from events
+		- Benefits
+			- full history
+			- easy rebuild of read models
+			- better scalability
+	- CQRS about optimizing system differently for reads vs. writes
+	- Don't use the same model to read and write - they have different goals
+- Pipes and Filters pattern
+	- Decompose a task that performs complex processing into a series of separate elements that can be reused. Doing so can improve performance, scalability, and reusability of initial steps by allowing task elements that perform the processing to be deployed and scaled independently. Pipes and Filters pattern supports a high level of modularity.
+	- Filters process data
+	- Pipes move data between filters
+	```
+	Input -> Filter1 -> Filter2 -> Filter3 -> Output
+	```
+	- Key characteristics
+		- Loose coupling
+		- Reusability
+		- Composability
+		- Statelessness (usually)
+	- Challenges
+		- Complexity
+		- Latency
+		- Whose pipeline failure
+		- Overhead
+	- A distributed data processing pipeline
+		- ETL 
+		- streaming systems
+		- microservices workflows
+		- event-driven systems
+	- Break big processing into small steps and connect them like a pipeline.
+	- Idempotency
+	- Retry handling
+	- Observability
+	- Loose coupling
+	- Scaling
+- Ambassador
+	- A helper service (**ambassador**) sits alongside your application and **handles communication with external services**.
+	```
+	[App] -> [Ambassador] -> [External Service]
+	```
+	- Ambassador responsibility
+		- Service discovery
+		- Routing
+		- Retry/timeout
+		- TLS termination
+		- Authentication
+		- Logging/monitoring
+	- Benefits
+		- Separation of concerns
+		- Reusability
+		- Consistency
+		- Flexibility
+		- Observability
+	- Sidecar - pattern of deployment
+	- Ambassador - pattern of responsibility
+	- Let a helper service talk to the outside world so your app doesn’t have to.
