@@ -937,3 +937,83 @@
 	- Sidecar - pattern of deployment
 	- Ambassador - pattern of responsibility
 	- Let a helper service talk to the outside world so your app doesn’t have to.
+- Gateway Routing
+	- A **single gateway (entry point)** sits in front of multiple backend services and **routes incoming requests to the correct service** based on rules (URL, headers, etc.).
+	- Types of routing
+		- Path-based routing
+		- Host-based routing
+		- Header-based routing
+		- Query-based routing
+	- Major use cases
+		- Multiple services (microservices)
+		- Multiple instances (load balancing)
+		- Multiple Versions (Canary / Blue-Green)
+	- Advantages
+		- Single entry point
+		- Loose coupling
+		- Centralized control
+		- Enables scalability
+	- Problems
+		- SPOF
+		- Bottleneck
+		- Added latency
+- Gateway Offloading
+	- A gateway sits in front of services and **offloads (takes over) cross-cutting concerns** like authentication, SSL, logging, caching, etc., so backend services don’t have to implement them repeatedly.
+	- What can be offloaded
+		- Authentication & Authorization
+		- SSL termination
+		- Logging & Monitoring
+		- Rate limiting / Throttling
+		- Caching
+		- Request/Response Transformation
+		- Load balancing
+	- Advantages
+		- Cleaner services
+		- Reusability
+		- Consistency
+		- Faster Development
+	- Trade-offs
+		- Gateway becomes heavy
+		- Single point of failure
+		- Latency
+		- Less flexibility for services
+	```
+	Security + operations desk at office entrance
+	check ID (auth)
+	Logs entry (logging)
+	Controls crowd (rate limiting)
+	Directs you (routing)
+	```
+- Gateway aggregation
+	- A gateway **calls multiple backend services**, collects their responses, and **combines (aggregates) them into a single response** for the client.
+	- Client makes 1 request -> Gateway makes N requests -> Returns 1 combined response
+	- Advantages
+		- Reduced client complexity
+		- Improved performance
+		- Better UX (especially mobile)
+		- Encapsulation of microservices
+	- Trade-offs
+		- Gateway becomes complex
+		- Tight coupling to UI
+		- Failure handling complexity
+		- Increased latency
+	- Gateway aggregation vs. Gateway offloading vs. Gateway routing
+- External Configuration Store
+	- Application configuration (settings, secrets, feature flags, etc.) is **stored outside the application code and runtime**, typically in a centralized service.
+	- Move configuration out of code → into a centralized external system
+	- Things in configuration
+		- Application settings
+		- Secrets
+		- Feature flags
+		- Environment specific configs
+	- Advantages
+		- No redeploys for config changes
+		- Centralized management
+		- Environment flexibility
+		- Better security
+		- Dynamic behavior
+	- Challenges
+		- Dependency on external system
+		- Latency
+		- Consistency issues
+		- Complexity
