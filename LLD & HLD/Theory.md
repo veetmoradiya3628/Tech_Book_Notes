@@ -1017,3 +1017,66 @@
 		- Latency
 		- Consistency issues
 		- Complexity
+- Compute Resource Consolidation
+	- Instead of running many small, underutilized machines → combine workloads into fewer, well-utilized machines.
+	- Benefits
+		- Cost optimization
+		- Improved resource utilization
+		- Simplified management
+		- Better performance
+	- Challenges
+		- Scalability conflict
+		- Fault coupling
+		- Security risks
+		- Resource contention
+		- Deployment coupling
+		- Increased complexity
+	- Contradicts with SOC - separation of concerns pattern
+- Backends for Frontend
+	- Instead of one backend serving all clients → create a dedicated backend per frontend.
+	- Problem with single backend is faces conflicting requirements
+	- Solution
+		- Add client specific backend layer
+	- Benefits
+		- Tailored experiences
+		- Faster development
+		- Performance optimization
+		- Better security
+		- Decoupling
+	- Trade-offs
+		- More services
+		- Code Duplication
+		- Extra latency
+		- Complexity
+	- When to use
+		- Multiple frontends (web + mobile)
+		- Different requirements per client
+		- Backend becoming complex
+		- independent frontend teams
+	- Avoid when
+		- only one frontend
+		- all clients need same data
+		- system is small / simple
+	- BFF vs. API Gateway
+	- BFF is about customization per client
+	- Improves
+		- performance
+		- developer velocity
+	- trade-offs
+		- more services
+		- more complexity
+- Anti-corruption layer 
+	- Protect your clean system from messy external systems using a translation layer.
+	- A **facade/adapter layer** that translates between two systems with different semantics
+	```
+	[New System] -> [ACL layer] -> [Legacy / External System]
+	```
+	- What ACL does
+		- Converts
+			- data format
+			- API contracts
+			- domain models
+	- When to use
+		- Legacy modernization
+		- External systems integration
+		- Different domain models
