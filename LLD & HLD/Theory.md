@@ -2,8 +2,6 @@
 #### References
 
 [System Design Roadmap](https://roadmap.sh/system-design)
-
-  
   
 
 ### How to approach the problem
@@ -1080,3 +1078,81 @@
 		- Legacy modernization
 		- External systems integration
 		- Different domain models
+
+##### Data Management
+- Valet Key
+	- The **Valet Key Pattern** is a cloud architecture pattern used to **securely give temporary, limited access to a resource without routing everything through your backend**.
+	- Instead of your server handling data transfer, it gives the client a **temporary access token (valet key)** to directly access a resource (like storage).
+	- This token
+		- has limited permissions
+		- Works for a short time
+		- Applies to a specific resource
+	- Valet token is like SAS token or pre-signed URL
+	- Azure
+		- SAS - Shared Access Signature
+	- Benefits
+		- Scalability
+		- Performance
+		- Cost optimization
+		- Security
+	- Tradeoff
+		- Less control after issuing token
+		- Cannot easily limit
+		- Token leakage risk
+		- Requires careful design
+- Static Content Hosting
+	- Deploy static content to a cloud-based storage service that can deliver them directly to the client. This can reduce the need for potentially expensive compute instances.
+	- Example
+		- S3 + CDN
+		- Azure Blob storage + CDN
+		- GCP Cloud storage + CDN
+	- Benefits
+		- Performance
+		- Scalability
+		- Cost Efficient
+		- Security
+		- Simpler architecture
+	- Drawbacks
+		- No dynamic rendering
+		- Cache invalidation complexity
+		- SEO
+- Sharding
+	- Sharing = Horizontal partitioning of data
+	- Instead of storing all data in one big database, you split it into multiple smaller databases (shards).
+	- Each shard has
+		- same schema
+		- stores only a subset of data
+		- runs on separate server / instance
+	- Why do we need Sharding ?
+		- Storage limit
+		- Compute bottleneck
+		- Vertical scaling is not enough
+	- Shard key - important for
+		- data distribution
+		- query performance
+		- system scalability
+	- Good shard key
+		- High cardinality
+		- even distribution
+		- stable
+	- bad shard key
+		- causes hotspot
+		- leads to uneven load
+	- Sharding strategies
+		- lookup-based sharing
+			- mapping table
+		- range based sharding
+			- data split by ranges
+		- hash-based sharding
+			- use hash function
+	- Benefits
+		- Massive scalability
+		- Better performance
+		- Fault isolation
+		- Cost efficient
+	- Challenges
+		- Cross-shard queries
+		- Data rebalancing
+		- Transactions
+		- Routing logic
+		- Unique constraints
