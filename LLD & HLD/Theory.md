@@ -1156,3 +1156,88 @@
 		- Transactions
 		- Routing logic
 		- Unique constraints
+- Materialized View
+	- Materialized view = precomputed, stored query result
+	- Cache + denormalized read model built specifically for fast queries
+	- Data is stored in **write-optimized format** (normalized, partitioned, event-based)
+	- Properties
+		- Precomputed
+		- Read-optimized
+		- Eventually consistent
+		- Disposable
+	- Update strategies
+		- On write (sync)
+		- Event-driven
+		- Scheduled (batch)
+	- CQRS
+	- Event sourcing
+	- Use cases
+		- Analytics dashboards
+		- Search systems
+		- News Feed
+		- E-commerce
+	- Precomputed read model for speed
+- Index Table
+	- Index table = a separate table that maps a query key -> primary data
+	- Maintain a separate table for each access pattern
+	- Types of Index tables
+		- Simple key -> ID
+		- One-to-many Index
+		- Composite index
+		- Sorted index
+	- Write path is critical - when you write you must update main table + all index tables
+	- Strong vs. Eventual consistency
+- Event Sourcing
+	- Instead of storing the current state, you store all changes (events)
+	- System stores a full series of actions in an append-only store
+	- Immutable
+		- Append-only log
+		- Never update / delete
+		- state is derived, not stored
+	- Command vs. Event
+	- Audit trail
+	- Time travel
+	- Scalability
+	- Decoupling
+	- Flexibility
+	- Tradeoffs
+		- Complexity
+		- Eventual consistency
+		- Hard Queries
+		- Event versioning
+		- Reply cost
+	- Important design decisions
+		- Eventual Granularity
+		- ordering
+		- idempotency
+		- snapshots
+- CQRS
+	- Command Query Responsibility Segregation
+	- Commands - change data
+	- Queries - read data
+	- Same database CQRS
+	- Separate database CQRS
+	- Read model vs. Write model
+	- Why its powerful
+		- Independent scaling
+		- Optimized models
+		- Cleaner design
+		- Better performance
+		- Security
+	- Trade offs
+		- Complexity
+		- Eventual consistency
+		- Data sync problems
+		- More code
+	- CQRS + Event sourcing + Materialize view
+	- CQRS = Separate brains for reading and writing
+- Cache-aside
+	- Load data on demand into a cache from a data store. This can improve performance and also helps to maintain consistency between data held in the cache and data in the underlying data store.
+	- Write flow
+		- Invalidate cache (most common)
+		- Update cache
+	- Key characteristics
+		- Lazy loading
+		- App-controlled
+		- Eventual consistent
+		- TTL-based expiration
