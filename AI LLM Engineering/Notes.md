@@ -30,3 +30,12 @@ Agent
 	- Cursor
 	- UV - python package manager
 
+#### Week 1
+
+##### Day 1
+
+- `load_dotenv` module to load and manage environment variable with .env file
+- Always maintain API keys in `.env` file and use with os.getenv
+- `google.generativeai` python sdk to use gemini / google gen model
+- `IPython.display` module for printing / parsing md response
+- OpenAI python client library can be used with Gemini / DeepSeek or any other LLM provider as well
