@@ -1372,4 +1372,103 @@
 		- Resource allocation
 		- Cost trade-offs
 	- Process the most important work first, not the oldest
-- 
+- Competing Consumers pattern
+	- The competing consumers pattern allows multiple worker instances (consumers) to process messages from the same queue concurrently.
+	- Flow
+		- Producer sends tasks -> Queue
+		- Multiple consumer instances listen to the queue
+		- Each consumer
+			- Pulls a message
+			- Processes it
+		- Queue ensures
+			- Each message is handled once (or at least once)
+			- No duplication across consumers
+	- Challenges
+		- No Guaranteed ordering
+		- Duplicate processing risk
+		- Poison messages 
+		- Uneven load
+	- When to use
+		- Tasks are Independent & can run in parallel
+		- Workload high variables
+		- System needs high throughput, high availability
+- Choreography pattern
+	- Choreography pattern coordinates multiple services without a central controller
+	- Services collaborate by reacting to events, not by being directed.
+	- Dance choreography - no director on stage
+	- Event chaining
+	- Characteristics
+		- Decentralized control
+		- Event-driven communication
+		- Loose coupling
+	- Why use choreography
+		- High scalability
+		- Flexibility
+		- Resilience
+		- Faster Evolution
+	- Challenges
+		- Hard to understand workflow
+		- Debugging is difficult
+		- Risk of cyclic dependencies
+		- Event explosion
+	- Choreography vs. Orchestration
+	- Each service participates in workflow decisions instead of relying on a central controller
+- Claim check pattern
+	- It is a powerful pattern used in messaging systems when dealing with large data payloads.
+	- Don't send large data inside the message
+	- Instead store it somewhere else and send only a reference (token)
+	- The messaging system never carries the actual payload
+	- Claim ticket system at airport
+	```
+	Producer
+   |
+   |----> Store Payload ----> [Storage]
+   |
+   |----> Send Token ------> [Queue]
+                                  |
+                               Consumer
+                                  |
+                    Fetch Payload using Token
+	```
+	- Why use claim check
+		- Handle large messages
+		- Improve performance
+		- Cost optimization
+		- Security
+		- Better Reliability
+	- Challenges
+		- Extra complexity
+		- Latency increase
+		- Orphan data problem
+		- Consistency issues
+	- You don't always need this pattern
+	- Best practice
+		- Small payload - send directly
+		- Large payload - use claim check
+	- Store data separately, pass only a reference through the system
+- Asynchronous Request-Reply
+	- It decouples the request from the response when processing is long-running
+	- Instead of making client wait:
+		- The server accepts the request quickly 
+		- processes it in the background
+		- provides a way for the client to check the result later
+	```
+	Client → API → Queue → Worker
+   |        |               |
+   |        └── 202 + URL   |
+   |                        |
+   └── Poll Status <────────┘
+            |
+         Result Ready
+	```
+	- Why use this pattern
+		- Handlers long-running tasks
+		- Better user experience
+		- Scalability
+		- Decoupling
+	- Challenges
+		- Polling overhead
+		- More complexity
+		- Delayed response
+		- State management
+	- Return immediately, process later, and provide a way to check status
