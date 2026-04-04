@@ -1241,3 +1241,135 @@
 		- App-controlled
 		- Eventual consistent
 		- TTL-based expiration
+
+##### Messaging
+- Sequential Convoy
+	- Process related messages in strict order (FIFO), but allow different groups to be processed in parallel.
+	- Queue + multiple workers can lead to race conditions, data inconsistency, invalid state transitions
+	- Sequential convoy
+		- Group related messages by key
+		- Partition messages by that key
+		- Process one group sequentially
+		- Process different groups in parallel
+	- With this
+		- order is preserved within a group
+		- system still scales across groups
+	- Real world system order processing
+		- All messages for same order -> sequential
+		- Different orders -> parallel
+	- FIFO within a group
+	- No race conditions
+	- Strong consistency per entity
+	- Reduced throughput (due to ordering constraint)
+	- Potential bottleneck per group
+	- Requires good partitioning strategy
+- Scheduling Agent Supervisor
+	- Coordinate a multi-step distributed workflow, and ensure it either
+		- completes successfully or
+		- recovers / retries / rolls back on failure
+	- 3 roles
+		- Scheduler
+			- Controls the workflow
+			- Defines the step order
+			- Triggers each step
+			- Tracks state of each step (Pending / Running / Completed)
+			- Stores state in durable storage
+			- Assign work to agents
+			- Brain of the system
+		- Agent (Worker)
+			- Executes actual work
+			- Calls external services / resources
+			- Implements
+				- Retry logic
+				- Timeout handling
+			- Returns success / failure
+			- Each agent usually handles one type of operation
+			- Must be idempotent (safe to retry)
+		- Supervisor (Watcher)
+			- Detects and fixes failures
+			- Periodically checks system state
+			- Finds
+				- Timed-out steps
+				- Failed steps
+			- Triggers recovery
+				- Retry step
+				- Reassign Agent
+				- Rollback workflow
+			- Recovery manager
+	- Flow
+		- Client submits a task
+		- Scheduler
+			- Stores initial state
+			- starts workflow
+		- For each step:
+			- Scheduler - sends work to agent
+		- Agent
+			- Executes step
+			- Returns result
+		- Scheduler updates state
+		- Repeat until done
+	- When you have multi-step workflows & steps involves remote services, you need retries, failure recovery, eventual consistency
+- Queue-based load leveling
+	- Use a queue as a buffer between producers and services so the system can handle requests at a steady rate instead of peak rate.
+	- Traffic is not uniform
+	- Without control
+		- Service gets overwhelmed
+		- Requests fail / timeout
+		- System crashes
+	```
+	Clients -> Queue -> Worker / Service
+	```
+	- Benefits
+		- Smooths traffic spikes
+		- Improves reliability
+		- Decouples system
+		- Better scalability
+		- Cost optimization
+	- Challenges
+		- Increased latency
+		- Queue buildup risk
+		- Not suitable for real-time responses
+		- Need additional logic
+	- When to use
+		- Traffic is bursty / unpredictable
+		- Backend service has limited capacity
+		- You can tolerate eventual processing
+	- Intuition - Bank token system
+- Publisher Subscriber
+	- A publisher sends messages / events and multiple subscribers receive them, without knowing each other.
+	- Components
+		- Publisher
+		- Broker / Event Bus
+		- Subscriber
+	- Publisher doesn't know about consumer
+	- Key features
+		- Loose coupling
+		- Scalability
+		- Fault Isolation
+		- Asynchronous processing
+	- Topic
+	- Filtering
+	- Consumer group
+	- Challenges
+		- No guaranteed ordering
+		- Eventual consistency
+		- Debugging complexity
+		- Duplicate messages
+	- Pub/sub vs. Queue
+- Priority Queue pattern
+	- All tasks are not equal, some must be processed faster than others
+	- Order of arrival - FIFO
+	- Order of importance - Priority-based
+	- Two approach
+		- Single queue with priority field
+		- Multiple queue with different priorities (high, low, medium)
+	- Consumer strategies
+		- Single consumer pool
+		- Multiple consumer pool
+	- Design considerations
+		- Define clear priorities
+		- Avoid starvation problem
+		- Resource allocation
+		- Cost trade-offs
+	- Process the most important work first, not the oldest
+- 
