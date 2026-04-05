@@ -1472,3 +1472,203 @@
 		- Delayed response
 		- State management
 	- Return immediately, process later, and provide a way to check status
+
+##### Reliability Patterns
+###### Availability
+- Deployment stamp pattern
+	- Instead of running one big application instance, you create multiple identical copies (called "stamps") of your system
+	- Each stamp = a full deployment of your application stack (API + DB + services)
+	- Each stamp serves a subset of users / tenants
+	- all stamps are independent
+	- you scale by adding more stamps
+	- Simple analogy
+		- Instead of 1 giant backend
+		- They create
+			- Stamp 1 - serves india users
+			- Stamp 2 - serves Europe users
+			- Stamp 3 - serves US users
+		- Each stamp is
+			- Independent
+			- Scalable
+			- Fault-isolated
+	```
+				 ┌───────────────┐
+                │ Traffic Router│
+                └──────┬────────┘
+                       │
+     ┌──────────────┬──────────────┬──────────────┐
+     │              │              │              │
+ ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐
+ │ Stamp 1 │   │ Stamp 2 │   │ Stamp 3 │   │ Stamp N │
+ │ API+DB  │   │ API+DB  │   │ API+DB  │   │ API+DB  │
+ └─────────┘   └─────────┘   └─────────┘   └─────────┘
+     ↑              ↑              ↑
+  Tenants        Tenants        Tenants
+	```
+	- Characteristics
+		- Independent units
+		- Horizontal scaling
+		- Data isolation
+		- Multi-region support
+		- Flexible tenancy
+	- Traffic routing
+		- Direct routing
+		- Smart routing
+	- Deployment strategy
+		- IaC - Infrastructure as a code
+	- Challenges
+		- Higher cost
+		- Operational complexity
+		- Cross-stamp queries
+		- Data migration
+	- Scale by cloning the whole system, not stretching one system
+- Geodes
+	- Deploy your system into multiple geo-distributed nodes (called "geodes"), where ANY geode can serve ANY user request
+	- All geodes are
+		- Globally distributed
+		- Fully replicated (data + services)
+		- Active-Active
+	- Every region is fully capable of serving the entire system
+	```
+	              ┌──────────────────────────┐
+	              │ Global Load Balancer     │
+	              │ (Front Door / DNS)       │
+	              └──────────┬───────────────┘
+	                         │
+	     ┌──────────────┬──────────────┬──────────────┐
+	     │              │              │              │
+	 ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐
+	 │ Geode A │   │ Geode B │   │ Geode C │   │ Geode N │
+	 │ API+DB  │   │ API+DB  │   │ API+DB  │   │ API+DB  │
+	 └─────────┘   └─────────┘   └─────────┘   └─────────┘
+	      ↕              ↕              ↕
+	   Data Replication (shared backplane)
+	```
+	- Active-active everywhere
+	- Serve from nearest region
+	- Global data replication
+	- Self-contained units
+	- Loosely coupled system
+	- Challenges
+		- Data consistency
+		- Cost
+		- Complexity
+		- Debugging difficulty
+	- Global active-active system with replicated data everywhere
+- Throttling
+	- Limit how much load a system can handle at a given time, and control or reject excess requests
+	- Don't let users overwhelm your system - control the flow
+	```
+		Users / Clients
+               ↓
+        API Gateway / Service
+               ↓
+        Throttling Layer
+        (rate checks, quotas)
+               ↓
+        Backend Services
+	```
+	- Key strategies of throttling
+		- Reject requests
+			- if limit exceeded
+				- HTTP 429
+				- HTTP 503
+		- Delay/Queue requests
+		- Degrade features
+		- Per-user/per-tenant limits
+		- Defer low priority work
+	- Throttling + Auto scaling
+	- Challenges
+		- Poor User Experience
+		- Retry storm
+		- hard to tune limits
+		- operation cost differences
+	- Protect system stability by controlling incoming load
+- Health Endpoint monitoring
+	- Expose a special endpoint like (`/health`) in your application that external systems can call to check if your service is healthy.
+	- Health endpoint, internal checks DB connectivity, Cache availability, External APIs and returns status (HTTP + optional data)
+	```
+		Monitoring Tool / Load Balancer
+                    ↓
+            Periodic Health Check
+                    ↓
+            /health endpoint
+                    ↓
+         Application performs checks
+                    ↓
+          Returns status (200 / 500)
+	```
+	-  Liveness, Readiness and Startup probe
+	- Challenges
+		- False positives
+		- Overhead
+		- Security risks
+		- Too shallow checks
+	- Expose a diagnostic endpoint so external systems can continuously verify your system's health
+- Bulkhead
+	- Divide your system into isolated compartments (bulkheads) so that failure in one part does NOT affect others.
+	- Cascading failure
+	- Partition resources into isolated pools
+		- Each service / consumer gets its own
+			- Thread pool
+			- Connection pool
+			- Instance group
+		- If one fails, others continue working
+	- Thread pool isolation (Application level)
+	- Connection pool isolation
+	- Infrastructure isolation
+	- Service instance isolation
+	- Queue isolation
+- Circuit breaker
+	- Stop calling a failing service temporarily to prevent further damage and allow recovery.
+	- Closed state
+	- Opened state
+	- Half-open state
+	- state transition flow
+	```
+	Closed → (failures ↑) → Open
+	Open → (timeout) → Half-Open
+	Half-Open → (success) → Closed
+	Half-Open → (failure) → Open
+	```
+	- Key components
+		- Failure threshold
+		- Timeout duration
+		- Success threshold
+		- Fallback mechanism
+	```
+	Client → Circuit Breaker → External Service
+	```
+- Federated Identity pattern
+	- Delegate authentication to an external trusted identity provider (IdP) instead of managing users yourself.
+	- Let Google, Microsoft, or your company handle login—your app just trusts them.
+	- SSO
+	```
+	User → Identity Provider (IdP) → Token → Application
+	```
+	- Identity provider (IDP)
+	- Security Token service (STS)
+	- Token (Claims based)
+	- OAuth 2.0
+	- OpenID Connect (OIDC)
+	- SAML
+	- Identity Federation
+	- Outsource authentication to a trusted provider and rely on tokens instead of passwords.
+- Gatekeeper
+	- Introduce a dedicated intermediary (gatekeeper) that sits between clients and your application, and validates all incoming requests before allowing access.
+	- Flow
+	```
+          Clients (Internet)
+                  ↓
+          🚪 Gatekeeper Layer
+        (validation, filtering)
+                  ↓
+        Trusted Backend Services
+                  ↓
+           Database / Storage
+	```
+	- Centralized validation
+	- Reduced attach surface
+	- Limited privileges
+	- Decoupling
+	- Acts like a Firewall

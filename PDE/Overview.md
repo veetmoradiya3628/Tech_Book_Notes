@@ -1,0 +1,26 @@
+
+- Selecting appropriate storage technologies
+	- Selecting appropriate storage technologies, including mapping business requirements to storage systems
+	- various criteria to consider when choosing a storage technology
+- Building and operationalizing storage systems
+	- How to deploy storage systems and perform data management operations, such as importing and exporting data, configuring access controls, and doing performance tuning.
+- Designing data pipelines
+	- High-level design patterns, along with some variations on those patterns, for data pipelines.
+- Designing a data processing solution
+	- Designing infrastructure for data engineering and machine learning, including how to do several tasks such as choosing an appropriate compute service for your use cases
+- Building and operationalizing processing infrastructure
+	- Managed processing resources, including those offered by app engine, cloud functions and cloud dataflow
+- Designing for security and compliance
+	- security and compliance, identity and access management, data security, encryption and key management, data loss prevention, and compliance
+- Designing databases for reliability, scalability and availability
+	- How to apply best practices for designing schemas, querying data, and taking advantage of the physical design properties of each database
+- Understanding data operations for flexibility and portability
+	- How to use data catalog, a metadata management service supporting the discovery and management of data in Google cloud
+- Deploying ML pipelines
+	- ML pipeline and stages on GCP (data ingestion to preparation to perform data segregation)
+- Training and serving infrastructure
+	- Choosing appropriate training and serving infrastructure for your needs when serverless or specialized AI services are not a good fit for your requirements
+- Measuring, Monitoring and Troubleshooting ML models
+	- Concepts in ML, including ML terminology and core concepts and common sources of error in ML 
+- Leveraging Prebuilt ML models as a Service
+	- GCP options for using pretrained ML models to help developers build and deploy intelligent services quickly.
