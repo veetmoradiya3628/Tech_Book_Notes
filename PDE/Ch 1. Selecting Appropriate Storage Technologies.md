@@ -1,0 +1,16 @@
+
+- Data might be stored for short term for temporary staging or long term for archival
+- Called to work with data streams with high volumes
+- Data life cycle consists of four stages
+	- Ingest
+	- Store
+	- Process and analyze
+	- Explore and visualize
+- Ingest
+	- First stage in the data lifecycle, and it entails acquiring data and bringing data into the GCP
+- Storage
+	- Persisting data to a storage system from which it can be accessed for later stage of the data lifecycle
+- Process and analyze
+	- Stage begins with transforming data into a usable format for analysis applications
+- Explore and visualize
+	- Insights are derived from analysis and presented in tables, charts and other visualizations for use by others.
