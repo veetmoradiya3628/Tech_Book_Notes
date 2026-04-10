@@ -54,3 +54,52 @@
 		- Some access controls are coarse grained. For example, Cloud Storage can limit access based on bucket permissions and access control lists on objects stored in a bucket.
 		- In some cases, you may be able to use other security features of a service along with access controls. BigQuery, for example, is an analytical database used for data warehousing, data analytics, and machine learning. Data is organized into datasets, which are groups of tables and views.
 		- When choosing a data store, it is important to consider access control requirements and how well a storage system supports those requirements.
+	- Time to store
+		- Consider how long data will be stored when choosing a data store. some data is transient for example, data that is needed only temporarily then local SSD is enough
+		- Cloud storage is a good option for long-term storage, especially if you can make use of storage lifecycle policies to migrate older data to nearline or Cold line storage.
+		- Nearline for data accessed less than once per 30 days
+		- Cold line for data accessed less than once per year
+		- Data that is frequently accessed is often well suited for either relational or NoSQL databases
+- Process and analyze
+	- data is transformed into forms that make the data readily available to ad hoc querying or other forms of analysis.
+	- Data transformations
+		- data cleansing, which is the process of detecting erroneous data and correcting it
+		- The decision to keep the row or delete it will depend on the particular use case
+		- transformation also include normalizing or standardizing data
+		- Cloud Dataflow is well suited to transforming both stream and batch data
+	- Data Analysis
+		- A variety of techniques may be used to extract useful information from data.
+		- Describe characteristics of a dataset
+		- Generate histograms
+		- Find correlations between variables
+		- Make predictions using ML models
+		- cluster subsets of a dataset into groups of similar entities
+		- Cloud Dataflow, Cloud Dataproc, BigQuery, and Cloud ML engine are all useful for data analysis
+	- Explore and visualize
+		- Cloud Datalab with Python or SQL
+		- Looker studio for tabular reports and charts
+- Technical aspects of data: volume, velocity, variation, access and security
+	- Volume
+		- Few services designed for store large volume of data, including petabytes scales, whereas others are limited to smaller volumes
+		- Cloud storage - object store
+		- Cloud Bigtable - large volume telemetry and analytic data
+		- BigQuery - managed data warehouse and analytics database
+		- CloudSQL - relational database scope to single region
+	- Velocity
+		- Velocity of data is the rate at which it is sent to and processed by an application
+		- If data is ingested and written to storage, it is important to match the velocity of incoming data with the rate at which the data store can write data.
+		- An organization that uses the Transfer Appliance for large-scale migration may wait days before the data is available in Cloud Storage.
+	- Variation
+		- Amount of variation in the data structure
+		- Relational database have limited variation in data structure
+		- NoSQL database such as MongoDB, CouchDB or OrientDB are the document database which are preferred for dataset having varying attributes
+		- Wide-column databases such as bigtable and cassandra are also used with datasets with varying attributes
+	- Data access patterns
+		- Data is accessed in different ways for different use cases.
+		- This metrics to consider when considering about data access
+			- How much data is retrieved in a read operation 
+			- How much data is written in an insert operation
+			- How often is data written
+			- How often is data read
+		- Cloud Storage - large data ingestion with Cloud Transfer service and Transfer appliance
+		- Small number of columns read across large number of rows optimized for BigQuery with format as Capacitor.
