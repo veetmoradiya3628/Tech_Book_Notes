@@ -103,3 +103,8 @@
 			- How often is data read
 		- Cloud Storage - large data ingestion with Cloud Transfer service and Transfer appliance
 		- Small number of columns read across large number of rows optimized for BigQuery with format as Capacitor.
+	- Security Requirements
+		- Cloud storage can have access controls at the bucket and the object level
+		- Relational data with views of data and sharing that view allows users to share subset of data in relational database
+		- Encryption at rest and transit is also required which is by default enabled with all services and GCP infrastructure
+	- 
