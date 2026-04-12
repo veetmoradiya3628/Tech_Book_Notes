@@ -107,4 +107,13 @@
 		- Cloud storage can have access controls at the bucket and the object level
 		- Relational data with views of data and sharing that view allows users to share subset of data in relational database
 		- Encryption at rest and transit is also required which is by default enabled with all services and GCP infrastructure
-	- 
+- Types of structures
+	- Structured
+	- Semi-structured
+	- Unstructured
+- Structured
+	- Fixed set of attributes that can be modeled in a table of rows and columns
+- Semi-structured 
+	- Semi-structured data has attributes like structured data, but the set of attributes can vary from one instance to another.
+- Unstructured 
+	- Unstructured data does not fit into a tabular structure. Images and audio files are good examples of unstructured data
