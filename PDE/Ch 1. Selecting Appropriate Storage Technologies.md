@@ -117,3 +117,22 @@
 	- Semi-structured data has attributes like structured data, but the set of attributes can vary from one instance to another.
 - Unstructured 
 	- Unstructured data does not fit into a tabular structure. Images and audio files are good examples of unstructured data
+- Structured: Transactional vs. Analytical
+	- Tables of columns and rows, columns are attributes and rows are records or entities
+	- Transactional structured data is often operated on one row at a time
+	- Transactional database such as CloudSQL or CloudSpanner are commonly use row oriented storage
+	- Analytical structured data is retrieved by few set of columns in multiple rows, which is common pattern in data ware house technologies such as BigQuery, which is a column-oriented storage
+- Semi-structured: Fully Indexed vs. Row Key Access
+	- Semi-structured data stores schema attributes along with the data
+	- Two ways to store the semi-structured data are: documents or as wide columns
+	- Full-indexed
+		- When use case includes query and search by multiple parameters then indexing on those attributes allows query capabilities
+		- Cloud Data store supports this
+		- Large number of indexes significantly increase the amount of storage used, and additional indexes negatively impact on the performance of CRUD operations as indexes needs to be revised to reflect those operations
+	- Row Key Access
+		- Wide-column database usually take a different approach to querying. Rather than using indexes to allow efficient lookup of rows with needed data, wide-column databases organize data so that rows with similar row keys are close together.
+		- Queries use a row key, which is analogous to a primary key in relational databases, to retrieve data.
+		- wide-column databases are designed for low-latency reads and writes at high volumes. This can lead to duplication of data. Consider IoT sensor data stored in a wide-column database.
+- Unstructured data
+	- The distinguishing characteristics of unstructured data is that it does not have a defined schema or data model.
+- Google's storage decision tree
