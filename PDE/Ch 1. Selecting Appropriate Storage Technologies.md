@@ -136,3 +136,51 @@
 - Unstructured data
 	- The distinguishing characteristics of unstructured data is that it does not have a defined schema or data model.
 - Google's storage decision tree
+
+![[google_database_decision_tree.png]]
+
+- Relational Database Design
+- Two types: OLTP vs. OLAP
+	- OLTP
+		- OLTP databases are designed for transaction processing and typically follow database normalization rules
+		- 1NF, 2NF and 3NF
+		- Denormalization - that is intentionally violating one of the rules of normalization, is often used to improve query performance.
+	- OLAP
+		- Online analytical processing (OLAP) data models are often used for data warehouse and data mart applications.
+		- OALP are also called dimensional models because data is organized around several dimensions.
+		- OLAP are designated to facilitate the following:
+			- Rolling up and aggregating data
+			- Drilling down from summary data to detailed data
+			- Pivoting and looking at data from different dimensions
+- SQL
+	- DDL - Data definition language
+	- DML - Data manipulation language
+	- DQL - Data query language
+- NoSQL Database Design
+	- NoSQL database are less structured than relational databases, there is no relational algebra and forms of normalization
+	- Four types of NoSQL databases in GCP
+		- Key-value
+		- Document
+		- Wide column
+		- Graph
+- Key-value data store
+	- Key-value data stores are databases that use associative arrays or dictionaries as the basic datatype.
+	- Keys are data used to look up values.
+	- JSON as a complex data structure supported
+	- Cloud Memory store is a fully managed key-value data store based on Redis, a popular open source key-value datastore.
+- Document databases
+	- Document stores allow complex data structures, called documents.
+	- When designing a data model for document databases, documents should designed to group data that is read together.
+	- Managed document database in GCP use Cloud Datastore.
+- Wide-column databases
+	- Wide-column databases are used for use cases with the following:
+		- High volumes of data
+		- Need for low-latency writes
+		- More write operations than read operations
+		- Limited range of queries - in other words, no ad hoc queries
+		- Lookup by a single key
+	- Bigtable is GCP's managed wide-column database. It is also good option for migrating on-premises Hadoop HBase databases on a managed database because Bigtable has an HBase interface.
+- Graph Databases
+	- Another type of NoSQL database are graph databases, which are based on modeling entities and relationships as nodes and links in a graph or network.
+	- Cypher query language is declarative way
+	- Other type is Gremlin, base on traversal 
