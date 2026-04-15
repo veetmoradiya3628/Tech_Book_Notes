@@ -184,3 +184,13 @@
 	- Another type of NoSQL database are graph databases, which are based on modeling entities and relationships as nodes and links in a graph or network.
 	- Cypher query language is declarative way
 	- Other type is Gremlin, base on traversal 
+
+Summary
+- Know the four stages of the data lifecycle: ingest, storage, process and analyze and explore and visualize
+- Understand the characteristics of streaming data
+- Understand the characteristics of batch data
+- Technical factors to consider when choosing a data store
+- Know the three levels of structure of data
+- Know which Google cloud storage services are used with the different structure types.
+- Know the difference between relational and NoSQL databases
+
