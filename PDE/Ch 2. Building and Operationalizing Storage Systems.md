@@ -1,0 +1,55 @@
+
+- Data engineers are expected to be familiar with deploying and operating data systems at scale.
+- We will learn how to deploy storage systems and perform data management operations, such as importing and exporting data, configuring access controls and doing performance tuning
+	- Services includes
+		- Cloud SQL
+		- Cloud Spanner
+		- Cloud BigTable
+		- Cloud Firestore
+		- Big Query
+		- Cloud Memorystore
+		- Cloud Storage
+
+- Cloud SQL
+	- Fully managed relational database services that supports MySQL, SQL Server and PostgreSQL database.
+	- Managed database service
+	- Supports regional-level databases up to 30 TB
+	- If you need to store more data or need multi-regional support, consider using Cloud Spanner
+	- Configuring Cloud SQL instance includes
+		- Instance ID
+		- Password
+		- A region and zone
+		- A database version
+	- Machine type selection
+	- Public vs. Private IP
+	- Cloud SQL Proxy
+	- Backup, restore and maintenance configuration
+	- Failover configuration
+	- Synchronously data replication
+	- Sharding improves query performance
+	- Read replicas for improving read performance
+	- Read replicas in the same region as primary instance
+	- Data can be imported and exported from Cloud SQL databases
+	- Each RDBMS has an import and an export program
+		- MySQL provides mysqldump
+		- PostgreSQL provides pg_dump
+		- SQL Server provides bcp
+
+- Cloud Spanner
+	- Cloud Spanner is Google's relational, horizontally scalable, global database. 
+	- It is a relational database, so it supports fixed schemas and is ANSI SQL 2011 compliant
+	- It can be regional or multi-regional and the number of nodes determines the cost of an instance.
+	- Replication in Cloud Spanner
+		- Maintains multiple replicas of rows of data in multiple locations.
+	- There are three types of replication in cloud spanner
+		- Read-write replicas
+		- Read-only replicas
+		- Witness replicas
+	- Quorum based voting for leader election
+	- Database design consideration
+		- It can have hotspots where many read or write operations are happening on the same node instead of in parallel across multiple nodes.
+		- This can occur using sequential primary keys, such as auto-incrementing counters or timestamps.
+		- If you want to store sequential values and use them for primary keys, consider using the hash of the sequential value instead.
+		- Relational databases are often normalized and this means joins are performed when retrieving data.
+		- Spanner allows interleaving data from different tables for this join use cases
+	- Data can be imported to or exported from Cloud Storage into cloud spanner, exported files use the Apache Avro or CSV file formats. The export process can be implemented by a Cloud Data flow connector
