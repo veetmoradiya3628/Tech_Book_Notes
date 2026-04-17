@@ -53,3 +53,17 @@
 		- Relational databases are often normalized and this means joins are performed when retrieving data.
 		- Spanner allows interleaving data from different tables for this join use cases
 	- Data can be imported to or exported from Cloud Storage into cloud spanner, exported files use the Apache Avro or CSV file formats. The export process can be implemented by a Cloud Data flow connector
+
+- Cloud Bigtable
+	- Wide-column NoSQL database used for high volume databases that requires low millisecond (ms) latency.
+	- Used for IoT, time-series, finance, and similar applications
+	- Bigtable performance scales linearly with the number of nodes
+	- For multi-regional high availability, you can create a replicated cluster in another region. All data is replicated between clusters.
+	- cbt command line tool for working with Bigtable
+	- Bigtable tables can be accessed from BigQuery. Data is not stored in BigQuery, but Bigtable data is accessed from a table external to BigQuery.
+	- Bigtable tables are denormalized, and they can have thousands of columns.
+	- There is no support for joins in Bigtable or for secondary indexes. Data is stored in Bigtable lexicographically by row-key, which is the one indexed column in a Bigtable table. Keeping related data in adjacent rows can help make reads more efficient.
+	- All operations are atomic at the row level, not a transaction level.
+	- Bigtable does not have secondary indexes, queries are executed using either row-key-based lookups or full table scans.
+	- Use column families
+
