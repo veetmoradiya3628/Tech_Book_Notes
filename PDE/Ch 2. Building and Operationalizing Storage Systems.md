@@ -66,4 +66,12 @@
 	- All operations are atomic at the row level, not a transaction level.
 	- Bigtable does not have secondary indexes, queries are executed using either row-key-based lookups or full table scans.
 	- Use column families
+	- Importing and exporting
+		- Dataflow with Cloud Dataflow imported and exported in Avro or SequenceFile file format
 
+ - Cloud Firestore
+	 - Managed document database
+	 - Document database 
+	 - Operates in two modes
+		 - Native mode
+		 - Cloud Datastore mode
