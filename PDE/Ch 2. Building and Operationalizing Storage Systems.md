@@ -75,3 +75,13 @@
 	 - Operates in two modes
 		 - Native mode
 		 - Cloud Datastore mode
+	- Cloud Firestore in Datastore mode uses a data model that consists of entities, entity groups, properties and keys.
+	- Entities are similar to tables
+	- Entities have properties, which are name-value pairs
+	- Properties can have one or more values
+	- Value of property can be another entity
+	- To reference an entity within another entity, you specify a path,  known as the ancestor path, which includes the kind-identifier from the root to the descendent entity.
+	- atomic values, arrays or other entities
+	- To query using property values, properties need to be indexed
+	- Built in index & composite index
+	- Index used for querying the data
