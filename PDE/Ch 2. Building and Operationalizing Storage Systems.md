@@ -85,3 +85,19 @@
 	- To query using property values, properties need to be indexed
 	- Built in index & composite index
 	- Index used for querying the data
+		- Built in indexes can satisfy simple equality and in equality queries, but more complex queries require composite indexes.
+	- Importing and exporting
+		- Entities can be imported and exported from Cloud Firestore
+		- Cloud storage bucket to store exported data
+
+- BigQuery
+	- BigQuery are fully managed, petabyte-scale, low-cost analytics data warehouse databases.
+	- Its an important service for the Process and Analyze stage of the data lifecycle.
+	- Datasets are the basic unit of organization for sharing data in BigQuery. A dataset can have multiple tables
+	- BigQuery uses the concept of slots for allocating computing resources to execute queries.
+	- Query data via UI or CLI both supported
+	- BigQuery expects data to be encoded using UTF-8. If CSV file is not in UTF-8, BigQuery will try to convert it
+	- Avro or Parquet is another set of encoding supported in BigQuery
+	- BigQuery provides for creating clustered tables. In clustered tables, data is automatically organized based on the contents of one or more columns.
+	- It is a good practice to break large tables into smaller ones or partitions to improve query efficiency. When spitting data by date or timestamp, you can use partitions and to split data into multiple tables by other attributes, you can try sharding.
+	- Sharing can make use of template tables
