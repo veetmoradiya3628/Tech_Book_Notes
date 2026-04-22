@@ -101,3 +101,25 @@
 	- BigQuery provides for creating clustered tables. In clustered tables, data is automatically organized based on the contents of one or more columns.
 	- It is a good practice to break large tables into smaller ones or partitions to improve query efficiency. When spitting data by date or timestamp, you can use partitions and to split data into multiple tables by other attributes, you can try sharding.
 	- Sharing can make use of template tables
+	- Supports streaming inserts that load one row at a time
+	- insertID used to uniquely identifies the record for de-duplication purpose
+	- Standard SQL makes it easy to query across template tables by allowing wildcards in a table name
+	- Wild card can not be used with views or external tables
+	- In built logging and monitoring supported via stackdrive, where logs are useful for understanding who is performing actions in BigQuery, where as monitoring is useful for understanding how your queries and jobs are performing.
+	- Tips for query optimization
+		- Avoid select *
+		- Use --dry-run to estimate the cost of a query
+		- Set the maximum number of bytes billed 
+		- Partition by time when possible
+		- De-normalize data rather than join multiple tables
+	- Supports struct and array type
+
+- Memorystore
+	- Cloud Memorystore is a managed Redis service, which is commonly used for caching. Redis instances can be created using the cloud console or gcloud commands
+	- Basic + Redis specific config to be provided when provisioning the instance
+	- Supports export and import from redis
+	- Redis instances in cloud memory store can be scaled to use more or less memory.
+	- TTL and eviction policy can be used and its configurable and its used when maximum memory limit is reached
+	- Even if its managed service, you should still monitor the instance, particularly memory usage, duration periods of memory overload, cache-hit ration, and the number of expirable keys
+
+
