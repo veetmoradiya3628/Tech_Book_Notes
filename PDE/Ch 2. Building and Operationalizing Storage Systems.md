@@ -117,9 +117,59 @@
 - Memorystore
 	- Cloud Memorystore is a managed Redis service, which is commonly used for caching. Redis instances can be created using the cloud console or gcloud commands
 	- Basic + Redis specific config to be provided when provisioning the instance
-	- Supports export and import from redis
+	- Supports export and import from Redis
 	- Redis instances in cloud memory store can be scaled to use more or less memory.
 	- TTL and eviction policy can be used and its configurable and its used when maximum memory limit is reached
 	- Even if its managed service, you should still monitor the instance, particularly memory usage, duration periods of memory overload, cache-hit ration, and the number of expirable keys
 
+- Cloud Storage
+	- Google Cloud Storage is an object storage system. It is designed for persisting unstructured data, such as data files, images, videos, backup files, and any other data.
+	- Cloud storage is a full object atomic operation and not like block storage where individual block CRUD is supported
+	- A bucket is a group of objects that share access controls at the bucket level
+	- GCS uses a global namespace for bucket names, so all bucket names must have unique names
+	- Storage Tiers
+		- 4 Tiers
+			- Regional
+			- Multi-regional
+			- Nearline
+			- Cold line
+		- Regional
+			- multiple copies of an object in multiple zones in one region.
+			- 11 9's
+		- Multi-regional
+			- storing replicas of objects in multiple regions.
+			- its also known as geo-redundant storage
+			- Two network tiers
+				- Standard
+					- Public internet infrastructure
+				- Premium
+					- Google's global high-speed network
+					- lower latencies
+		- Nearline & cold line
+			- Its used for storing data that is not frequently accessed
+			- data that is accessed less than once in 30 days is a good candidate for Nearline storage
+			- data that is accessed less than once a year is a good candidate for cold line storage
+	- Use cases
+		- log files of application for analyses purpose
+		- backup and archival storage
+		- staging area for uploaded data
+	- data lifecycle and retention policies can be used to move objects from one tier to another tier based on use case
 
+- **Ultra-fast access (sub-millisecond)** → Use a cache like Cloud Memorystore.
+- **Frequently accessed + needs updates + persistent** → Use a database (relational or NoSQL depending on schema; flexible schema → NoSQL).
+- **Time-based data with decreasing access over time** → Use time-partitioned tables (e.g., BigQuery, Bigtable).
+- **Infrequently accessed, no query needed** → Use Cloud Storage (can export/import from databases when needed).
+- **Rarely accessed but must be stored long-term** → Use Coldline storage (cheapest option).
+
+- Unmanaged databases
+	- Self managed database operations
+
+- Summary
+	- Cloud SQL supports MySQL, PostgreSQL, and SQL Server
+	- Cloud Spanner is configured as regional or multi-regional instances
+	- Cloud Bigtable is a wide-column NoSQL database used for high-volume databases that require sub-10 ms latency
+	- Cloud Firestore is a document database that is replacing Cloud Datastore as the managed document database
+	- BigQuery is an analytics database that uses SQL as a query language
+	- Cloud Memorystore is a managed Redis service. Redis instances can be created using the Cloud console or gcloud commands
+	- Google cloud storage is an object storage system
+	- When you manage your own databases, you will be responsible for an array of database and system administration tasks.
