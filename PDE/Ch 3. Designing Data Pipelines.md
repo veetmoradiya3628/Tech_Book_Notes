@@ -1,0 +1,47 @@
+
+- Data pipelines are sequences of operations that copy, transform, load and analyze data.
+- GCP services like Cloud Dataflow, Cloud Dataproc, Cloud Pub/Sub, and Cloud Composer are used to implement data pipelines.
+
+- Data pipelines are modeled as directed acyclic graphs (DAGs)
+- Graphs with these kinds of looping back edges are known as cyclic graphs, and the loops are cycles. Cycles are not allowed in data pipelines, and for that reason the graphs that model data pipelines are directed acyclic graphs.
+
+- Data pipeline stages
+	- The nodes in a data pipeline DAG represents processing stages in the pipeline, and edges represent the flow of data. The four stage types of stages in a data pipeline are as follows:
+		- Ingestion
+		- Transformation
+		- Storage 
+		- Analysis
+	- Data pipelines may have multiple nodes in each stage.
+	- Ex. data warehouse that extracts data from three different sources would have three ingestion nodes.
+	- Not all pipelines have all the stages
+- Ingestion
+	- Ingestion is the process of bringing data into the GCP environment. This can occur in either batch or streaming mode.
+	- batch mode via GCP Cloud Storage file ingestion
+	- streaming ingestion will be done via Cloud Pub/Sub topic
+- Transformation
+	- Transformation is the process of mapping data from the structure used in the source system to the structure used in the storage and analysis stages of the data pipelines.
+	- Few types of transformation includes
+		- Converting data types
+		- Substituting missing data 
+		- Aggregating data
+		- Filtering records that violate business logic rules
+		- Dropping columns or attributes from a dataset
+		- Adding columns or attributes derived from input data
+	- Cloud Dataflow and Dataproc are often used for transformation stages of both batch and streaming data.
+	- Dataprep is used for interactive analysis of the data
+- Storage
+	- After data is ingested, and transformed, it is often stored.
+	- Cloud storage can be used as both the staging area for storing data immediately after ingestion and also as a long-term store for transformed data.
+	- BigQuery can treat Cloud Storage Cloud Storage data as external tables and query them.
+	- BigQuery is an analytical database that uses a columnar storage model that is highly efficient for data warehousing and analytic use cases.
+	- Bigtable is a low-latency, wide-column NoSQL database used for time-series, IoT and other high-volume write applications.
+- Analysis
+	- Analysis can take on several forms, from simple SQL querying and report generation to machine learning model training and data science analysis.
+	- BigQuery ML is feature for ML analytics in BigQuery
+	- Data Studio is a GCP service used for interactive reporting tool for building reports and exploring data that is structured as dimensional models.
+	- Datalab is an interactive workbook based on open source Jupyter notebooks
+
+- Types of Data pipelines
+	- Data warehousing pipelines
+	- Stream processing pipelines
+	- Machine learning pipeline
