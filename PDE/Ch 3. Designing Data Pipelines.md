@@ -45,3 +45,94 @@
 	- Data warehousing pipelines
 	- Stream processing pipelines
 	- Machine learning pipeline
+
+- Data warehouse pipeline
+	- Data warehouses are databases for storing data from multiple data sources, typically organized in a dimensional data model.
+	- Denormalized dimensional models keep related data together in a minimal number of tables so that few joins are required.
+	- Common patterns for data warehouses
+		- ETL - Extraction, Transformation and load
+		- ELT - Extraction, load and transformation
+		- Extraction and load
+		- Change data capture
+	- ETL
+		- Extract, transformation and load (ETL)
+		- Data is transformed in the pipeline before being stored in a database
+		- In GCP, transformations can be done using Cloud Dataproc or Cloud Dataflow.
+		- Cloud Dataproc, transformations can be written in a Spark or Hadoop supported language
+		- Cloud Dataflow, you write transformations using the Apache Beam model, which provides a unified batch and stream processing model. Apache beam is modeled as a pipeline and has explicit support for pipeline constructs
+		- Cloud Dataproc is a good choice for implementing ETL processes if you are migrating existing Hadoop or Spark programs
+	- ELT
+		- Extract, load and transform (ELT)
+		- In this process, data is loaded into a database before transforming the data
+		- Extraction and load procedures do not transform data. This type of process is appropriate when data does not require changes from the source format. Log data, for example may be extracted and loaded without transformation
+	- Change Data Capture
+		- In CDC approach, each change in a source system is captured and recorded in a data store.
+	- Data warehousing pipelines are often batch oriented and run on regular schedules. When data needs to be processed continuously, a stream processing pipeline is required.
+
+- Stream processing pipelines
+	- Streams are unending, continuous sources of data. streams can be generated from many sources.
+	- The kinds of analysis that you perform on streaming data is not all that different from batch processing analysis. It includes aggregating data, looking for anomalous patterns and visualizing data in charts and graphs. The difference is in the way that you group the data. In a batch processing environment, all the data you need is available at once. This is not the case with streaming data.
+	- When building data pipelines for streaming data, consider several factors, including
+		- Event time and processing time
+		- Sliding and tumbling windows
+		- Late-arriving data and watermarks
+		- Missing data
+	- Event time and processing time
+		- Data in time-series streams is ordered by time
+		- Event time - time that something occurred at the place where the data is generated
+		- Processing time - time when data arrives at the endpoint where data is ingested
+	- Sliding and tumbling windows
+		- A window is a set of consecutive data points in a stream. Windows have a fixed width and a way of advancing.
+		- Windows that advance by a number of data points less than the width of the window are called sliding windows
+		- Windows that advance by the length of the window are tumbling window.
+		- Sliding windows are used when you want to show how an aggregate - such as the average of the last three values - change over time, and you want to update that stream of averages each time a new value arrives in the stream
+		- Tumbling windows are used when you want to aggregate data over a fixed period of time. for example for the last one minute.
+	- Late arriving and watermarks
+		- Watermark is basically a timestamp indicating that no data older than that timestamp will ever appear in the stream
+	- Hot Path and Cold path ingestion
+		- We have been considering a streaming-only ingestion process. This is sometimes called a hot path ingestion.
+		- Cold path ingestion will need to add data even if it arrives too late but it needs to be added for sure for accuracy purpose
+		- Hot path is stream processing
+		- Cold path is batch processing
+- ML Pipelines
+	- A typical ML pipeline includes
+		- Data ingestion
+		- Data preprocessing, which is called transformation in data warehousing pipelines
+		- Feature engineering, which is another form of transformation
+		- Model training and evaluation
+		- Deployment
+	- Feature engineering is a machine learning practice in which new attributes are introduced into a dataset. The new attributes are derived from one or more existing attributes.
+- GCP pipeline components
+	- Cloud Pub/Sub
+		- Cloud Pub/Sub is a real-time messaging service that supports both push and pull subscription models.
+		- It is a managed service, and it requires no provisioning of servers or clusters
+		- Topic
+		- Subscription
+			- Push & Pull subscription
+		- Publishers / producers
+		- Subscribers / consumers
+		- Flag for auto acknowledge of the message
+		- Idempotency for message processing
+		- Apache kafka is open source alternative to the Cloud Pub/Sub
+	- Cloud Dataflow
+		- Cloud Dataflow is a managed stream and batch processing service. it is a core component for building pipelines that collect, transform and output data.
+		- Work with Cloud Dataflow is coding transformations in one of the languages supported by Apache beam, which are currently Java and Python.
+		- Cloud Dataflow Concepts
+			- Pipelines
+			- PCollection
+			- Transforms
+			- ParDo
+			- Pipeline I/O
+			- Aggregation
+			- User-defined functions
+			- Runnner
+			- Triggers
+		- Jobs and templates
+			- A job is an executing pipeline in Cloud Dataflow. There are two ways to execute jobs: the traditional method and the template method
+	- Cloud Dataproc
+		- Cloud Dataproc is a managed Hadoop and Spark service where a preconfigured cluster can be created with one command line or console operation.
+		- Hadoop
+		- Spark
+		- Pig
+		- Hive
+
