@@ -136,3 +136,31 @@
 		- Pig
 		- Hive
 
+- Managing Data in Cloud Dataproc
+	- HDFS - Hadoop Distributed File System
+	- Cloud Dataproc cluster allows attaching storage from GCP Cloud Storage
+- Dataproc cluster
+	- Two types of nodes
+		- master nodes
+		- worker nodes
+	- master node with YARN - Yet Another Resource Negotiator
+	- Standard mode
+	- High availability mode
+	- HDFS does not support preemptible nodes
+	- Jobs can be submitted using API or gcloud commands
+- Cloud Composer
+	- Cloud Composer is a managed service implementing Apache Airflow, which is used for scheduling and managing workflows.
+	- Workflows are defined using Python and are directed acyclic graphs
+- Migrating Hadoop and Spark to GCP
+	- plan core migrations - data, jobs and HBase
+	- shift to ephemeral clusters
+	- migrate incrementally
+	- choose proper data migration strategy
+
+- Summary
+	- Understand the model of data pipelines
+	- Know the four stages in a data pipeline
+	- Know that the structure and function of data pipelines will vary according to the use case to which they are applied
+	- Know the common patterns in data warehousing pipelines
+	- Understand the unique processing characteristics of stream processing
+	- Know the components of a typical machine learning pipeline
