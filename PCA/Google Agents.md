@@ -45,4 +45,34 @@
 	- Security agents
 - It's important to understand the specific business impact of utilizing various AI Agents. Customer, employee, creative, data, code, and security agents can each map directly to key performance indicators (KPIs) that matter to you and your organization like developer velocity or threat response time.
 - Understanding the problem your agents are solving and the metrics by which they can be measured helps ensure your agents are delivering business value, not just a hypothetical use case.
-- 
+- Developing agents with Google Cloud
+	- AI Agent tools for business users
+	- Building faster with assistance
+	- Professional code framework and tools
+	- ADK
+	- Agent Engine
+	- Gemini API
+- Google's unified AI stack provides a comprehensive, multi-layered ecosystem on Google Cloud, offering multiple paths to develop and deploy production-ready AI Agents. This ecosystem ranges from no-code and low-code solutions to professional code frameworks and the platform that ADK provides.
+
+- Gemini Enterprise
+	- Gemini Enterprise is an AI-powered platform developed by Google Cloud that unifies access to your organization's scattered information. It automates complex, multi-step tasks by connecting content across the enterprise and generating grounded, personalized answers.
+	- Enterprise-grade intranet search
+		- Unified and multimodal search
+		- AI-powered retravel
+		- Grounding and security
+	- Conversational AI Assistant
+		- Complex Q&A and synthesis
+		- NotebookLM for Enterprise
+		- Content generation
+	- Agentic Platform
+		- Action execution
+		- Custom and pre-built agents
+		- Workflow automation
+	- By bringing together Gemini's advanced reasoning, Google-quality search, and your enterprise data (regardless of where it's hosted), Gemini Enterprise unlocks enterprise expertise for employees. It significantly boosts productivity, allowing users to accomplish complex tasks—such as planning, research, content generation, and action execution—all with a single prompt.
+	- Unified knowledge bases with Gemini Enterprise
+		- Challenge #1: Fragmented data sources and manual processes
+			- CRM tool
+			- ERP database
+			- Documents
+			- Internal communication
+	- Gemini Enterprise enables the sales team to instantly aggregate and contextualize information scattered across disparate systems. It transforms Cymbal Labs' sales process from a time-consuming administrative burden into an efficient, data-driven cycle, accelerating their path to revenue.
