@@ -1,0 +1,48 @@
+- AI, ML
+- Generative AI
+	- Foundational models
+	- Large Language Models are foundational model
+- Grounding
+	- Grounding is the process of limiting the AI to a specific scope and verifiable sources of information.
+- RAG
+	- Retrieval
+		-  The agent searches connected data sources for the most relevant text snippets.
+	- Augmentation
+		- These snippets are passed to the Gemini model as explicit context, forcing the model to generate an answer based only on the verified source material.
+	- RAG describes how the system efficiently retrieves relevant information from external sources before the language model generates its final, informed answer.
+- ADK - Agent Development Kit
+- AI Agents
+	- An AI Agent is a software system that uses artificial intelligence (AI), usually language models, to achieve a specific goal on behalf of a user. Agents learn how to best achieve a goal based on inputs and tools available to them.
+	- Autonomous system and not simpler rule-based assistant
+	- Core capabilities
+		- Autonomous action
+			- Agents can perform complex tasks and workflows with minimal human intervention.
+		- Reasoning and planning
+			- Agents leverage advanced AI models to make informed decisions and adapt to changing environments.
+		- Continuous learning
+			- Agents have the ability to learn from experience and continuously improve their performance over time.
+- **Multi-agent collaboration** allows agents to share knowledge, divide complex tasks, and coordinate their actions to achieve large-scale goals that a single agent could not manage alone.
+- AI Agents vs. Traditional chat bots
+	- The biggest distinction between a traditional chatbot and an agentic system is the ability to act autonomously across multiple systems to resolve a complex issue.
+- Agents rely on models, tools and memory to work effectively
+	- Tools
+		- MCP - Model Context Protocol
+	- Models
+	- Memory
+		- Context window for agent
+		- Context based memory
+	- Agent patterns
+		- Simplest agent 
+		- Subagent pattern
+			- Coordinator agent
+		- Orchestrator pattern
+- Agent Use cases
+	- Customer service agent
+	- Employee productivity agent
+	- Creative agents
+	- Code agents
+	- Data agents
+	- Security agents
+- It's important to understand the specific business impact of utilizing various AI Agents. Customer, employee, creative, data, code, and security agents can each map directly to key performance indicators (KPIs) that matter to you and your organization like developer velocity or threat response time.
+- Understanding the problem your agents are solving and the metrics by which they can be measured helps ensure your agents are delivering business value, not just a hypothetical use case.
+- 
