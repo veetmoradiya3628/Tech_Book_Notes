@@ -76,3 +76,7 @@
 			- Documents
 			- Internal communication
 	- Gemini Enterprise enables the sales team to instantly aggregate and contextualize information scattered across disparate systems. It transforms Cymbal Labs' sales process from a time-consuming administrative burden into an efficient, data-driven cycle, accelerating their path to revenue.
+- Lab: Gemini Enterprise
+	- Multiple Google Workspace data source addition and eco system with those application
+
+- Conversational Agents
