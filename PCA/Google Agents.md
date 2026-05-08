@@ -80,3 +80,57 @@
 	- Multiple Google Workspace data source addition and eco system with those application
 
 - Conversational Agents
+	- Conversational Agents is a comprehensive platform for developing chatbots, voice bots, virtual agents using natural language and AI.
+	- Structured conversations
+	- Visual flow builder 
+	- Features
+		- Data storage agents
+		- Generative responses
+		- Generators
+		- Playbooks
+	- Intent
+		- Its reasons an end-user has for interacting with the agent.
+	- pages
+	- flows
+		- used to define topics and the associated conversational paths.
+	- entities
+		- define the type of information you wish to extract from an end-user.
+	- parameters
+		- information supplied by the end-user during a session.
+	- session parameters
+		- store information previously collected from the end-user and are active throughout the session.
+	- fulfillment
+	- Lab: Build a basic conversational agent flow
+
+- Vertex AI Agent Builder
+	- The Vertex AI Agent Builder provides a foundational and practical guide to building, configuring, and grounding conversational AI Agents using the core features of the platform.
+	- Vertex AI Agent Builder is a comprehensive platform for developers to build, orchestrate, and deploy production-ready AI Agents, connecting them to enterprise data and a fully managed runtime environment.
+	- Agent Garden
+		- Agent Garden is a centralized library with pre-built agent samples and reusable features, providing blueprints and source code for specific use cases.
+	- ADK
+		- ADK is an open-source framework for agent development designed to make agent creation feel more like traditional software development.
+	- Agent Engine
+		- Agent Engine provides the infrastructure to run agents reliably and at scale, serving as the managed orchestration layer to handle complex, ongoing processes.
+
+- ADK
+	- Agent Development Kit
+	- Agent Development Kit (ADK) is an open-source, flexible, and modular framework for developing, evaluating, and deploying AI Agents. It shifts agent creation from basic prompt engineering to a more structured, code-first software development approach, providing developers with the precise control needed to build complex, enterprise-ready multi-agent systems.
+	- Precise and control
+		- Flexible orchestration
+		- Multi-agent architecture
+		- Rich tool ecosystem
+	- ADK is an open-source, enterprise-grade framework that elevates AI Agent creation from simple prompting to structured software development by focusing on multi-agent systems. It provides developers with the essential toolkit to build fast through integrated developer experiences while maintaining an open and flexible approach to models and third-party frameworks.
+
+- Security, Access Control & Deployment
+	- Google Cloud offers enterprise-grade security features for AI Agents, including processes for authentication, authorization, and deployment.
+	- Core principles of Agent Security
+		- **Agents must have well-defined human controllers.**
+		- **Agent powers must have limitations.**
+		- **Agent actions and planning must be observable.**
+	- Agent Observability
+	- Explored the critical security challenges of AI Agents, which can be vulnerable to rogue actions and sensitive data disclosure across their operational cycle. To mitigate these risks, Google's strategy is built on three core principles: ensuring agents have human controllers, limiting their limited powers, and making their actions fully observable. This is enforced through a robust hybrid defense-in-depth approach that combines deterministic policy enforcement with dynamic, AI-based defenses.
+	- Authentication and Authorization for Agents
+	- Service Accounts
+	- API Keys
+	- OAuth Client ID
+	- Google Cloud offers integrated services to support the entire lifecycle of your agent to address your infrastructure, deployment, security, and monitoring needs. This comprehensive support allows development teams to treat their AI Agents as production-grade software, ensuring they are not only intelligent but also scalable, secure, and easily managed throughout their operational lifespan.
