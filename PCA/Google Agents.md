@@ -111,6 +111,9 @@
 		- ADK is an open-source framework for agent development designed to make agent creation feel more like traditional software development.
 	- Agent Engine
 		- Agent Engine provides the infrastructure to run agents reliably and at scale, serving as the managed orchestration layer to handle complex, ongoing processes.
+	- Lab
+		- Dialogflow API for Conversational Agents
+		- Create a new conversational agents and a data store
 
 - ADK
 	- Agent Development Kit
@@ -120,6 +123,13 @@
 		- Multi-agent architecture
 		- Rich tool ecosystem
 	- ADK is an open-source, enterprise-grade framework that elevates AI Agent creation from simple prompting to structured software development by focusing on multi-agent systems. It provides developers with the essential toolkit to build fast through integrated developer experiences while maintaining an open and flexible approach to models and third-party frameworks.
+	- Advantages
+		- **Multi-agent systems**: Build modular, scalable applications by composing specialized agents into hierarchical structures.
+		- **Rich tool ecosystem**: Equip agents with pre-built tools, custom functions, or integrations from frameworks like LangChain and CrewAI.
+		- **Flexible Orchestration**: Define predictable pipelines with workflow agents or use LLMs for adaptive, dynamic routing.
+		- **Integrated Developer Experience**: Develop and debug locally with a powerful CLI and an interactive UI to inspect execution step-by-step.
+		- **Built-in Evaluation**: Systematically assess performance by evaluating response quality and execution trajectories against test cases.
+		- **Deployment Ready**: Easily containerize and scale agents on Agent Runtime, Cloud Run, or custom Docker infrastructure.
 
 - Security, Access Control & Deployment
 	- Google Cloud offers enterprise-grade security features for AI Agents, including processes for authentication, authorization, and deployment.
