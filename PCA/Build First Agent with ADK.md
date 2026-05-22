@@ -47,4 +47,12 @@ Create virtual environment → Install ADK → Get API key → Run adk create �
 	- YAML based Agent
 
 - Build Intelligent Agents
-	- 
+	- Multi agent application with ADK
+	- MCP Server
+
+- Deploying your agent
+	- Build / package and deploy to
+		- Vertex AI Agent Engine
+		- Cloud Run
+		- Custom Infrastructure (Docker host, GKE, on-prem)
+
