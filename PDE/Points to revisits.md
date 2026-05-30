@@ -1,0 +1,3 @@
+- BigTable architecture and use cases
+- BigQuery architecture and use cases
+- Apache Beam with Data flow core pipeline concepts
