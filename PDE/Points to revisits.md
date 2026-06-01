@@ -4,3 +4,5 @@
 - default disk quota based on behaviour of job and its calculation
 - Apache Beam lifecycle stages in depth with its lifecycle hooks
 - Apache Spark and SQL revisit
+- Pipeline and its functions with PCollection, ParDo etc with Java / Python and its functions usage
+- 
