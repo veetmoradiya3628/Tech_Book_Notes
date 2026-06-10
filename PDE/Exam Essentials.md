@@ -1,0 +1,87 @@
+
+- Cloud Architecture Framework
+	- Shared responsibility & shared fate
+	- Security principles
+	- Risk & Asset management
+	- Identity & Access management
+	- Compute & Container security
+	- Network security
+	- Data security
+	- Secure Application Deployment
+	- Compliance & Sovereignty
+	- Privacy & Threat Monitoring
+- Database Migration Service
+	- serverless, managed tool that enables secure, low-downtime migration to Google cloud.
+	- Homogeneous migration - similar database engine
+	- Heterogeneous migration - CDC based replication, migration across different engines
+- Migration strategies
+	- Rehost - Life & shift with minimal changes
+	- Replatform - Optimize after migration
+	- Refactor - Re-engineer for cloud-native use
+	- Re-architect - Modernize for scalability
+	- Rebuild - Replace existing with new cloud-native apps
+	- Repurchase - Move to SaaS based solutions
+- Google Cloud Adoption Framework
+	- Key pillers
+		- system design
+		- operational excellence
+		- security
+		- reliability
+		- cost optimization
+		- performance optimization
+	- Migration phases
+		- Assess, Plan, Deploy, Optimize
+- Reliability
+	- Measures
+		- SLI - Service Level Indicator - Measures user satisfaction
+		- SLO - Service Level objective - The target value for SLI
+		- SLA - Service Level Agreement - A formal contract with users that outlines what happens if SLOs are missed
+		- Error budget - how much downtime is allowed
+	- Scale & Availability
+		- Redundancy
+		- Multi-zone & Multi-Region Architecture
+		- Disaster Recovery
+		- Degrade Gracefully
+	- Operational Rollouts
+		- Progressive rollouts
+		- Automation
+		- Testing & Recovery
+	- Reliability for Data Engineering
+		- Durability
+		- High availability
+		- Data consistency
+		- Recovery
+		- Disaster planning
+		- Autoscaling
+		- Graceful decommissioning
+	- Best Practices
+		- Backup & recovery
+		- Least privilege access control
+		- Materialized views in Big Query
+		- Monitor SLIs & SLOs
+		- Cross-Region storage
+		- Autoscaling
+		- CI/CD
+		  Security
+- Migration phases
+	- Define starting point
+	- Define workload type
+	- Choose migration strategy
+	- Assess cloud readiness
+	- Define migration path
+		- Assessment phase
+		- Planning & foundation
+		- Deployment approaches
+		- Optimization
+- Data governance in BigQuery
+	- Access Control
+		- IAM Roles
+		- Column & Row level access
+		- VPC Service Controls
+	- Audit logging
+	- Data stewardship
+	- Encryption
+	- Metadata management
+		- Data Catalog
+	- Data Quality
+		- Powered by Dataplex
