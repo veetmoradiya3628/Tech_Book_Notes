@@ -164,8 +164,71 @@
 	- Auto-scaling
 	- GCP service integrations
 	- CI/CD pipelines for DAG deployment
+- Cloud Storage
+	- Scalable, durable and secure object storage for unstructured data
+	- 11 9's availability
+	- Choose right storage class (Standard, Nearline etc)
+	- Use lifecycle policies for cost efficiency
+	- Enable Cloud CDN for edge caching
+	- Track object changes with Cloud Functions
+	- Access control
+	- Signed URLs
+	- Storage class
+		- Access frequency
+		- Standard - frequently accessed data
+		- Nearline - data accessed once a month
+		- Coldline - data accessed once a quarter
+		- Archive - rarely accessed data (once / year)
+	- Multi-region or Dual regional offer higher availability
+	- Retrieval fees
+	- Outbound data (egress) costs money
+	- Best practices
+		- Lifecycle management
+		- Monitoring & Budgets
+		- Avoid Object versioning
+		- Data compression & delta transfers
+		- Tag resources
+	- Use cases
+		- Hosting static assets
+		- Long-term
+		- Storage for analytics datasets, ML model inputs / outputs
+-  Data Lake
+	- A data lake is a centralized repository designed to store, process and secure large volumes of data.
+	- It can store any format (structured, semi-structured, unstructured)
+	- Components
+		- GCS
+		  BigQuery
+		- Dataflow / Dataproc
+		- Data Catalog
+	- Data Catalog for metadata, lineage and search
+	- Dataplex for automatic discovery and classification
+	- Encryption
+		- Default encryption - AES 256
+		- CMEK - Customer managed keys
+		- CSEK - Customer supplied keys
+	- IAM access levels (Uniform vs. Fine-grained)
+- Memorystore for Redis cluster
+	- It is a fully managed service powered by Redis in-memory data store to build a highly available and scalable application cache that offers sub-millisecond data access
+	- Redis vs. Redis cluster vs. Memcached
+	- Tiers
+		- Basic
+		- Standard
+	- Caching, Gaming and Streaming are the usecases
+- BigQuery
+	- BigQuery is a fully managed, serverless, petabyte scaled low-cost data warehouse service for analytics.
+	- Supports SQL & ML
+	- Separate compute & ML
+- Datalake modernization
+	- Data Lake modernization is the process of enhancing and strengthening existing data lake infrastructure to make it more secure, scalable, fast and accessible through leveraging GCP services.
 
-
+- BigQuery "Automatically detect" schema is for scenarios where the schema of files occasionally changes.
+- Partitioning by date is a good practice for improving query performance and reducing costs for frequently queried recent data
+- Federated query with cloud storage
+- Bigtable is for high-throughput, low-latency access to key-value data
+- BigQuery nested and repeated fields allows for flexibility in handling varying schema structures
+- BigQuery does not have built-in triggers to handle deduplication, built in message deduplication feature
+- Bigtable raw design matters for effective separation and performance in range queries
+- Permanent tables in BigQuery allows for efficient querying of aggregate values
 
 
 
@@ -194,3 +257,6 @@
 	- Designed specifically for database migrations
 10. Data Transfer Appliance
 	- Suitable for physical transfer
+11. Cloud Spanner
+	- globally distributed, horizontally scalable transactions.
+	- Secondary indexes in cloud spanner allows for efficient range queries on non-key colums
