@@ -230,6 +230,83 @@
 - Bigtable raw design matters for effective separation and performance in range queries
 - Permanent tables in BigQuery allows for efficient querying of aggregate values
 
+- BigQuery
+	- BigQuery is a serverless, AI-ready, fully managed, scalable, multi-engine, multi-format, multi-cloud data analytics platform that helps you extract the most value from your data.
+	- Features
+		- Serverless Architecture
+		- High performance
+		- GoogleSQL
+		- ML with BigQuery ML
+		- Vertex AI Integration
+		- Gemini AI
+		- BI Engine
+		- Analytics Hub
+	- ML models in BigQuery
+		- CREATE MODEL
+		- ML.EVALUATE
+		- ML.PREDICT
+	- Views
+		- Views are virtual tables defined by SQL queries
+		- they are read-only and do not store any data.
+		- Types of views
+			- Logical View
+				- No data stored, Reflects live changes, Lower cost, slower query
+			- Materialized View
+				- Stores precomputed results
+				- Periodic refresh (default: 30 minutes)
+				- Faster, costlier
+		- INFORMATION_SCHEMA contains view metadata
+- Looker studio is a no-cost self-service data visualization tool that allows you to create and consume dashboards and customizable reports from various data sources.
+- Query modes
+	- Interactive mode
+		- Triggered by user interaction
+		- Real-time, but more costly
+		- Limited concurrency
+	- Batch queries
+		- Scheduled, cheaper
+		- Ideal for recurring reports
+- Cloud IAM
+	- Cloud Identity and Access Management (IAM) allows users to manage access control for specific Google Cloud resources and helps prevent access to other resources.
+	- Core components
+		- Principal - User account, Service account
+		- Role - Basic, Predefined, Custom
+		- Policies - Allow, Deny
+		- Resources - Organization, Folder, Project, Resources
+- GCP Observability
+	- Cloud logging - Managed log monitoring and analytics
+	- Cloud Monitoring - Metrics, events, dashboards and alerts
+	- Cloud Trace - Distributed tracing for latency and performance insights
+	- Cloud Profiler - CPU and memory profiling
+	- Error Reporting - Centralized error management and analytics
+- Cloud Key Management
+	- KMS 
+	- Symmetric / asymmetric
+	- Hardware Security Module (HSM)
+	- Customer-managed encryption keys (CMEK)
+	- External Key Manager (EKM) support
+- Google Cloud Encryption
+	- Simple text to ciphertext conversion
+	- Encryption at rest and encryption in transit
+	- CMEK
+	- Encryption in transit - TLS, ALTS, AES GCM
+	- DEK, KEKs
+- Monitoring and troubleshooting process in GCP
+	- Dataflow - Metrics, Job monitoring, failure logs
+	- BigQuery - Query metrics, data scans, execution time
+	- DataProc - Cluster and job monitoring
+	- Pub/Sub - Message throughput, delivery latency monitoring
+	- Cloud Storage - Metrics for errors, data transfer and requests
+- DR - Disaster recovery
+	- Zones / Regions
+	- Replication strategies
+		- Sync / Async
+	- Automated failover - Hot / warm recovery based on RTO
+- Data Analytics
+	- Connect to BI Tools
+	- Materialized views & pre calculated fields
+	- Define time granularity
+	- Troubleshoot query performance
+	- IAM & Cloud DLP
 
 
 ---------------
