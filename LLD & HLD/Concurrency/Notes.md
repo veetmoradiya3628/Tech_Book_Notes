@@ -114,3 +114,21 @@
 			- Use finer-grained locks - If two operations do not touch the same data, they should not fight over the same lock.
 			- **Prefer atomics for simple counters:** For small, well-defined operations like incrementing a counter, atomic types often beat a mutex because they avoid blocking entirely.
 			- **Use read-write locks when reads dominate:** If your workload is “many readers, few writers,” a `ReadWriteLock` can improve concurrency by letting readers proceed in parallel.
+- A mutex is binary - locked or unlocked, so only one thread can enter at a time
+- A semaphore generalizes the idea : it allows up to N threads to enter concurrently.
+- Two core operations
+	- acquire() / wait() / P() - attempt to decrement the counter. If the counter is greater than zero, decrement it and return immediately. If the counter is zero, block the calling thread until another thread releases a permit
+	- release() / signal() / V() - Increment the counter. If any threads are blocked waiting for permits, wake one of them up.
+- Binary vs. Counter semaphores
+- At a high level, a semaphore is a tool for **controlling how many things can happen at the same time**. That makes it useful in two broad categories: **resource limiting** and **producer-consumer coordination**.
+- Resource pool management
+	- Database connections
+	- Thread pool sizing
+	- API rate limiting
+	- File handlers
+- Producer-consumer coordination
+- Semaphore vs. Mutex
+- Optimization strategies for Semaphore
+	- Choose the right permit size
+	- Consider fairness trade-offs
+	- Use tryAcquire() for fallback paths
