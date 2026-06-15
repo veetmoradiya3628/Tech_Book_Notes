@@ -95,3 +95,22 @@
 	- L2 cache shared across core
 - Visibility problems
 - Volatile read / write, Synchronized
+
+- Mutex
+	- Mutual Exclusion - its most fundamental synchronization primitive. It ensures that only one thread can access a critical section at a time.
+	- In Java you typically use one of two approaches
+		- `synchronized` - intrinsic monitor lock, built into the language
+		- `Lock` implementations like `ReentrantLock` - explicit locks from java.util.concurrent.locks package
+	- Performance considerations
+		- Overhead - A mutex is fast when no one is competing.
+		- Lock contention
+			- Contention occurs when multiple threads compete for the same lock. High contention causes:
+				- Threads spend more time waiting than working
+				- Excessive context switching
+				- Poor CPU utilization
+				- Serialized execution (defeating the purpose of multithreading)
+		- Optimization strategies
+			- Minimize critical section size : Only lock what's necessary
+			- Use finer-grained locks - If two operations do not touch the same data, they should not fight over the same lock.
+			- **Prefer atomics for simple counters:** For small, well-defined operations like incrementing a counter, atomic types often beat a mutex because they avoid blocking entirely.
+			- **Use read-write locks when reads dominate:** If your workload is “many readers, few writers,” a `ReadWriteLock` can improve concurrency by letting readers proceed in parallel.

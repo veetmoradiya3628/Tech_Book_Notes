@@ -308,6 +308,30 @@
 	- Troubleshoot query performance
 	- IAM & Cloud DLP
 
+- BigQuery BI Engine with precomputed materialized views allows for quick access to aggregated data.
+- BigQuery as a data warehouse solution offers scalability, low maintenance and efficient handling of large datasets for data analytics.
+- Analytics Hub allows centralized management of data access, ensuring security and control while providing third-party companies with access to the dataset.
+- Cloud Natural Language API for quick implementation of generated Entity analytics or subject labels.
+- Centralized log management
+- Authorized views in BigQuery allows the organization to share aggregated data summaries while controlling access to underlying user-level data.
+- Logistic regression for binary classification
+- Linear regression for prediction of value
+- k-means clustering is unsupervised algorithm for clustering
+- Cloud AutoML for batch prediction task
+- Vertex AI Online Prediction is the most suitable option for low latency, scalability and seamless model updates for real-time predictions
+
+- Intermittent Workloads - Job based clusters are designed to be created and terminated on-demand, making them ideal for tasks that don't require a continuous cluster. This flexibility allows the company to pay only for the resources used during the processing, reducing costs.
+- Predictable, Ongoing tasks - Persistent clusters offer a more stable and predictable environment, making them suitable for long-running processes. These clusters are always running, ensuring consistent performance and availability.
+- As DAGs in cloud composer allow organizations to define workflow dependencies and schedule job execution in a repeatable and reliable manner, ensuring timely execution of critical tasks.
+- Pricing model
+	- Flat-rate slot pricing - Flat-rate slot pricing offers fixed capacity for predictable workloads. It allows users to pay a flat rate for a set number of slots, regardless of usage, providing stability in pricing for steady workloads
+	- Flex slot pricing - Flex slot pricing offers flexibility and dynamic allocates slots based on demand, making it suitable for fluctuating workloads.
+	- On-demand pricing - On-demand pricing charges users based on usage, without any fixed commitments, making it suitable for sporadic or unpredictable workloads.
+	- Pay as you go is similar to on-demand pricing 
+- Auto scaling policies allows for dynamic adjusting resource allocation based on workload demands, ensuring optimal resource utilization and cost-efficiency for both critical and non-critical data processes.
+- Exporting relevant information to Cloud monitoring and configuring an alerting policy aligns with the requirement to perform health checks, monitor behavior, and notify the team promptly in case of pipeline failures. This approach utilizes managed products and features for effective monitoring across multiple projects.
+- Failover replica vs. Read replica
+
 
 ---------------
 1. Google Cloud Dataflow 
@@ -337,3 +361,13 @@
 11. Cloud Spanner
 	- globally distributed, horizontally scalable transactions.
 	- Secondary indexes in cloud spanner allows for efficient range queries on non-key colums
+12. Cloud Monitoring
+	- centralized logging and monitoring capabilities for Google cloud services, including data processes such as Dataproc and Dataflow.
+13. Cloud Logging
+	- Google Cloud Logging offers centralized logging capabilities
+14. Cloud Trace
+	- Cloud Trace is primarily focused on distributed application tracing, providing insights into application performance, rather than centralized logging and monitoring for data processes.
+15. Cloud Audit Logging
+	- Cloud Audit logging is specifically designed for tracking and logging user access and system activity within Google Cloud Platform services, not for monitoring data processes.
+16. Cloud Scheduler
+	- Allows automated and repeatable task scheduling, ensuring timely execution based on predefined schedules.
