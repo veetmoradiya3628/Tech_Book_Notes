@@ -132,3 +132,14 @@
 	- Choose the right permit size
 	- Consider fairness trade-offs
 	- Use tryAcquire() for fallback paths
+
+- Condition Variable
+	- A condition variable is a synchronization primitive that allows threads to wait until a particular condition becomes true. Unlike a semaphore, which signals when a resource counter becomes non-zero, a condition variable signals when any arbitrary predicate, any boolean condition you define, becomes true.
+	- Fundamentals behind conditional variables
+		- Protecting shared state (handled by a mutex)
+		- Waiting for a state changes (handled by the condition variable)
+	- APIs
+		- wait()
+		- signal() / notify()
+		- broadcast() / notifyAll()
+- 
