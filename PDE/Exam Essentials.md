@@ -331,6 +331,22 @@
 - Auto scaling policies allows for dynamic adjusting resource allocation based on workload demands, ensuring optimal resource utilization and cost-efficiency for both critical and non-critical data processes.
 - Exporting relevant information to Cloud monitoring and configuring an alerting policy aligns with the requirement to perform health checks, monitor behavior, and notify the team promptly in case of pipeline failures. This approach utilizes managed products and features for effective monitoring across multiple projects.
 - Failover replica vs. Read replica
+- AutoML to quickly build models. ML always split training data into 70-30% where 70% for training and 30% after that for testing the model
+- ML types
+	- Regression - output variable is a continuous value, supervised
+	- Classification - output variable is a category, supervised
+	- Clustering - An unsupervised learning method to find references between input data without labeled output
+	- Reinforcement - its learning technique where a machine takes actions without training sets to reach the highest rewards possible.
+- For ML model overfitting prevention increase the training set, decrease features parameters, increase regularization
+- GCP Cloud NLP - service is to derive insights from unstructured text revealing meaning of the documents and categorize articles.
+- Speech to text - caption on video etc
+- Auto ML Vision API - service to recognize and derive insights from images by either using pre-trained models or training a custom model based on set of photos
+- ML Engine - managed service for custom model develop, design and deploy in prod
+- Ephemeral dataproc cluster is recommended best practice to save the cost, spin a cluster with Preemptible VM
+- Storage transfer service allows you to quickly import ONLINE data into cloud storage.
+- Transfer Appliance is an OFFLINE secure, high capacity storage server that is used for huge data transfer
+- BigQuery sql - to refer table its always \`\<table\>\`
+	- TABLE_SUFFIX - for wild card table scan with particular suffix
 
 
 ---------------
@@ -352,6 +368,7 @@
 	- Visual data preparation tool
 7. Google Cloud Composer
 	- Workflow orchestration service
+	- Supports custom sensor to take action and re-run or trigger pipeline etc
 8. Google Cloud Datafusion
 	- Designed for data integration
 9. Google Cloud Database Migration Service
@@ -360,7 +377,8 @@
 	- Suitable for physical transfer
 11. Cloud Spanner
 	- globally distributed, horizontally scalable transactions.
-	- Secondary indexes in cloud spanner allows for efficient range queries on non-key colums
+	- Secondary indexes in cloud spanner allows for efficient range queries on non-key columns
+	- supports horizontal scaling across continents
 12. Cloud Monitoring
 	- centralized logging and monitoring capabilities for Google cloud services, including data processes such as Dataproc and Dataflow.
 13. Cloud Logging
