@@ -142,4 +142,104 @@
 		- wait()
 		- signal() / notify()
 		- broadcast() / notifyAll()
-- 
+
+- Synchronized vs. Reentrant Lock
+	- Synchronized 
+		- Built into the language - intrinsic lock
+		- Simple to use
+		- Release lock incase of exception
+	- Reentrant Lock
+		- part of concurrent pkg
+		- try lock
+		- timed lock
+		- fairness
+		- interrupted lock
+		- Conditional wait
+
+- java.util.concurrent pkg
+	- Concurrent collections
+		- ConcurrentHashMap
+		- CopyOnWriteArrayList
+		- ConcurrentLinkedQueue
+	- BlockingQueue
+		- ArrayBlockingQueue
+		- LinkedBlockingQueue
+		- PriorityBlockingQueue
+		- SynchronousQueue - direct handoff
+	- Executors Framework
+		- ThreadPoolExecutor
+		- ScheduledExecutor
+		- Executors Factory
+	- Fork/Join Framework
+		- ForkJoinPool
+		- RecursiveTask
+		- RecursiveAction
+	- Synchronizers
+		- CountDownLatch
+		- CyclicBarrier
+		- Semaphore
+		- Phaser
+	- Atomic Variables
+		- AtomicInteger
+		- AtomicReference
+		- AtomicLong
+	- Locks
+		- ReentrantLock
+		- ReadWriteLock
+		- StempedLock
+- Fork/Join is designed specifically for divide-and-conquer algorithms.
+- Work-stealing algorithm
+	- The key innovation is work stealing. Each thread has its own deque (double-ended queue). Threads steal from others when idle.
+	- ForkJoin shines in this type of tasks
+		- Compressing files
+		- Image processing
+		- Matrix multiplication
+		- Recursive merge sort etc
+- CountDownLatch
+	- A CountDownLatch is a one-shot barrier that allows one or more threads to wait until a set of operations in other threads completes. You initialize it with a count, threads call `countDown()` to decrement, and waiting threads unblock when the count reaches zero.
+	- **Starting gun pattern:** You can also use CountDownLatch as a starting gun to release multiple threads simultaneously.
+	- **Timeout support:** You can also wait with a timeout to avoid blocking forever if something goes wrong.
+- CyclicBarrier
+	- While CountDownLatch is great for one-time coordination, what if you need threads to synchronize repeatedly across multiple phases? This is where CyclicBarrier shines.
+- Phaser
+	- A Phaser is like a CyclicBarrier with superpowers:
+		- **Dynamic registration:** Parties can register() to join and arriveAndDeregister() to leave at any time
+		- **Phase tracking:** Each barrier trip advances the phase number (0, 1, 2, ...)
+		- **Termination:** The phaser can terminate after a condition is met
+		- **Tiering:** Multiple phasers can be organized in a tree for scalability
+- Exchanger
+- Common patterns
+	- ThreadPoolExecutor + BlockingQueue + Semaphore
+	- CountDownLatch + ConcurrentHashMap (Memoizing Cache)
+	- CyclicBarrier + ConcurrentHashMap (Phased Processing)
+- Virtual Threads
+	- Platform Threads vs. Virtual Thread
+	- Old Java Thread
+		- 1 java Thread = 1 OS Thread
+	- Virtual Thread
+		- M : N Scheduling
+		- Many virtual threads share fewer platform threads.
+	- Carrier Threads
+	- Mount / Unmount threads
+	- Virtual Thread Executor
+	- Virtual threads are not faster, virtual threads = better scalability
+	- Not use Virtual thread for CPU expensive task
+	- Pinning - Virtual threads should unmount. Sometimes they cannot.
+- Async programming and completable future
+	- runAsync vs. supplyAsync
+	- thenApply()
+	- thenAccept()
+	- thenReturn()
+	- join()
+	- thenCombine()
+	- allOf()
+	- anyOf()
+	- handle()
+
+- Read Write Lock
+	- ReentrantLock does not allow read as well concurrently but for read heavy systems its okay to allow multiple thread to read at the same time
+	- Many readers allowed 
+	- Only one writer
+	- Reader + Writer not allowed
+- Volatile
+	- provides visibility & latest version of data across multiple threads
