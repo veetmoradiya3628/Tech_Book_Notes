@@ -279,4 +279,53 @@
 	- Conservative (static) 2PL
 
 - Lock-free programming
-- 
+	- Compare-And-Swap (CAS) is the foundation of lock-free programming. It is a single atomic operation provided by modern CPUs that allows threads to update shared memory without acquiring locks.
+	- Instead of blocking other threads, CAS lets threads detect conflicts and retry. When contention is moderate, this approach often outperforms locks. When contention is extreme, the trade-offs become more nuanced.
+	- The key insight is that the comparison and the swap happen as a single atomic operation. No other thread can intervene between the check and the update.
+	- Compare and Exchange at Hard-ware level
+	- `compareAndSet()`, `CAS Loop`
+	- ABA Problem
+	- AtomicStampedReference
+- Atomic Operations
+	- Indivisible
+	- cannot be interrupted
+	- either completes fully or not at all
+	- No other thread can observe it halfway
+	- It doesn't use locks for most operations
+	- Instead it uses CPU operations called CAS
+	- CAS internal
+		```
+		if(currentValue == expectedValue)
+		{
+		    currentValue = newValue;
+		}
+		else
+		{
+		    fail
+		}
+		```
+
+- Deadlock
+	- Two or more threads are permanently blocked because each thread is waiting for a resource (lock) held by another thread.
+	- To prevent deadlock
+		- Always Acquire Locks in the Same Order
+		- Use `ReentrantLock.tryLock()`
+		- Keep Critical Sections Small
+		- Avoid Nested Locks
+- Livelock
+	- Two or more threads continuously change their state in response to each other, but none of them makes progress.
+- Starvation
+	- A thread waits indefinitely because other threads continuously get access to the shared resource before it.
+- Lost Signal
+	- A thread calls `notify()` (or `signal()`) **before** another thread has actually called `wait()` (or `await()`)
+- Spurious Wakeups
+	- A thread waiting on `Object.wait()` or `Condition.await()` wakes up **without being notified, interrupted, or timing out**
+- Thread Leakage
+	- Threads are created but never properly terminated or returned, so the number of active threads keeps increasing over time.
+	- Thread Leakage is the continuous accumulation of threads because they are created but never terminated or properly cleaned up, eventually exhausting system resources.
+- Priority Inversion
+	- A **high-priority thread is forced to wait because a low-priority thread holds a lock**, and a **medium-priority thread prevents the low-priority thread from releasing that lock.**
+	- Priority inversion occurs when a high-priority thread is indirectly delayed because a lower-priority thread holds a resource it needs, while other threads prevent the lower-priority thread from releasing that resource.
+
+- Concurrency Patterns
+	- 
