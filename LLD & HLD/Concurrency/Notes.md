@@ -243,3 +243,40 @@
 	- Reader + Writer not allowed
 - Volatile
 	- provides visibility & latest version of data across multiple threads
+
+- Lock contention
+- Lock granularity is the spectrum between protecting everything with one lock (coarse-grained) and protecting each tiny piece with its own lock (fine-grained)
+- Lock granularity refers to the size of the data or code region protected by a single lock.
+- stripes
+- One lock, many lock, stripe locking etc
+
+- Reentrancy
+	- A **reentrant lock** (also called a **recursive lock**) solves this by tracking which thread holds the lock and how many times it has been acquired.
+	- A lock is **reentrant** (or **recursive**) if a thread that already holds the lock can acquire it again without blocking. Each acquisition increments an internal counter, and each release decrements it. The lock is truly released only when the counter reaches zero.
+- TimedLock & TryLock
+- Optimistic lock
+	- I trust conflicts are rate
+	- read heavy and write rare
+	- Atomic and CAS
+- Pessimistic lock
+	- I assume conflicts will happen
+	- high write contention
+	- synchronized, ReentrantLock, ReadWriteLock, StampedLock
+- Stamped lock
+	- Every successful lock operation returns a number
+	- StampedLock requires stamp number
+	- Normal read vs. Optimistic read
+	- An optimistic read doesn't acquire a lock; it reads the data first and then validates whether a writer modified it. If validation fails, it falls back to a normal read lock. This reduces synchronization overhead when writes are infrequent.
+- 2PL - Two Phase Locking
+	- First acquire all the locks you need, then release them only after you are done acquiring locks.
+	- This guarantees conflict serializability, meaning concurrent execution behaves as though transactions ran one at a time.
+	- Two phase
+		- Growing phase
+		- Shrinking phase
+	- The **lock point** is when the transaction has acquired its final lock. After this point, it can only release locks.
+	- 2PL doesn't eliminate deadlocks, real databases detect deadlocks and abort one transaction, or they prevent them through lock ordering or conservative locking.
+	- Strict 2PL
+	- Conservative (static) 2PL
+
+- Lock-free programming
+- 
