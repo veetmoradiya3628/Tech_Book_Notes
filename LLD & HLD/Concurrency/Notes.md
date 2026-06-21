@@ -328,4 +328,107 @@
 	- Priority inversion occurs when a high-priority thread is indirectly delayed because a lower-priority thread holds a resource it needs, while other threads prevent the lower-priority thread from releasing that resource.
 
 - Concurrency Patterns
-	- 
+	- Signaling Pattern
+		- The **Signaling Pattern** is one of the most fundamental synchronization patterns in concurrent programming. It is used whenever **one thread needs to notify another thread that some event has happened**.
+		- To avoid busy waiting we should consider using signaling
+		- Java provides multiple ways to implement signaling
+			- wait() / notify()
+				- Oldest signaling method
+				- Always while check on condition and not if because java supports spurious wakeup
+			- Condition
+				- Modern version of wait/notify
+				- Uses lock + condition
+			- CountDownLatch
+				- Signal only once
+			- Semaphore
+				- Signal using permits
+			- BlockingQueue
+			- CompletableFuture
+			- LockSupport
+			- Phaser
+			- CyclicBarrier
+	- Thread Pool Pattern
+		- Creating a new thread for every task is expensive because thread creation involves operating system calls, memory allocation (typically around 1 MB stack per thread by default), scheduling, and eventual cleanup. Instead, a thread pool creates a fixed or managed set of worker threads once and reuses them for many tasks.
+		- Tasks, Blocking Queue, Worker Thread etc
+	- Producer-consumer pattern
+		- The Producer-Consumer Pattern decouples the **creation of work** from the **processing of work** using a shared thread-safe buffer. Producers generate items, consumers process them independently.
+			- Producer - produces work
+			- Consumer - consumes work
+			- Buffer - Queue - This is the heart of the pattern
+			- Synchronization
+			- Why Bounded buffer ?
+	- Reader-writer pattern
+		- Many threads only read shared data
+		- A few threads modify *write* the data
+		- Reads happen much more frequently than writes
+		- Instead of allowing only one thread at a time (using a normal lock), the Reader-Writer pattern allows **multiple readers to access the resource concurrently**, while ensuring that **writers have exclusive access**.
+	- Future / Promise Pattern
+		- Future - A future is a placeholder for a value that is not available yet.
+		- `Future` vs. `CompletableFuture` vs. 
+		- Chaining
+		- Promise - A Promise is the writable side of the asynchronous result
+	- Double-checked locking
+		```
+		             getInstance()
+
+                  │
+
+        First Check (No Lock)
+
+          instance == null ?
+
+             │           │
+
+            No          Yes
+
+             │           │
+
+             ▼           ▼
+
+        Return      Acquire Lock
+
+                        │
+
+                Second Check
+
+               instance == null ?
+
+                    │        │
+
+                   No       Yes
+
+                    │        │
+
+                    ▼        ▼
+
+                Return   Create Object
+		```
+
+- Code
+
+```
+class Singleton {
+
+    private static volatile Singleton instance;
+
+    private Singleton() {
+    }
+
+    public static Singleton getInstance() {
+
+        if (instance == null) {
+
+            synchronized (Singleton.class) {
+
+                if (instance == null) {
+
+                    instance = new Singleton();
+                }
+            }
+        }
+
+        return instance;
+    }
+}
+```
+
