@@ -389,3 +389,6 @@
 	- Cloud Audit logging is specifically designed for tracking and logging user access and system activity within Google Cloud Platform services, not for monitoring data processes.
 16. Cloud Scheduler
 	- Allows automated and repeatable task scheduling, ensuring timely execution based on predefined schedules.
+
+- Dataform (ELT SQL) vs. Dataflow (Stream Beam ETL) vs. DataPrep (Data wrangling) vs. DataFusion (ETL UI easy way to manage - 3rd party trifacta) vs. Analytics Hub (Org sharing)
+- Knowledge catalog
