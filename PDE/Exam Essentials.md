@@ -348,6 +348,35 @@
 - BigQuery sql - to refer table its always \`\<table\>\`
 	- TABLE_SUFFIX - for wild card table scan with particular suffix
 
+- Dataflow pipeline to replace an existing pipeline, a new pipeline needs to be created with the same job name.
+- flag -update to be passed as well also `-transformNameMapping` needs to be supplied for updating transformation name mapping
+- BigQuery connector can be used as input and output source for Dataproc cluster by using BigQuery Connector. There are 3 ways BigQuery connectors can be used
+	- Installing BigQuery connector using initialization action.
+	- specifying BigQuery connctor in the jars parameter when submitting a job. the jar could be placed on cloud storage and a path to the jar is provided.
+	- BigQuery connector classes can be included as dependencies in your code.
+- BigQuery with permanent table with "automatically detect" schema changes detect and source can be in cloud storage
+- BigQuery we can export data in several formats, it has native support to export data in CSV, JSON or AVRO format 
+- Cloud Composer is recommended over Apache Airflow and also composer support multi cloud pipeline orchestration
+- Ingestion table in BigQuery will have two pseudo column called `_PARTITIONTIME` and `_PARTITIONDATE`.
+- Preemptible workers can not store data, it only functions as a processing nodes.
+- Cloud Vision API product search we can easily train by providing reference images. The API will allow the user to query the product catalog based on the new image as input and will fetch the best-matching products
+- Possible ways to load data into BigQuery
+	- Batch Ingestion
+	- Stream ingestion
+	- Data Transfer Service (DTS) - to load data from other SaaS products
+	- Partner Integrations
+	- Query Materialization - This is the best way to simplify extract, transform, and load patterns in BigQuery. Using federated queries in BigQuery, one can persist their analysis results in BigQuery to derive any insights.
+- Cloud Pub/Sub limits
+	- retention period 7 days
+	- min 10 minutes to 31 days retention period
+- Cloud BigTable is designed for high-throughput and low-latency workloads, making it ideal for real-time applications like inventory tracking.
+- ParDo for filtering a dataset.
+- Transfer Application service for large / huge dataset
+- Data Fusion is similar to CDAP (Cask Data Application Platform)
+- Cloud Vision API - limit 20 MB single image
+- Avro is recommended data format for BigQuery
+- Storage transfer service can be used when transferring more than 1 TB from another cloud storage service
+
 
 ---------------
 1. Google Cloud Dataflow 

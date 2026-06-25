@@ -9,3 +9,4 @@
 - medallion architecture data engineering
 - Apache Spark & Beam basics and flow understanding
 - Dremel engine of BigQuery
+- Bigquery, gcloud commands revisit
