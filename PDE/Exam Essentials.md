@@ -377,6 +377,37 @@
 - Avro is recommended data format for BigQuery
 - Storage transfer service can be used when transferring more than 1 TB from another cloud storage service
 
+- Pub/Sub stream events can directly configured to ingest data into BigQuery using BigQuery subscription
+- Ephemeral Dataproc cluster
+- Preemptible VMs
+- Object Lifecycle management
+- Online prediction vs. Batch Prediction in Vertex AI
+- If there are multiple BigQuery projects and users you can manage costs by requesting a user-level custom quota that specifies  a limit on the amount of query data processed per day.
+- BigTable cluster - there is no option to change the cluster configuration once created, only way to change if by deleting and recreating new one
+- Scheduled run by Cloud Scheduler
+- For timeseries data on Big Table you should generally use tall and narrow tables
+- Performance test on BigTable
+	- Use production instance
+- Precision
+	- Out of all the examples the model predicted as positive, how many were actually positive ?
+- Recall
+	- Out of all the actual positive examples in the data, how many did the model manage to find ?
+- Hyperparameter tuning effcts
+	- Number of nodes in hidden layers
+	- Number of hidden layers
+- STS - Storage transfer service - online transfer
+- Transfer Appliance is an offline secure, high capacity storage server that we setup in our datacenter. 
+
+- Sliding window vs. Tumbling window vs. Hopping window vs. Session window vs. Global window
+- Dataflow job stopping two options 
+	- Cancel
+	- Drain
+- BigQuery to GCS below are 3 options supported
+	- CSV
+	- JSON
+	- Avro
+	- Parquet
+- GZIP, DEFLATE, SNAPPY are only supported compression types while exporting data to GCS
 
 ---------------
 1. Google Cloud Dataflow 
