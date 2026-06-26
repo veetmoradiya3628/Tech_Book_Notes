@@ -452,3 +452,324 @@
 
 - Dataform (ELT SQL) vs. Dataflow (Stream Beam ETL) vs. DataPrep (Data wrangling) vs. DataFusion (ETL UI easy way to manage - 3rd party trifacta) vs. Analytics Hub (Org sharing)
 - Knowledge catalog
+
+
+Big Table
+- Row Key, Column Family, Column, Timestamp, Value
+- Row key design should have hash(col)#timestamp or user#timestamp
+- Tablets & tablet server - divide the row key range in multiple machines
+- Use cases
+	- Time series
+	- Financial tick data
+	- User Profile
+	- Recommendations engine
+	- Adtech
+	- Fraud detection
+	- IoT
+
+BigQuery
+- OLTP vs. OLAP
+- OLAP engine
+- It's
+	- Distributed SQL Engine
+	- Columnar Storage
+	- Massively Parallel Processing
+	- Serverless
+- Separation of Compute and Storage
+- Based on Google's Dremel engine
+- Query execution tree
+- Query Planner
+- Slots
+	- Virtual CPU
+	- Memory
+	- Execution resource
+- Shuffle
+- Partitioning and clustering
+	- Partitioning
+		- Time partition
+		- Integer range partition
+		- Ingestion time
+	- Clustering
+		- Choose blocks
+- Materialized view
+- Result cache
+- Security
+	- IAM
+	- Column-level security
+	- Row-level security
+	- Authorized views
+	- Encryption at rest / transit
+
+Dataflow
+- Based on Apache Beam
+- Beam - Programming model
+- Dataflow - Execution Engine
+- Batch and Stream both supported
+- PCollection - collection of records
+- Transform - transforms modify data
+- Windows
+	- Fixed window
+	- Sliding window
+	- Session window
+- Event time vs. Processing time
+- Watermark
+- Trigger - immediate internal result
+- ETL
+- Exactly-once processing semantics
+
+Dataproc
+- Manages infra structure
+- Spark does a computation
+- Ephemeral clusters
+- Broadcast Join
+- Managed Spark / Hadoop 
+
+- Datawarehouse
+	- Structured, cleaned, transformed, business-ready data optimized for analytics
+	- BigQuery
+	- Schema-on-write
+- Data Lake
+	- Raw data in its original format
+	- Cloud storage
+	- Schema-on-read 
+- Data swamp
+	- Poorely managed data lake
+- Data Lakehouse
+	- Modern architecture
+	- cheap object storage from a Data Lake
+	- reliability and governance of a Data Warehouse
+	- Apache Iceburg & Open table format
+- ETL
+	- Extract, transform, load
+- ELT
+	- Extract, load, transform
+- Reverse ETL
+	- Warehouse data back to operational systems
+
+```
+                Data Sources
+                     │
+          ┌──────────┴──────────┐
+          ▼                     ▼
+   Data Preparation       Data Movement
+          │                     │
+    Dataprep/Data Fusion   Dataflow
+          │                     │
+          └──────────┬──────────┘
+                     ▼
+          Data Lake / Warehouse
+        (Cloud Storage, BigQuery)
+                     │
+          ┌──────────┴──────────┐
+          ▼                     ▼
+     Governance           Batch Compute
+      Dataplex             Dataproc
+```
+
+- Cloud Dataprep
+	- Visual data cleaning tool (no-code/low-code)
+	- Data cleaning
+- Cloud Data Fusion
+	- Visual ELT/ETL pipeline builder
+	- Managed ETL pipeline
+- Cloud Dataproc
+	- Managed Spark/Hadoop cluster
+	- Managed cluster
+- Cloud Dataflow
+	- Serverless distributed data processing
+	- Serverless ETL
+- Cloud Dataplex
+	- Unified data governance and management
+	- Governance
+- Cloud Dataform
+	- ELT
+	- SQLx
+- Datamesh
+	- decentralized data ownership
+- BigLake
+	- Unified access layer for data lakes.
+	- Allows BigQuery to analyze data stored directly in Cloud Storage while providing centralized governance.
+- Datastream
+	- CDC - Change data capture
+- Analytics Hub
+	- Secure data sharing across org
+- Cloud Composer
+	- Workflow orchestration (Managed Apache Airflow)
+
+```
+              Need to move data
+                     │
+        ┌────────────┼────────────┐
+        ▼            ▼            ▼
+   Database      Files/Objects   Huge Offline Data
+   Migration      Transfer          Migration
+        │            │                │
+        ▼            ▼                ▼
+Database        Storage         Transfer
+Migration       Transfer        Appliance
+Service         Service
+        │
+        ▼
+   Continuous Database Changes
+        │
+        ▼
+     Datastream
+```
+
+- Cloud DMS - Data Migration Service
+	- Managed service for migrating databases into Google Cloud
+	- Database Migration
+- Datastream
+	- captures ongoing changes
+	- Serverless CDC
+- Storage Transfer Service
+	- This moves Objects not databases
+	- Managed service for transferring object data
+	- Online Object Transfer
+- Transfer Appliance
+	- Offline migration
+	- High data migration with limited bandwidth
+- BigQuery Data Transfer Service
+	- Automatically loads data into BigQuery from supported Google Services and SaaS applications
+	- Managed Scheduled Import
+
+```
+                Trigger
+                   │
+      ┌────────────┼─────────────┐
+      ▼            ▼             ▼
+   Time-based   Event-based   API/Workflow
+      │            │             │
+Scheduler      Eventarc     Workflows
+      │            │             │
+      └──────┬─────┴─────────────┘
+             ▼
+     Run Function / Cloud Run
+             │
+             ▼
+        Dataflow
+             │
+             ▼
+        BigQuery
+```
+
+- Cloud Composer
+	- Apache Airflow
+	- Pipeline Orchestration
+- Cloud Scheduler
+	- Cron in the cloud
+- Cloud Workflows
+	- Coordinates service-to-service calls
+	- Service orchestration
+- Cloud Run
+	- Serverless containers
+- Cloud Functions
+	- Run a small function when an event occurs
+	- Event-driven function
+- Eventarc
+	- Universal event router
+- Cloud Tasks
+	- Asynchronous task queue
+- Batch
+	- Managed batch job execution
+
+- Three pillars to any production system
+	- Logs
+	- Metrics
+	- Alerts
+- Cloud Logging
+	- Everything that happens
+- Cloud Monitoring
+	- Current health
+- Dashboards
+- Alerting
+- Dead Letter Queue (DLQ)
+	- A separate location where failed records are stored for later investigation and reprocessing.
+	- Pubsub topic, cloud storage or Bigquery error table
+- Best practices
+	- Idempotency
+	- checkpointing
+	- Watermarks
+	- Exactly-once processing
+
+- BigQuery Schema Design
+	- Denormalize instead of normalize
+	- Use Nestead and repeated fields
+	- Partition tables
+	- Cluster table with in partitions
+	- Don't over-partition
+	- Avoid SELECT *
+	- Use Materialized views
+	- Use BI engine cache
+	- Choose correct file format (avoid CSV and prefer Avro, Parquet, ORC etc)
+- BigTable schema design
+	- Design Row key carefully
+	- Avoid sequential keys
+	- Store related data together
+
+- Principle of least privilege
+- Separation of duties
+- Defense in depth
+- Zero trust
+- BigQuery IAM
+	- Dataset level
+	- Column level security
+	- Row level security
+- Data Encryption
+- CMEK
+- CSEK
+- Cloud KMS
+
+- PCollection
+	- Immutable, distributed, processed in parallel, it takes a PCollection and produces another PCollection
+- ParDo
+	- Parallel do
+	- for each element do something
+- DoFn
+	- ParDo executes a DoFn
+
+DoFn Lifecycle
+
+```
+Setup()
+
+↓
+
+StartBundle()
+
+↓
+
+ProcessElement()
+
+↓
+
+FinishBundle()
+
+↓
+
+Teardown()
+```
+
+- MapElements
+	- One input to One output
+- FlatMapElements
+	- One input to Many outputs
+- Filter
+	- Keeps only matching elements
+- WithKeys
+	- Adds key
+- Keys
+	- Extract keys only
+- Values
+	- Extract values only
+- GroupByKey
+- CoGroupByKey
+- Combine
+- Flatten
+- Partition
+
+
+- Classic template vs. Flex Template GCP Dataflow
+- Vertex AI
+- BigQuery ML
+	- DLP - Data Layer protection - FPEFFX

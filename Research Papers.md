@@ -4,3 +4,8 @@
 - MillWheel paper
 - Dataflow paper
 - SQL paper
+- [Dremel](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/36632.pdf)
+- [BigTable](https://static.googleusercontent.com/media/research.google.com/en//archive/bigtable-osdi06.pdf)
+- [Google File System](https://static.googleusercontent.com/media/research.google.com/en//archive/gfs-sosp2003.pdf)
+- [Spanner](https://static.googleusercontent.com/media/research.google.com/en//archive/spanner-osdi2012.pdf)
+- [Napa](https://storage.googleapis.com/gweb-research2023-media/pubtools/6326.pdf)
