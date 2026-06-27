@@ -118,8 +118,8 @@
 	- Rendering
 	- YAML & Skaffold configs
 - Cloud Scheduler
-	- Fully managed cron job service for running scheduled tasks to trigger jobs or automate infrastructure operations.
-	- at least once delivery
+	- Fully managed Cron job service for running scheduled tasks to trigger jobs or automate infrastructure operations.
+	- At least once delivery
 	- retry policies
 	- Integrates with HTTP/S, Pub/Sub and App Engine
 	- IAM roles for job-level access control
@@ -139,6 +139,7 @@
 	- Workflows
 		- Low-latency, real-time workflows involving multiple services
 	- Cloud Composer
+		- Apache Airflow based
 		- Data pipelines with complex dependencies
 - Workload management using Reservations
 	- Billing models
@@ -183,7 +184,7 @@
 	- Retrieval fees
 	- Outbound data (egress) costs money
 	- Best practices
-		- Lifecycle management
+		- Object Lifecycle management
 		- Monitoring & Budgets
 		- Avoid Object versioning
 		- Data compression & delta transfers
@@ -402,7 +403,7 @@
 - Dataflow job stopping two options 
 	- Cancel
 	- Drain
-- BigQuery to GCS below are 3 options supported
+- BigQuery to GCS below options are supported
 	- CSV
 	- JSON
 	- Avro
@@ -416,14 +417,14 @@
 	- Sliding window for irregular arriving data
 	- GCP Pub/Sub with Dataflow for exactly once processing in real-time
 2. Google Cloud Dataproc 
-	- designed for processing batch and interactive big data jobs using Apache Spark and Apache Hadoop.
+	- Designed for processing batch and interactive big data jobs using Apache Spark and Apache Hadoop.
 	- batch mode
 3. Google Cloud Pub/Sub 
-	- messaging service for real-time event-driven systems.
+	- Messaging service for real-time event-driven systems.
 4. Google Cloud Bigtable 
 	- NoSQL database
 5. Google Cloud Build
-	- fully managed CI/CD platform that automates the testing, building and deployment of applications, including data pipelines.
+	- Fully managed CI/CD platform that automates the testing, building and deployment of applications, including data pipelines.
 6. Google Cloud Dataprep
 	- Visual data preparation tool
 7. Google Cloud Composer
@@ -440,7 +441,7 @@
 	- Secondary indexes in cloud spanner allows for efficient range queries on non-key columns
 	- supports horizontal scaling across continents
 12. Cloud Monitoring
-	- centralized logging and monitoring capabilities for Google cloud services, including data processes such as Dataproc and Dataflow.
+	- Centralized logging and monitoring capabilities for Google cloud services, including data processes such as Dataproc and Dataflow.
 13. Cloud Logging
 	- Google Cloud Logging offers centralized logging capabilities
 14. Cloud Trace
@@ -450,7 +451,11 @@
 16. Cloud Scheduler
 	- Allows automated and repeatable task scheduling, ensuring timely execution based on predefined schedules.
 
-- Dataform (ELT SQL) vs. Dataflow (Stream Beam ETL) vs. DataPrep (Data wrangling) vs. DataFusion (ETL UI easy way to manage - 3rd party trifacta) vs. Analytics Hub (Org sharing)
+- Dataform (ELT SQL) 
+- Dataflow (Stream Beam ETL)
+- DataPrep (Data wrangling) 
+- DataFusion (ETL UI easy way to manage - 3rd party trifacta)
+- Analytics Hub (Data sharing across the org)
 - Knowledge catalog
 
 
@@ -505,8 +510,8 @@ Dataflow
 - Beam - Programming model
 - Dataflow - Execution Engine
 - Batch and Stream both supported
-- PCollection - collection of records
-- Transform - transforms modify data
+- PCollection - Collection of records
+- Transform - Transforms modify data
 - Windows
 	- Fixed window
 	- Sliding window
@@ -588,6 +593,7 @@ Dataproc
 	- decentralized data ownership
 - BigLake
 	- Unified access layer for data lakes.
+	- Open standards with Apache Iceburg
 	- Allows BigQuery to analyze data stored directly in Cloud Storage while providing centralized governance.
 - Datastream
 	- CDC - Change data capture
@@ -608,8 +614,7 @@ Dataproc
 Database        Storage         Transfer
 Migration       Transfer        Appliance
 Service         Service
-        │
-        ▼
+        
    Continuous Database Changes
         │
         ▼
@@ -620,10 +625,10 @@ Service         Service
 	- Managed service for migrating databases into Google Cloud
 	- Database Migration
 - Datastream
-	- captures ongoing changes
+	- Captures ongoing changes
 	- Serverless CDC
 - Storage Transfer Service
-	- This moves Objects not databases
+	- This moves Objects/Files not databases
 	- Managed service for transferring object data
 	- Online Object Transfer
 - Transfer Appliance
@@ -694,7 +699,7 @@ Scheduler      Eventarc     Workflows
 
 - BigQuery Schema Design
 	- Denormalize instead of normalize
-	- Use Nestead and repeated fields
+	- Use nestead and repeated fields
 	- Partition tables
 	- Cluster table with in partitions
 	- Don't over-partition
@@ -770,6 +775,7 @@ Teardown()
 
 
 - Classic template vs. Flex Template GCP Dataflow
+	- **Classic (Standard) Templates serialize the execution graph at compilation time**, while **Flex Templates package the code into a Docker container and generate the graph dynamically at runtime**
 - Vertex AI
 - BigQuery ML
-	- DLP - Data Layer protection - FPEFFX
+- DLP - Data Layer protection - FPE-FFX
