@@ -1,0 +1,89 @@
+
+- object identifiers (OIDs)
+	- pg_database
+	- pg_class
+- _PGDATA_ - base directory for the actual physical data of the PostgreSQL database
+	- Directory structure
+		- base/ - each directory = one database
+	- relfilenode
+	- \_fsm - free space map
+	- \_vm - visibility map
+	- pg_tblspc - table space
+- tablespaces
+- heap table structure
+	- Data files
+		- heap table, indexes, free space maps, visibility maps
+		- its divided into pages (or blocks) of a fixed length
+	- page contains 3 kinds of data
+		- Heap tuples - represents record data itself
+			- tuples are stacked sequentially from the bottom of the page
+		- line pointer - each line pointer is 4 bytes long and holds a pointer to a specific heap tuple. it is referred to as an item pointer.
+			- offset number
+		- header data - header data is allocated at the beginning of the page. It is 24 bytes long and contains general information about the page.
+			- pd_lsn - log sequence number (LSG), it is an 8-byte unsigned integer related to the WAL (Write-Ahead logging) mechanism.
+			- pd_checksum - This variable stores the checksum value of the page.
+			- pd_lower, pd_upper - pd_lower points to the end of the line pointers, while pd_upper points to the beginning of the most recent heap tuple.
+			- pd_special - This variable is utilized for indexes. In table pages, it points to the end of the page. (In index pages, it points to the beginning of the special space, a data area specific to index types such as B-tree, GiST, GIN, etc.)
+	- tuple identifier (TID)
+		- A TID comprises a pair of values: the **block number** of the page containing the tuple and the **offset number** of the line pointer pointing to that tuple.
+	- slotted page and slot array
+- TOAST - the oversized-attribute storage technique
+	- main table vs. toast table
+	- chunk_id
+	- TOAST table content
+		- chunk_id
+			- The identifier for the TOASTed data item from the original table.
+		- chunk_seq
+			- A sequential number assigned when the TOASTed ‘data’ item is divided into multiple segments.
+		- chunk_data
+			- The actual binary data segment.
+- Writing heap tuple
+	- includes adding new tuple on top of the existing tuple from the end of the file
+	- pd_lower and pd_upper is updated to shrink the hole space
+- Reading heap tuple
+	- Sequential scan
+		- This method reads all tuples in all pages sequentially by scanning every line pointer in each page.
+	- B-Tree index scan
+		- This method reads an index file containing index tuples. Each index tuple consists of an index key and a TID pointing to the _target heap tuple_. When an index tuple matching the search key is identified PostgreSQL retrieves the corresponding heap tuple using the obtained TID.
+	- TID-scan
+	- Bitmap-scan
+	- Index-only scan
+
+- Process architecture
+	- PostgreSQL is a client/server relational database management system featuring a multi-process architecture that runs on a single host.
+	- A collection of multiple processes that cooperatively manage a database cluster is referred to as a “PostgreSQL server.
+		- Postgres server process - The parent of all processes related to database cluster management
+		- Backend processes
+		- Background processes
+		- Replication-associated process
+		- Background worker processes
+	- Extension like pgbouncer or pgpool-ii for better connection management
+	- background processes
+		- background writer
+			- periodically and gradually writes dirty pages from the shared buffer pool to persistent storage (HDD or SSD)
+		- checkpointer
+			- Performs checkpoint operation
+		- autovaccume launcher
+			- Periodically invokes autovacuum-worker processes for VACUUM and ANALYZE operations.
+		- WAL writer
+			- Periodically writes and flushes WAL data from the WAL buffer to persistent storage.
+		- WAL Summarizer
+			- Tracks changes to all database blocks and writes these modifications to WAL summary files.
+		- statistics collector
+			- Collects statistics for system views such as _pg_stat_activity_ and _pg_stat_database_.
+		- logging collector
+			- Captures error messages and writes them into log files.
+		- io worker
+			- Handles read operations asynchronously to offload I/O tasks from backend processes.
+		- archiver
+			- Executes the log archiving process.
+	- memory architecture
+		- Local memory area - allocated by each backend process for its own use
+			- work_mem - Used by the executor for sorting tuples in ORDER BY and DISTINCT operations, and for joining tables via merge-join and hash-join operations.
+			- maintenance_work_mem - Used by various maintenance operations, such as VACUUM, REINDEX, and index creation.
+			- temp_buffers - Used by the executor to store temporary tables for the duration of a session.
+			- DSM - Dynamic Shared Memory introduced to support parallel query.
+		- Shared memory area - Used by all processes of a PostgreSQL server
+			- shared buffer pool - PostgreSQL loads pages from tables and indexes from persistent storage into this area to operate on them directly.
+			- WAL buffer - To ensure data integrity against server failures, PostgreSQL employs a Write Ahead Logging (WAL) mechanism. WAL data (also referred to as XLOG records) constitutes the transaction log. The WAL buffer serves as a temporary storage area for WAL data before it is flushed to persistent storage.
+			- commit log - The commit log (CLOG) maintains the state of all transactions (e.g., in-progress, committed, aborted) for the Concurrency Control (CC) mechanism.
