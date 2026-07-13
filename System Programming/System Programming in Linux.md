@@ -1,0 +1,15 @@
+
+- File descriptor (fd)
+- Stream sockets
+	- TCP - Transmission control protocol
+	- ssh, http, telnet etc
+- Datagram sockets
+	- UDP - User Datagram protocol
+	- tftp, dhcp, multiplayer game, streaming audio etc
+	- speed
+- Layer model
+	- Application Layer - telnet, ftp etc
+	- Host-to-host transport layer - TCP, UDP
+	- Internet layer - IP and routing
+	- Network Access Layer - Ethernet, wifi etc
+- 
