@@ -12,4 +12,19 @@
 	- Host-to-host transport layer - TCP, UDP
 	- Internet layer - IP and routing
 	- Network Access Layer - Ethernet, wifi etc
+- IPv4 
+- IPv6
+- Subnets
+- Port
+	- 16 bit number
+- Big endian - Network byte order
+- Little endian
+- htons - host to network short
+- htonl - host to network long
+- host byte order - computer stores and process the data in this format and it actually  depends on the system and processer we are using
+- struct addrinfo - prep the socket address structures, its linked list node
+- struct sockaddr - stores socket address information for many types of sockets
+- struct sockaddr_in
+- NAT - network address translation
+- Private IP ranges - 10.x.x.x , 192.168.x.x or 172.y.x.x y range is between 16 and 31
 - 
