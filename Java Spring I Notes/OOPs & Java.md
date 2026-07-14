@@ -192,3 +192,69 @@
 	- The collections works on objects only. i.e on reference data types so we need wrapper class to use collections
 - Constant variable
 	- created using `final` keyword and we can not change its value once created
+
+- method
+	- method is used to perform certain task
+	- collection of instruction that performs a specific task
+	- method has parameters
+		- access specifier
+			- public
+				- any class any package
+			- private
+				- accessed by methods in the same class
+			- protected
+				- other classes in the same package
+				- other subclass in different package
+			- default
+				- classes in the same pkg
+				- if we don't specify this will be applied
+		- return type
+		- method name
+		- method arguments
+	- types of methods
+		- system defined methods
+			- defined and ready to use in Java
+			- something like Math.sqrt() etc
+		- user defined methods
+			- custom method that we define
+		- overloaded method
+			- same name but different parameter method in the same class
+			- return type is not considered
+		- overridden method
+			- subclass/child class has the same method as the parent class
+		- static methods
+			- associated with the class
+			- can be called just with the class
+			- static method can not work with non static instance or methods
+			- static method can not be override
+			- Ex. factory design pattern
+		- final method
+			- final method can not be overridden
+			- its implementation can not be changed
+		- abstract method
+			- defined only in abstract class
+			- only method declaration is done
+			- its implementation to be done in its child class
+	- variable args
+		- variable number of arguments in the parameter
+		- it should be the last parameter
+		- used when we don't know the no. of args
+		- ex.
+			`public int sum(int a, int ...vars){}`
+- constructor
+	- It is used to create / initialize the instance variable
+	- constructor name is same as class name
+	- no return type
+	- constructor can not be static or final or abstract or synchronized
+	- new keyword tells java to call constructor
+	- types of constructors
+		- default constructor
+		- no argument constructor
+		- parameterized constructor
+		- constructor overload
+		- private constructor
+			- singleton pattern
+		- constructor chaining
+			- `this()` or `super()`
+
+- Java memory management
