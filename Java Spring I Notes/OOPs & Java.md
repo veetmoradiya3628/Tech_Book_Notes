@@ -257,4 +257,154 @@
 		- constructor chaining
 			- `this()` or `super()`
 
-- Java memory management
+- [Java memory management](https://medium.com/@byterockai/java-memory-management-and-garbage-collection-fdf227569a61)
+	- 2 types of memories which java creates
+		- stack
+		- heap
+	- stack memory
+		- stores temporary variables & separate memory block for methods
+		- store primitive data types
+		- store references of heap objects
+			- strong reference
+			- weak reference
+			- soft reference
+		- each thread has its own stack memory
+		- variables with in a scope is only visible and as soon as any variable goes out of scope, it gets deleted from the stack (LIFO order)
+	- heap memory
+		- store objects & there is no order of allocating the memory
+		- GC is used to delete unreferenced objects from the heap
+			- mark & sweep algorithm
+			- types of GC i.e. single GC, parallel GC, G1 and CMS (concurrent mark & sweep)
+		- heap memory is shared with all the theads
+		- GC runs periodically
+		- Types of references
+			- strong reference
+				- it is when a variable in stack is referencing an object in heap memory
+				- till the time the reference exists, GC won't be able to delete the object from the heap memory
+			- weak reference
+				- reference exists for an object in the heap but as soon as GC runs the object is deleted from heap memory even if same variable is referencing this object from the stack. the variable in the stack will get null once GC runs
+			- soft reference
+				- same as weak reference but it will only be deleted when there is shortage of space in heap.
+		- its divided in two parts
+			- young generation
+				- EDEN, s0, s1
+			- old generation
+			- non heap - metaspace
+		- new object will first create in EDEN, s0 & s1 called survivor space
+		- minor GC
+		- major GC
+		- mark & sweep with compaction
+		- versions of GC
+			- serial GC
+			- parallel GC
+			- concurrent mark & sweep
+			- G1 GC
+
+Classes in Java
+- Types of classes
+	- Concrete class
+	- Abstract class
+	- Super class and Sub class
+	- Object class 
+	- Nested class
+		- Inner class (Non static nested class)
+		- Anonymous inner class
+		- Member inner class
+		- Local inner class
+		- Static nested class / static class
+	- Generic class
+	- POJO class
+	- ENUM class
+	- Final class
+	- Singleton class
+	- Immutable class
+	- Wrapper class
+- concrete class
+	- instance using new keyword
+	- all methods implementation available
+	- can also child class from interface or abstract class
+	- can be public or pkg private (no explicit modifier defined)
+- abstract class
+	- 0 to 100% abstract
+	- can not create instance of abstract class
+	- abstract and non abstract method
+	- constructor can be created and child class should use `super()` to use it
+- super and sub class
+	- every class is implicitly subclass of Object class
+	- Object is top most class in java
+	- it has some common method as clone(), toString(), equals(), notify(), wait() etc
+- nested class
+	- class within another class is called nested class
+	- static or non static nested class
+	- static nested class
+		- It does not have access to the non static instance variable and method of outer class
+		- Its object can be initiated without initiating the object of the outer class
+		- It can be private, public, protected or package-private 
+	- Inner class or Non static nested class
+		- It has access to all the instance variable and method of outer class
+		- Its object can be initiated on after initiating the object of outer class
+		- member inner class can be private, public, protected, default
+	- Local inner class
+		- These are those classes which are defined in any block like for loop, while loop block, if condition block, method etc
+		- It can not be declared with any access modifier
+		- It can not be initiated outside of this block
+- anonymous inner class
+	- an inner class without a name called anonymous class
+	- when we want to override the behavior of the method without even creating any subclass
+	- object can be created with compiler decided name for abstract class or interface
+- generic class
+	- generic class helps us to write a class in a generic manner that helps to avoid the typecasting that we will have to use with object class
+	- we can do it using \<T> or here T can be any alphabet as A, B, C etc
+	- Inheriting generic class to non generic class we need to define data type at the time of inheritance
+	- Only generic method can also be there without being whole class as generic
+	- raw type object
+	- Bounded Generics with syntax as `<T extends Number>`
+	- Multi bound `<T extends superclass & interface 1 & interface 2>`
+	- Wildcards `<?>`
+- POJO class
+	- Plain Old Java Object
+	- contains variables and its getter and setter
+	- class should be public
+	- public default constructor
+	- It should not extend any class or implement any interface
+	- no annotations should be used
+- ENUM class
+	- It has collection of CONSTANTS (variables which values can not be changed)
+	- constants are static and final implicitly
+	- It can not extend any class as it internally extends java.lang.Enum class
+	- It can have abstract method and all constant should implement that abstract method
+	- default method can be declared and its possible to override that for constant members of the ENUM
+- Singleton
+	- This class objective is to create only 1 and 1 object
+	- Diff ways to create singleton class
+		- lazy initialization
+		- eager initialization
+		- synchronization block
+		- double check lock
+		- bill pugh solution
+		- enum singleton
+- Immutable class
+	- we can not change the value of an object once its created
+	- declare class as final so that it can not be extended
+	- all members should be private
+	- class members are only initialized once in constructor
+	- no setter method, just getter
+
+- Interfaces 
+	- java 8 interface features
+		- default method
+		- static method
+		- functional interface and lambda expression
+	- 100% abstract 
+	- public and default modifier are allowed
+	- it can extend other interfaces
+	- helps in run time binding / polymorphism with syntax as `interface obj1 = new Impl1()` or `interface obj2 = new Impl2()`
+	- multiple inheritance possible with interfaces only
+	- method are public and it can not be final
+	- fields in interface are public, static and final implicitly
+	- Nested interface
+		- declared within another interface
+		- declared within a class
+
+	![[Pasted image 20260715094204.png]]
+	- private, private static method in java 9 onwards
