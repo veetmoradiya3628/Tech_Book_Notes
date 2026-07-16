@@ -408,3 +408,104 @@ Classes in Java
 
 	![[Pasted image 20260715094204.png]]
 	- private, private static method in java 9 onwards
+
+- Functional Interface & Lambda expression
+	- If an interface contains only 1 abstract method, that is known as Functional interface
+	- also known as single abstract method
+	- @FunctionalInterface annotation can be used at the top of the interface (but its optional)
+	- only one abstract method but we can have other types of method as default, static etc
+- Lambda expression
+	- Lambda expression is a way to implement the Functional Interface
+	- Different ways to implement the functional interface
+		- using implements
+		- using anonymous class
+		- using lambda expression
+- Types of functional interface
+	- Consumer
+		- Represent an operation, that accept a single input parameter and returns no result
+	- Supplier
+		- Represent the supplier of the result, accepts no input parameter but produce a result
+	- Function
+		- Represent function, that accepts one argument process it and produce a result
+	- Predicate
+		- Represent function, that accept one argument and return the boolean
+- extension of functional interface from other interface is works in proper way
+	- only one method (abstract method) is allowed for extension
+
+- Java Reflection
+	- This is used to examine the classes, methods, fields, interfaces at runtime and also possible to change the behavior of the classes too.
+	- one object of class by JVM which has metadata of the class like method, fields, constructor etc
+	- 3 ways to get class Class Object
+		- using forName() method
+		- using .class
+		- using getClass() method
+	- `java.lang.reflect` provides classes to access and manipulate the value like fields, methods, constructor etc
+	- and these classes are generally returned by above listed get methods only
+	- reflection of method, constructor, field etc
+
+- Annotations
+	- It is kind of a metadata to the Java code means its usage is optional
+	- we can use metadata information at runtime and can add certain logic in code if needed
+	- to read meta data we can use reflection
+	- annotations can be applied anywhere like classes, methods, interface, fields, parameters etc
+	- `@Override`
+	- Types of Annotations
+		- Pre-defined annotations
+			- Used on annotations
+			- used on Java code
+		- Custom-defined annotations
+	- Annotations used in java code
+		- `@Deprecated`
+		- `@Override`
+		- `@SuppressWarnings`
+		- `@FunctionalInteface`
+	- Heap pollution ?
+	- build custom annotation and try using it
+
+- Exception handling java
+	- It's an event that occurs during program execution
+	- It will disturb programs normal flow
+	- Exception object contains
+		- type of exception, message
+		- stack trace 
+	- Throwable interface -> Exception class has Un-checked / checked exception
+	- un-checked - these exceptions occurs at runtime and compiler not forcing us to handle them
+	- Nullpointer exception
+	- IllegalArgsException
+	- checked / compile time exception - compiler verifies the the compile time and if not handled properly, compilation will fail
+	- try catch to handle / catch the exception
+	- how to handle the exception
+		- try/catch
+		- try/catch/finally or try/finally
+		- throw
+		- create custom exception class with extends Exception
+
+- Operators
+	- operator, operand, expression
+	- arithmetic operation
+	- relational operator
+	- logical operator
+	- unary operator
+	- assignment operator
+	- bitwise operator
+	- ternary operator
+	- type comparison (instanceOf) operator
+	- operator precedence
+	- associativity (L to R / R to L)
+
+- Control flow statements
+	- Decision making
+		- If then
+		- if else
+		- if else if ladder
+		- nested if
+		- switch statement
+		- switch expression
+	- Iterative statements
+		- for loop
+		- while loop
+		- do-while loop
+		- for-each loop
+	- Branching statements
+		- break
+		- continue
