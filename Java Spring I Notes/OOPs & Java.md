@@ -479,6 +479,17 @@ Classes in Java
 		- try/catch/finally or try/finally
 		- throw
 		- create custom exception class with extends Exception
+	- list of checked exceptions
+		- IOException
+		- FileNotFoundException
+		- SQLException
+		- ClassNotFoundException
+		- InterruptedException
+	- list of unchecked exceptions
+		- NullPointerException
+		- ArrayIndexOutOfBoundsException
+		- ArithmeticException
+		- NumberFormatException
 
 - Operators
 	- operator, operand, expression
@@ -509,3 +520,127 @@ Classes in Java
 	- Branching statements
 		- break
 		- continue
+
+- Collections
+	- added in java 1.2
+	- collection is group of objects
+	- present in java.util package
+	- before collection there was array, vector, hashtables
+	- but problem with that is, there is no common interface, so its difficult to remember the methods for each
+
+![[Pasted image 20260717092424.png]]
+
+![[Pasted image 20260717092430.png]]
+- Iterable
+	- to traverse the collection
+		- hasNext(), next(), remove()
+	- forEach()
+- collection
+	- it represents the group of objects
+	- It is an interface which provides methods to work on group of objects
+	- methods
+		- size() - total elements in collection
+		- isEmpty() - check if collection is empty or not
+		- contains() - search for element in collection
+		- toArray() - convert collection into array
+		- add() - insert an element in collection
+		- remove() - remove an element from collection
+		- addAll() - one collection into another
+		- removeAll() - remove elements from one collection to another
+		- clear() - remove all elements from collection
+		- equals() - check if 2 objects are equal or not
+		- stream() or parallelStream() - provides effective way to work with collection like filtering, processing data etc
+		- iterator() - used to iterate the data
+	- collection vs. collections
+		- collection - interface provides template for all the child classes to implement like methods etc
+		- collections - utility class and provides static methods which are used to operate on collections like sorting, swapping, searching, reverse, copy etc
+			- methods
+				- sort
+				- binarySearch
+				- get
+				- reverse
+				- shuffle
+				- swap
+				- copy
+				- min
+				- max
+				- rotate
+				- unmodifiableCollection
+	- Queue
+		- FIFO
+		- Queue like PriorityQueue as well
+		- methods
+			- add()
+			- offer()
+			- poll()
+			- remove()
+			- peek()
+			- element()
+		- PriorityQueue
+			- 2 types, min and max priority queue
+			- its based on min heap and max heap
+			- elements ordered by natural order or by comparator provider
+			- default minheap
+- comparator vs. comparable
+	- comparator and comparable both provides a way to sort the collection of objects
+	- primitive collection sorting
+	- object collection sorting
+	- comparator
+		- int compare(T obj1, T obj2)
+	- comparable
+		- int compareTo(T obj2)
+	- Arrays.sort(\<obj>, \<comprtr>)
+- Deque
+	- stands for double ended queue, means addition and removal can be done from both the sides of the queue
+
+![[Pasted image 20260717094336.png]]
+
+- ArrayDeque
+	- ArrayDeque concrete class that implements methods that are available in Queue and Dequeu Interface
+- List
+	- Ordered collection of an objects. in which duplicate values can be stored
+	- additionally along with collection methods
+	- add(idx, element), addAll(idx, Collection c), get, set, indexOf, lastIndexOf
+- LinkedList
+	- Data structure used is LinkedList
+- Vector
+	- Exactly same as ArrayList but this is ThreadSafe
+- Stack
+	- LIFO
+	- its thread safe
+- HashMap
+
+![[Pasted image 20260717094846.png]]
+- Map - interface
+- Implementations are
+	- HashMap - do not maintain a order
+	- HashTable - synchronized version of HashMap
+	- LinkedHashMap - maintains the insertion order
+	- TreeMap - sorts the data internally
+- object that maps key to value
+- can not contain duplicate key
+- methods available in map
+	- size, isEmpty, containsKey, containsValue, get, put, remove, putAll, clear, set, keySet(), values(), entrySet(), putIfAbsert(), getOrDefault()
+- LinkedHashMap
+	- Helps in maintain insertion order
+	- helps in maintain access order
+	- similar to hashmap, but also uses double linkedlist
+- TreeMap
+	- Map is sorted according to its natural ordering of its key or by comparator provided during map creation
+	- Its based on Red-black tree (self balancing binary search tree)
+	- O(logn) time complexity of insert, remove, get operations
+- NavigableMap
+- Set
+
+![[Pasted image 20260717095602.png]]
+- does not contain duplicates
+- HashSet
+	- data structure used is HashMap
+	- its not ThreadSafe 
+- LinkedHashSet
+	- data structure used is LinkedHashMap
+	- maintains a insertion order of the element
+	- its not ThreadSafe
+
+Streams
+- 
