@@ -643,4 +643,55 @@ Classes in Java
 	- its not ThreadSafe
 
 Streams
-- 
+- we can consider stream as a pipeline, through which our collection elements passes through
+- while elements passes through pipelines, it perform various operations like sorting, filtering etc
+- useful when deals with bulk processing (can do parallel processing)
+- Intermediate operations, terminal operations etc
+
+![[Pasted image 20260717100917.png]]
+
+- Different ways to create stream
+	- from collection
+	- from array
+	- from static method
+	- from stream builder
+	- from stream iterate
+- different intermediate operations
+	1. filter(Predicate\<T> predicate)
+		- filters the element
+	2. map(Function<T, R> mapper)
+		- used to transform each element
+	3. flatMap(Function<T, Stream\<R>> mapper)
+		- used to iterate over each element of the complex collection, and helps to flatten it
+	4. distinct()
+		- Removes duplicates from the stream
+	5. sorted()
+		 - Sorts the elements
+	6. peek(Consumer\<T> action)
+		- Helps you to see the intermediate result of the stream which is getting processed
+	7. limit(long maxSize)
+	8. skip(long n)
+	9. mapToInt(ToIntFunction\<T> mapper)
+	10. mapToLong
+	11. mapToDouble
+- sequence of stream operations
+	- generally each element processed sequentially and can perform multiple operations, this feature helps stream to fast process the task.
+- different terminal operations
+	- forEach
+	- toArray
+	- reduce
+	- collect
+	- min
+	- max
+	- count
+	- anyMatch
+	- allMatch
+	- noneMatch
+	- findFirst
+	- findAny
+- one terminal operation used on a stream, it is closed / consumed and can not be used again for  another terminal operation
+
+- Parallel stream
+	- helps to perform operation on stream concurrently, taking advantages of multi core CPU
+	- ParallelStream() method is used instead of regular stream() method
+	- used Fork-Join pool technique
