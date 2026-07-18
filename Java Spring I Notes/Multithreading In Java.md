@@ -279,3 +279,38 @@
 		- @Cleanup
 			- It ensures that given resource is automatically cleaned up before execution path exists the current scope
 
+- SequencedCollection, SequencedSet and SequencedMap
+	- A collection whose elements have a defined order
+	- Implemented by List, Deque, and LinkedHashSet
+	- Standardize "first", "last", and "reverse" operations across ordered collections and maps, eliminating collection-specific APIs and making generic programming much cleaner.
+
+- Sealed Classes
+- **Sealed classes/interfaces** let you define a **closed hierarchy** by explicitly listing which classes may extend or implement them
+- public sealed class Payment
+    permits CreditCardPayment,
+            UpiPayment,
+            CashPayment {
+	}
+
+- A sealed class must explicitly list its permitted subclasses.
+- Every permitted subclass **must declare how open it is**.
+- Every permitted subclass must be declared as **`final`** (stop inheritance), **`sealed`** (continue restricting), or **`non-sealed`** (reopen inheritance).
+- sealed interface
+
+- Switch statement
+- pattern matching
+
+- Records
+	- It helps us to create immutable class in a short way
+	- It is mostly designed to reduce boiler plate code for data carrying classes (like POJO)
+- Text blocks with `"""<multi line string>"""`
+
+- Optional
+	- Methods generally return "null" which indicate value is not present and many times client forgot to add "null" check, which led to NullPointerException.
+	- Introduced in Java8, to solve the above discussed i.e. null-return problem. API or methods, now can express their intention for ex: Optional\<User> as return type, tells client that return value may or may not exist.
+	- few methods
+		- isPresent()
+		- ifPresent()
+		- orElse()
+		- orElseGet()
+		- etc...
