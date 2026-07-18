@@ -136,3 +136,146 @@
 | LikedHashSet    | Collections.synchronizedSet               | Synchronized  |
 | Queue Interface | ConcurrentLinkedQueue                     | CAS operation |
 
+- Thread Pool and ThreadPoolExecutor
+	- Its collection of thread or workers which are available to perform the submitted tasks
+	- once task completed, worker thread get back to thread pool and wait for new task to assign
+	- threads can be reused
+	- advantages of threadpool
+		- Thread creation time can be saved
+		- Overhead of managing thread lifecycle can be removed
+		- Increased the perform
+	- package java.util.concurrent
+
+![[Pasted image 20260718155747.png]]
+
+- ThreadPoolExecutor
+	- It helps to create a customizable ThreadPool
+	```
+	public ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliceTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler)
+	```
+- corePoolSize - Number of threads are initially created and keep in the pool, even if they are idle
+- each parameter has meaning
+
+![[Pasted image 20260718160419.png]]
+
+- why you have choose corePoolSize as 2 and not 10 or 15 ?
+	- Generally thread pool min and max size are depend on various factor like
+		- CPU cores
+		- JVM memory
+		- Task Nature (CPU Intensive or I/O intensive)
+		- Concurrency Requirement
+		- Memory required to process a request
+		- Throughput
+	- its an iterative process to update the min and max values based on monitoring
+	```
+	Max. no of threads = No. of CPU core * (1 + Request waiting time / processing time)
+	```
+
+- Future, CompletableFuture and Callable
+	- Future
+		- Interface which represents the result of the Async task
+		- means, it allow you to check if 
+			- computation is complete
+			- get the result
+			- take care of exception if any etc.
+		- methods - cancel, isCancelled, isDone, get, get(timeout, unit) etc
+	- Callable
+		- Callable represents the task which needs to be executed just like Runnable
+		- But difference is
+			- Runnable do not have any return type
+			- Callable has the capability to return the value
+	- CompletableFuture
+		- Introduced in Java8
+		- To help in Async Programming
+		- we can consider it as an advanced version of future provides additional capability like chaining
+		- supplyAsync()
+		- thenApply() & thenApplyAsync()
+			- apply a function to the result of previous async computation
+			- return a new CompletableFuture Object
+		- thenCompose() & thenComposeAsync()
+			- chain together dependent async operations
+		- thenAccept() & thenAcceptAsync()
+			- generally end stage, in the chain of async operations
+			- it does not return anything
+		- thenCombine() & thenCombineAsync()
+			- used to combine the result of 2 comparable future
+
+- Fork/Join Pool, Single, Fixed & CachedPool
+	- FixedThreadPoolExecutor
+		- newFixedThreadPool method creates a thread pool executor with a fixed no. of threads
+	- CachedThreadPoolExecutor
+		- newCachedThreadPool method creates a thread pool that creates a new thread as needed (dynamically)
+	- SingleThreadExecutor
+		- newSingleThreadExecutor creates executor with just single worker thread
+- WorkStealing Pool Executor
+	- It creates a Fork-Join Pool Executor
+	- Number of threads depends upon the available processors or we can specify in the parameter
+	- There are 2 queues
+		- submission queue
+		- work-stealing queue for each thread (It's a Deque)
+	- RecursiveTask & RecursiveAction
+	- we can create Fork-Join pool using `newWorkStealingPool` method in ExecutorService
+	- or by calling ForkJoinPool.commonPool() method
+
+- ScheduledThreadPoolExecutor
+	- shutdown
+		- Initiates orderly shutdown of the ExecutorService
+		- After calling 'shutdown' executor will not accept new task submission
+		- already submitted tasks, will continue to execute
+	- AwaitTermination
+		- Its an Optional functionality, Return true / false
+		- It is used after calling `Shutdown` method
+		- Blocks calling thread for specific timeout period, and wait for ExecutorService shutdown
+		- Return true if ExecutorService gets shutdown within specific timeout else false
+	- shutdownNow
+		- Best effort attempt to stop/interrupt the actively executing tasks
+		- Halt the processing of tasks which are waiting
+		- Return the list of tasks which are waiting execution
+	- ScheduleThreadPoolExecutor helps to schedule the tasks
+		- schedule(Runnable command, long delay, TimeUnit unit)
+		- scheduleAtFixedRate(Callable\<V> callable, long delay, TimeUnit unit)
+		- scheduleWithFixedDelay(Runnable command, long initialDelay, long period, TimeUnit unit)
+		- scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit)
+
+- VirtualThreads and ThreadLocal
+	- ThreadLocal
+		- ThreadLocal class provide access to Thread-Local variables
+		- This `Thread-Local` variable hold the value of particular thread
+		- each thread has its own copy of Thread-Local variable
+		- We need only 1 object of ThreadLocal class and each thread can use it to set and get its own Thread-variable variable
+		- Remember to clean up, if reusing the thread
+	- Types of threads
+		- Platform Threads
+		- Virtual Threads
+	- Virtual Thread
+		- To get higher throughput not latency
+		- Use virtual threads for I/O bound and Network-bound operations
+		- don't perform CPU-heavy tasks on virtual threads (unless managed carefully)
+
+- Lombok
+	- Java library, which helps to reduce boilerplate code using annotations 
+	- during compilation, it process the annotation and inject code into our Java classes
+	- Lombok is compatible with Java starting from Java 6 and supports all later versions
+	1. val and var
+		- Instead of actually writing the type, we can use these as the type of local variable declaration
+		- type will be inferred from the initializer expression
+			- val as const
+			- var as var 
+		- @NonNull
+			- Generates a null check statement
+			- can be used on parameters of a method or constructor
+		- @Getters and @Setters
+			- generates the default getter and setter methods
+		- @ToString
+			- Used to generate "toString()" method
+			- class name followed by parentheses containing fields (non-static) separated by commas
+		- @NoArgsConstructor, @RequiredArgsConstructor, @AllArgsConstructor
+		- @EqualsAndHashCode
+		- @Data
+			- Shortcut for @ToString, @EqualsAndHashCode, @Getter on all fields, @Setter on all non-final fields, @RequiredArgsConstructor
+		- @Value
+			- Immutable version of @Data
+		- @Builder
+		- @Cleanup
+			- It ensures that given resource is automatically cleaned up before execution path exists the current scope
+
