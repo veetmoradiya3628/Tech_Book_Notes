@@ -84,3 +84,55 @@
 	- setPriority(int number) can be used to set priority of thread
 	- new thread inherits priority of their parent class
 - Deamon thead
+
+- Locks and Condition
+- Lock vs. Monitor
+- ReentrantLock
+	- In Java, `ReentrantLock` is an explicit mutual exclusion lock implementing the `Lock` interface. It allows the same thread to acquire a lock multiple times without deadlocking itself, maintaining a hold count that increments on acquisition and decrements on release. It is released only when the count hits zero
+	- useful in recursive function call stack
+- ReadWriteLock
+	- ReadLock - more than 1 thread can acquire read lock
+	- WriteLock - Only 1 thread can acquire the write lock
+- StampedLock
+	- Support Read/Write functionality like ReadWriteLock
+	- Support optimistic lock functionality too
+- SemaphoreLock
+- Condition
+	- await() = wait()
+	- signal() = notify()
+
+- Lock Free Concurrency (CAS)
+	- Lock Based Mechanism
+		- Synchronized
+		- Reentrant
+		- Stamped
+		- ReadWrite
+		- Semaphores
+	- CAS operation (Compare And Swap)
+		- AtomicInteger
+		- AtomicBoolean
+		- AtomicLong
+		- AtormicReference
+	- Compare And Swap
+		- It's low level operation
+		- it's atomic
+		- all modern processor supports it
+	- involves 3 main parameters
+		- Memory location
+		- Expected Value
+		- New Value
+	- Atomic = single or nothing
+	- Concurrent collections
+
+
+| Collection      | Concurrent Collection                     | Lock          |
+| --------------- | ----------------------------------------- | ------------- |
+| Priority Queue  | PriorityBlockingQueue                     | ReentrantLock |
+| LinkedList      | ConcurrentLinkedDeque                     | CAS operation |
+| Array Deque     | ConcurrentLinkedDeque                     | CAS operation |
+| ArrayList       | CopyOnWriteArrayList                      | ReentrantLock |
+| HashSet         | netKeySet method inside concurrentHashMap | Synchronized  |
+| TreeSet         | Collections.synchronizedSortedSet         | Synchronized  |
+| LikedHashSet    | Collections.synchronizedSet               | Synchronized  |
+| Queue Interface | ConcurrentLinkedQueue                     | CAS operation |
+
