@@ -71,3 +71,19 @@
 	- deploy - `mvn deploy`
 		- it will deploy the .jar to REMOTE repository
 
+- Bean and its lifecycle
+	- Simple term, bean is a Java Object, which is managed by Spring Container (also known as IoC container)
+	- IoC container - contains all the beans which get created and also managed them
+	- How to create a Bean ?
+		- @Component Annotation
+		- @Bean Annotation
+	- @Component Annotation
+		- @Component annotation follows "convention over configuration" approach
+		- Means spring boot will try to auto configure based on conventions reducing the need for explicit configuration
+		- @Controller, @Service etc. all are internally tells spring to create bean and manage it
+	- @Bean comes into picture where we provide the configuration details and tells spring boot to use it while creating a Bean
+	- Using @ComponentScan annotation, it will scan the specified package and sub-package for classes annotated with @Component, @Service etc
+	- Through explicit defining of bean via @Bean annotation in @Configuration class
+
+![[Pasted image 20260722100107.png]]
+![[Pasted image 20260722100125.png]]
