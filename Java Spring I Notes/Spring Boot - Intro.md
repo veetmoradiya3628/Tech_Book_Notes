@@ -87,3 +87,78 @@
 
 ![[Pasted image 20260722100107.png]]
 ![[Pasted image 20260722100125.png]]
+
+- Life cycle of bean
+	- During application startup, spring boot invokes IOC container (ApplicationContext)
+	- IOC Container, make use of Configuration and @CompoentScan to look out for classes for which beans needs to be created
+	- Constructs the beans
+	- Inject the Dependency into the Constructed Bean
+	- @Autowired, first look for a bean of the required type
+	- If bean found, spring will inject it, Different ways of injection
+		- Constructor injection
+		- Setter Injection
+		- Field Injection
+	- If bean is not found, spring will create one and then inject it
+	- Perform any task before bean to be used in application
+	- Use the bean in your application
+	- Perform any task before bean is getting destroyed
+
+- Annotations - Controller Layer
+	- @Controller
+		- It indicates that the class is responsible for handling incoming HTTP requests
+	- @RestController
+		- RestController = Controller + ResponseBody
+	- @ResponseBody
+		- Denotes that return value of the controller method should be serialized to HTTP response body
+		- If we do not provide ResponseBody, spring will consider response as name for the view and tries to resolve and render it (in case we are using the @Controller annotation)
+	- @RequestMapping
+		- Value, path (both are same)
+		- Method
+		- Consumes, Produces
+		- @Mapping
+		- @Reflective ({ControllerMappingReflectiveProcessor.class})
+	- @RequestParam
+		- Used to bind, request parameter to controller method parameter
+		- What is property Editor ?
+	- @PathVariable
+		- Used to extract values from the path of the URL and help to bind it to controller method parameter
+	- @RequestBody
+		- Bind the body of HTTP Request (typically JSON) to controller method parameter (java object)
+	- ResponseEntity
+		- It represents the entire HTTP response
+		- Header, Status, response body etc
+
+- Dependency Injection
+	- Using dependency injection we can make our class independent of its dependencies
+	- It helps to remove the dependency on concrete implementation and inject the dependencies from external source
+- Issues without DI
+	- classes becomes tightly coupled
+	- It breaks DI rule of S.O.L.I.D principle
+		- This principle says that do not depend on concrete implementation, rather depends on abstraction
+- Different ways of injection
+	- Field Injection
+		- Dependency is set into the fields of the class directly
+		- Spring uses reflection, it iterates over the fields and resolve the dependency
+		- Adv
+			- very simple and easy to use
+		- Dis. Adv
+			- can not be used with immutable fields
+			- changes of null pointer exception
+			- During unit testing setting MOCK dependency to this field becomes difficult
+	- Setter Injection
+		- Dependency is set into field using the setter method
+		- we have to annotate the method using @Autowired 
+		- Adv
+			- Dependency can be changed any time after the object creation (as object can not be marked as final)
+			- Ease of testing, as we can pass mock object in the dependency easily
+		- Dis. Adv
+			- Field can not be marked as final
+			- Difficult to read and maintain
+	- Constructor Injection
+		- Dependency get resolved at the time of Object initialization itself
+		- Its recommended to use
+- Common issues
+	- Circular dependency
+		- @Lazy on field injection
+	- Unsatisfied dependency
+		- @Qualifier annotation
