@@ -162,3 +162,60 @@
 		- @Lazy on field injection
 	- Unsatisfied dependency
 		- @Qualifier annotation
+
+- Bean Scopes
+	- Singleton
+		- Default scope
+		- Only 1 instance created per IoC
+		- Eagerly initialized by IoC, means at the time of application startup, object get created
+	- Prototype
+		- Each time new object is created
+		- its Lazy initialized, means when object is created only when its required
+		- @Scope("prototype") 
+	- Request
+		- New object is created for each HTTP request
+		- Lazily initialized
+		- @Scope("request")
+	- Session
+		- New Object is created for each HTTP session
+		- Lazily initialized
+		- When user accesses any endpoint, session is created
+		- Remains active, till it does not expires
+
+- Dynamic bean initialization
+	- **UnsatisfiedDependencyException** occurs when there is multiple implementation of the Interface exist and with @Autowired system does not know which one to inject
+	- @Qualifier can be used to define the implementation which should be injected
+	- @Value it is used to inject value from various sources like property file, environment variables or inline literals
+
+- @ConditionalOnProperty
+	- Bean is created conditionally (mean bean can be created or not)
+	- What if we have below use cases
+		- We want to create only 1 bean, either MySQLConnection or NoSQLConnection
+		- We have 2 components, sharing same codebase, but 1 component need MySQLConnection and other needs NoSQLConnection
+	- Adv
+		- Toggling of feature
+		- Avoid cluttering Application context with un-necessary beans
+		- Save memory
+		- Reduce application Startup time
+	- Dis. Adv
+		- Misconfiguration can happen
+		- Code complexity when over used
+		- Multiple bean creation with same Configuration, brings confusion
+		- Complexity in managing
+
+- @Profile
+	- we put the configuration in "application.properties" file but how to handle, different environment configurations ?
+	- that's where profiling comes into the picture
+		- application.properties
+			- application-\<prof1>.profile
+			- application-\<prof2>.profile
+			- application-\<prof3>.profile
+			- ...
+			- application-\<profN>.profile
+	- During application startup, we can tell spring boot to pick specific "application.properties" file, using "spring.profiles.active" configuration
+	- We can pass the value of this configuration "spring.profiles.active" during application startup itself
+	```
+	mvn spring-boot:run -Dspring-boot.run.profiles=prod
+	```
+	- using @Profile annotation, we can tell spring boot, to create bean only when particular profile is set
+
