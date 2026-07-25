@@ -1,6 +1,5 @@
 
 ## Transactional
-
 - Critical section
 	- code segment, where shared resources are being accessed and modified
 	- When multiple request try to access this critical section, Data inconsistency can happen
@@ -78,3 +77,67 @@ END_TRANSACTION;
 ![[Pasted image 20260725132232.png]]
 
 ## Async
+- ThreadPool
+	- It's collection of threads (aks Workers) which are available to perform the submitted tasks.
+	- Once task completed, worker thread get back to Thread pool and wait for new task to assigned
+	- Means threads can be reused
+- In Java Thread pool is created using ThreadPoolExecutor Object
+- Async Annotation
+	- Used to mark method that should run asynchronously
+	- Runs in a new thread, without blocking the main thread
+- Spring boot first looks for **defaultExecutor** if no defaultExecutor found only then **SimpleAsyncTaskExecutor** is used
+- ThreadPoolTaskExecutor is nothing but a Spring boot Object, which is just a wrapper around Java ThreadPoolExecutor
+	- Its not recommanded
+		- Underutilization of Threads
+		- High Latency
+		- Thread Exhaustion
+		- High memory Usage
+- Create our own custom, ThreadPoolTaskExecutor
+	- During application startup, spring boot sees that ThreadPoolTaskExecutor Bean present so it makes it default only
+	- And even when we use @Async without any name, our custom thread pool executor will get picked only
+	- recommended approach
+- Creating our own custom, ThreadPoolExecutor (java one)
+	- Not recommended because
+		- Thread Exhaustion
+		- Thread creation overhead
+		- High memory usage
+- Condition for @Async
+	- The `@Async` annotation must be applied to a method in a different class than the caller.
+	- If the method is called from within the same class, the proxy mechanism is skipped because internal method calls are not intercepted.
+	- A method annotated with `@Async` must be public.
+	- This public visibility is required because Aspect-Oriented Programming (AOP) interception works only on public methods.
+- @Async and Transaction management
+	- Transaction Context does not transfer from the caller thread to the new thread created by the `@Async` execution.
+	- When a new thread is created, it will have its own transaction management, but this context is separate from the parent thread.
+	- Because the context differs between threads, transaction propagation will not work as expected.
+- Method return types
+	- Both `Future` and `CompletableFuture` can be used as the return type for an `@Async` method.
+- Exception Handling
+	- Exceptions can be caught using a standard `try-catch` block when calling the `.get()` method on the result object.
+	- If the `@Async` method has a `void` return type, exceptions will not propagate back to the calling thread for a standard `try-catch`.
+	- For `void` methods, you can handle the exception using a `try-catch` block directly within the `@Async` method itself.
+	- If a `void` method throws an exception and it is not explicitly handled, Spring Boot's default `SimpleAsyncUncaughtExceptionHandler` will be invoked, logging an "Unexpected exception occurred invoking async method" error.
+
+- Interceptors
+	- it's mediator which get invoked before or after your actual code
+
+![[Pasted image 20260725190738.png|695]]
+- Interface `HandlerInterceptor`
+	- methods preHandle, postHandle, afterCompletion
+- `addInterceptors` methods to add methods
+
+- Custom Interceptor for Requests after reaching to specific Controller class
+	- Create custom annotation
+	- Target, Retention etc
+- Filter
+	- It intercept the HTTP Request and Response, before they reach to the servlet
+	- We can have many filters and have ordering between them too
+- Interceptor
+	- Its specific to Spring Framework, and intercept HTTP Request and Response, before they reach to the controller
+	- We can have many Interceptor and have ordering between them too
+
+![[Pasted image 20260725194129.png]]
+
+- Interceptor implementation
+	- implement `WebMvcConfigurer` & override `addInterceptors` to add interceptor
+
