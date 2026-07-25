@@ -251,4 +251,3 @@
 			- Its an action, which is taken @Before or @After or @Around the method execution
 		- Join Point
 			- Its generally considered a point, where actual method invocation happens
-		- 
