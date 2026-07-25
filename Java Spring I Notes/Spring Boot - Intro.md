@@ -219,3 +219,36 @@
 	```
 	- using @Profile annotation, we can tell spring boot, to create bean only when particular profile is set
 
+- AOP - Aspect Oriented Programming
+	- In simple term, It helps to intercept method invocation. and we can perform some task before and after the method
+	- AOP allow us to focus on business logic by handling boilerplate and repetitive code like logging, transaction management etc
+	- So Aspect is a module which handle this repetitive or boilerplate code
+	- Helps in achieving reusability, maintainability of code
+	- Used during
+		- Logging
+		- Transaction management
+		- Security etc
+	- Its embedded within `spring-boot-starter-aop`
+	- AOP Concepts
+		- Pointcut
+			- Its an Expression, which tells where an ADVICE should be applied
+		- Type of Pointcut
+			- Execution
+				- matches a particular method in a particular class
+			- Within
+				- matches all method within any class or package
+			- @Within
+				- matches any method in a class which has this annotation
+			- @annotation
+				- matches any method that is annotated with given annotation
+			- Args
+				- matches any method with particular arguments (or parameters)
+				- @Before("args(String,int)")
+			- @args
+				- matches any method with particular parameters and that parameter class is annotated with particular annotation
+			- target
+		- Advice
+			- Its an action, which is taken @Before or @After or @Around the method execution
+		- Join Point
+			- Its generally considered a point, where actual method invocation happens
+		- 
