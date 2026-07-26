@@ -141,3 +141,75 @@ END_TRANSACTION;
 - Interceptor implementation
 	- implement `WebMvcConfigurer` & override `addInterceptors` to add interceptor
 
+- HATEOS
+	- Hypermedia As The Engine Of Application State
+	- It tells the client, what the next action you can perform on particular item
+	- Purpose
+		- Loose coupling 
+		- API Discovery
+
+![[Pasted image 20260725202958.png]]
+
+- will add required net set of possible actions in the response
+
+![[Pasted image 20260725203044.png]]
+- Dependency :- `spring-boot-starter-hateoas`
+
+- Response Entity & Codes
+	- Response contains
+		- Status Code
+		- Header
+		- Body
+	- We can use ResponseEntity\<T>  to create Response and in this 'T' represents the type of the Body
+	- build method can be used to response to API
+- @ResponseBody
+	- When we return POJO in response we need @ResponseBody annotation is required
+	- @RestController automatically puts @ResponseBody to all the methods
+	- for @Controller it needs to be annotated with @ResponseBody else it will throw an exception because it will try to find the file with response string name
+- Response Codes
+	- 1xx
+		- Informational
+	- 2xx
+		- Success
+	- 3xx 
+		- Redirection
+	- 4xx
+		- Validation error
+	- 5xx
+		- Server Error
+- 2xx
+	- 200 - OK
+	- 201 - Created
+	- 202 - Accepted
+	- 204 - No Content
+	- 206 - Partial Content
+- 3xx
+	- 301 - moved permanently
+	- 308 - Permanent redirection
+	- 304 - Not modified
+- 4xx
+	- 400 - Bad request
+	- 401 - Unauthorized
+	- 403 - Forbidden
+	- 404 - Not Found
+	- 405 - Method not allowed
+	- 422 - Un-processable entity
+	- 429 - Too many requests
+- 5xx
+	- 500 - Internal Server Error
+	- 501 - Not Implemented
+	- 502 - Bad Gateway
+
+- Exception Handling
+
+![[Pasted image 20260726140349.png]]
+
+- When an exception occurs, the `DispatcherServlet` intercepts it and passes it to the `HandlerExceptionResolverComposite`
+- The composite executes a left-to-right flow through specific resolvers: first `ExceptionHandlerExceptionResolver`, then `ResponseStatusExceptionResolver`, and finally `DefaultHandlerExceptionResolver`
+- Each resolver attempts to set the proper HTTP status and message for the exceptions it is responsible for handling
+- If a custom `ResponseEntity` object is not created by the developer (e.g., just throwing the exception), the exception passes through these resolvers without a final body being built
+- When the resolvers do not build a full response, control reaches the `DefaultErrorAttributes` class
+- `DefaultErrorAttributes` is responsible for filling the HTTP response with default values, returning standard error attributes like timestamp, status, error name, and path.
+	- ExceptionHandlerExceptionResolver
+	- ResponseStatusExceptionResolver
+	- DefaultHandlerExceptionResolver
