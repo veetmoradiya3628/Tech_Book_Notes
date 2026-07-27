@@ -166,3 +166,85 @@ Internal Architecture
 				- allocationSize
 		- TABLE
 			- Separate table for managing the sequence which is really inefficient
+
+- @OneToOne Unidirectional
+	- One Entity (A) references only one instance of another Entity (B)
+	- But reference exist only in one Direction. i.e. from Parent(A) to Child(B)
+	- By default hibernate choose 
+		- the FK name as <field_name_id>
+		- chooses the primary key (PK) of other table
+	- But if we need more control over it, we can use @JoinColumn annotation
+	- We can use @JoinColumns to need to map composite primary key
+- CASCADE Type
+	- Without cascadetype, any operation on Parent do not affect child entity, managing child entities explicitly can be error-prone
+	- ALL
+	- PERSIST
+		- Persisting / Inserting the User entity automatically persists its associated UserAddress entity data
+	- MERGE
+		- Updating the user entity automatically updates its associated UserAddress entity data
+	- REMOVE
+		- Deleting the User entity automatically delete its associated UserAddress entity data
+	- REFRESH
+		- It should not read child data from first level caching, instead we mark JPA to configure it to read child from directly database and not from cache
+	- DETACH
+		- To remove from persistent context we tell JPA to remove associated child entity entries as well
+
+- Get data
+	- @Eager loading
+		- It means associated child entity is loaded immediately along with the parent entity
+		- default for @OneToOne and @ManyToOne
+	- @Lazy loading
+		- It means, associated entity is not loaded immediately, only loaded when explicitly accessed like we call userDetail.getUserAddress()
+		- Default for @OneToMany, @ManyToMany
+	- We can configure like FetchType configuration with annotation
+
+- Get operation serialization issue fix in case of Lazy / Eager evaluation
+	- Use @JsonIgnore
+		- This will remove the UserAddress field totally for both Lazy and Eager Loading
+	- Using DTO (Data transfer object)
+		- Much cleaner and recommended approach
+		- Instead of sending Entity directly, first response will be mapped to our DTO object
+
+- OneToOne - BiDirectional
+	- Both entities holds reference to each other means:
+		- UserDetails has a reference to UserAddress
+		- UserAddress also has a reference back to UserDetails (only in Object, not in DB table)
+	- From table side it looks exactly same but now we have capability to go backward in the owner object from inverse side
+	- On Serialization response it leads to exception due to recursive detection between entities to solve this
+		- @JsonManagedReference
+			- Should be used only in Owing entity
+			- Tells explicitly Jackson to go ahead and serialize the child entity
+		- @JsonBackReference
+			- Should only be used with Inverse/Child entity
+			- Tells explicitly Jackson to not serialize the parent entity
+	- To load entity from both the ends but avoiding infinite recursion
+		- @JsonIdentityInfo
+			- During serialization, Jackson gives the unique ID to the entity (based on property field)
+			- Through which Jackson can know, if the particular id entity is already serialized before, then it skip the serialization
+
+- One-to-Many (Unidirectional)
+	- One entity associated with multiple records in another entity
+		- Like user can have many orders
+	- Reference exist in only 1 direction, i.e. from Parent to child
+	- Since its 1 to Mapping so it creates new table and stores the mapping
+	- By default its Lazy loading, means when query parents, child rows are not fetched
+	- If we don't want to create new table then we can use @JoinColumn this also tells JPA that we want to store the FK in child table instead of creating a new table
+	- Lazy & Eager fetch works as above
+	- Casecade type supported
+		- PERSIST
+		- MERGE
+		- REMOVE
+		- ALL
+	- Orphan removal
+		- automatically removes child entry when child removed from parent collection
+- One-to-many (Bidirectional)
+	- Parent reference to child
+	- Each child reference to parent
+- Many-to-One (Unidirectional)
+	- we talks from child perspective
+- Many-to-many (Unidirectional)
+	- Reference from one way only
+	- Join table must
+- Many-to-many (Bidirectional)
+	- Since its many to many, anyone can be owing and inverse side
+
