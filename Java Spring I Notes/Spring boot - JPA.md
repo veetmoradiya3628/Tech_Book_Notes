@@ -248,3 +248,63 @@ Internal Architecture
 - Many-to-many (Bidirectional)
 	- Since its many to many, anyone can be owing and inverse side
 
+- Our Repository interface mainly extends JpaRepository<EntityClass, PKType>
+- Derived Query
+	- Automatically generates queries from the methods
+	- Need to follow a specific naming convention
+	- Derived query used for GET/REMOVE operations but not for INSERT/UPDATE
+		- Insert and Update operations is supported through save()
+
+![[Pasted image 20260728085102.png]]
+
+- Different use cases
+	- And, Or, Comparison, Delete (Need to add @Transactional annotation)
+- Paginations and Sorting in Derived Query
+	- Pageable
+		- pageNumber & pageSize
+		- Page return type has more information on like total pages, is it first page, is it last page etc
+	- Sort
+		- Sort.by() accepts multiple fields
+		- When multiple fields provided, sorting applied in order
+		- first it sort by first field and if there are duplicates then second field is used and so on
+- For Queries which are little complex and can't handled via Derived Query we can use
+
+- JPQL
+	- Java Persistence Query language
+	- Similar to SQL but works with Entity Object instead of direct database
+		- Its database independent
+		- work with entity name and fields and not with table column names
+	- N+1 problem solution approach
+		- JOIN FETCH (JPQL)
+		- using @BatchSize(size=10)
+		- @EntityGraph(attributePaths = "userAddressList")
+	- @Modifying annotation is required with @Query to tell that insert, update or delete operation is expected
+- Flush vs. Clear
+- @NamedQuery annotation used to name a query so that we can use / refer it by name
+
+- NativeQuery
+	- Plain SQL Queries
+	- Direct interaction with DB so if in future database changes, the code changes required
+	- No caching, entity lifecycle etc
+	- When complex use cases and database specific feature required then this needs to be considered
+	- NativeQuery return result is not automatically mapped to entity object column for this we need to tell JPA how to map via
+		- using @SqlResultSetMapping & @NamedNativeQuery annotation
+		- with manual mapping
+	- Dynamic query with querybuilder
+- Criteria API
+	- Native SQL queries support dynamic query building, but they are database-dependent and don't leverage JPA abstraction
+	- That's why JPA Criteria API exists, it allows you to build dynamic, type-safe queries without writing raw SQL
+
+![[Pasted image 20260728090701.png]]
+
+- Comparison operator
+- Logical operator
+- Collection operation
+
+- Specification API
+	- Specification interface supports following methods
+		- toPredicate()
+		- and()
+		- or()
+		- not()
+- Compares to Criteria API, Specification API is more clean and has reusable code
