@@ -65,3 +65,35 @@ String response = restClient
 - Retry configuration
 - Feignclient naming configuration
 
+#### Service Discovery
+- In microservices, services or component instances are created and deleted dynamically
+- we can not hardcode the URL of a particular instance, its not scalable and feasible
+- The problems with hardcoding
+	- Single point of failure
+	- No Load balancing
+	- Tight coupling
+	- Difficulty in testing
+- Solution for this 
+	- Service Discovery (like Eureka)
+		- Eureka Server
+			- Act like a phonebook
+			- Has all the instances info for all the registered clients like
+				- Service name
+				- Instance id
+				- IP
+				- port number
+				- Health Status
+		- Eureka Client
+			- Register itself with the server
+			- Discovers an instance of other service via Eureka Server
+- Dependency `spring-cloud-starter-netflix-eureka-server` for server
+- `@EnableEurekaServer` - Tells spring boot to create necessary beans, which is required for Eureka Server like
+	- EurekaController
+	- Dashboard etc
+- Dependency `spring-cloud-starter-netflix-eureka-client` for client
+	- client register to target eureka server based on config in application.properties
+- Client heart beat to eureka server
+- Eureka server only stores the data in memory - Map\<String, Lease\<InstanceInfo>>
+- Eureka server is single point of failure so we should have replicas for the same and it should be multi node cluster configured
+- Local cache and its tradeoff in client side 
+
