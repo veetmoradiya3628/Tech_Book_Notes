@@ -180,3 +180,76 @@ String response = restClient
 ![[Pasted image 20260729195303.png]]
 
 
+- API Gateway
+	- It provides a Single entry point to access all microservices
+	- It provides lot of benefits like
+		- Routing - forward requests to right microservice
+		- Load balancing
+		- Authentication like JWT
+		- Rate limiting
+		- Resilience features (Circuit breaker, retry etc)
+		- Request/Response transformation
+		- Monitoring and logging
+	- dependency `spring-cloud-starter-gateway`
+	- client side load balancing with API gateway
+
+- Centralized Configuration
+	- If config are kept within microservice resource (application.properties) then any change means
+		- Edit application.property file
+		- Rebuild the JAR
+		- Redeploy service
+	- Inconsistent config across services
+	- No runtime update
+	- Time consuming rollback
+- Centralized configuration with spring cloud config
+	- Git repository to store config files for multiple microservices
+	- global common properties
+		- application.properties
+		- application-{profile}.properties
+	- dependency `spring-cloud-config-server`
+	- @EnableConfigServer
+	- using this concept we no need to restart server when config is updated it will refresh runtime with annotations like @RefreshScope etc
+
+- Actuator
+	- Provides production-ready endpoints to monitor and manage the spring boot application
+	- /health
+	- /metrics
+	- /metrics/\<metricname>
+	- There are lot of metrics and we can override the behaviors based on config 
+	- Few important metrics
+		- JVM Memory metrics
+			- jvm.memory.used
+			- jvm.memory.max
+		- Garbage collection metrics
+			- jvm.gc.pause
+		- Threads
+			- jvm.threads.live
+			- jvm.threads.peak
+		- System metrics
+			- system.cpu.usage
+		- HTTP Server / Requests
+			- http.server.requests
+		- Database / JDBC metrics
+			- jdbc.connections.active
+			- jdbc.connections.idle
+			- jdbc.connections.max
+- GET /threaddump
+	- Helps to diagnose deadlock or thread leaks
+	- which threads are active, blocked or waiting
+- Additional endpoints
+	- /heapdump
+	- /mappings
+	- /beans
+	- /configprops
+	- /loggers
+	- /shutdown
+	- /env
+	- /actuator/env/{property}
+- Custom actuator endpoint
+	- class annotated with @Endpoint(id = "custom endpoint name")
+	- @ReadOperation
+	- @WriteOperation
+	- @DeleteOperation
+- These metrics data can be pushed to datadog (monitoring platform)
+- we can also push to different other platforms like: Prometheus, CloudWatch etc
+
