@@ -80,3 +80,70 @@ Common Attacks
 - By default all endpoints in spring boot is AUTHENTICATED so to register our self /auth/register API needs to be relax
 	- By overriding @Bean for securityFilterChain(HttpSecurity http) with authorizeHttpRequests, csrf etc config and builder chain method
 
+- Form login authentication
+	- Stateful authentication
+	- session JSESSIONID
+	- Default method for authentication in spring boot
+	- By default HTTP Session is 30 minutes, we can configure it too based on our use cases
+	- `server.servlet.session.timeout=1m`
+	- it will automatically create and manage `SPRING_SESSION` table for us
+- SpringBootWebSecurityConfiguration
+	- All I have to added is dependency and config
+- To override default configuration we can override by overriding default SecurityFilterChain method
+- AuthorizationFilter
+	- Authorization check as part of Security Filter
+	- Authorization check after request passes the SecurityFilter and reaches the controller
+		- this we will cover later as it common for all different authentication methods either Form based, Basic or JWT
+- hasAnyRoles("USER", "ADMIN") etc like that
+- Session policies configuration
+
+- Basic Authentication
+	- It's a stateless authentication method
+		- it means server do not maintains the user authentication state (a.k.a Session)
+		- In this client has to pass the username and password with every request using Authorization header
+			- Authorization: Basic \<base64(username:password)>
+	- This credentials are encoded using Base64 (not encrypted) making it insecure over HTTP
+
+JWT
+- JSON Web Token
+- It's provides a secure way of transmitting information between parties as a JSON object
+- This information can be verified because its digitally signed using RSA (public/private key pair) etc
+- Adv
+	- Compact
+	- Self contained / stateless
+	- Can be signed using HMAC or RSA
+	- Built in expiry mechanism
+	- Custom claim (additional data) can be added in the JWT
+- Used for authenticating
+- Used for authorization
+- Used for SSO
+- Authentication Server vs. Resource server
+- JWT Structure
+	- Header
+		- contains metadata information of the token
+		- typ - type of the token
+		- alg - signing algorithm used like RSA or HMAC etc
+	- Payload
+		- Claims
+			- Registered claims
+			- Public claims
+			- Private claims
+	- Signature
+
+- Authorization header Bearer token
+- Challenges
+	- Token invalidation
+	- Its encoded and not encrypted
+	- Unsecured JWT with alg
+	- Jwk exploit
+- kid
+- Token creation
+- Token Generation
+- Token Validation
+- Refresh token
+
+- JWT dependencies jjwt
+- Access token
+- Refresh token
+
+
