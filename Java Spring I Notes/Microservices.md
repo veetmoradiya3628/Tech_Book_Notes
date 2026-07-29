@@ -116,3 +116,67 @@ String response = restClient
 	- Weighted
 	- Least connection
 - Istio with Side car
+
+#### Fault-Tolerance Microservices
+- Fault tolerance microservice is a service, which continues to work even when downstream system fails
+- Instead of crashing or cascading failures, it handles the failure gracefully
+- Resilience4j
+	- Retry
+	- Circuit breaker
+	- Rate limiter
+	- Bulk head
+	- Time Limiter
+- Rate Limiter
+	- It controls the number of requests allowed to a microservice in a given time window
+	- So in other words, it protects our system from sudden traffic spike (like in DDoS attack)
+	- RateLimiter
+		- Fixed window counter
+			- Counts how many request happens in a fixed window
+			- If the count crossed the Limit, then reject the request
+		- Sliding log
+		- Sliding window counter
+		- Token Bucket
+		- Leaky Bucket 
+- dependency `resilience4j-spring-boot3`
+- Internally uses AOP functionality
+- `@RateLimiter` annotation can be used to implement this Rate limiting which default set and use Token bucket algorithm
+
+- Bulkhead
+	- It helps to control how many concurrent requests can go to downstream service
+	- Semaphore bulkhead
+	- It also protects our application from our downstream services by limiting how many threads we allocate to them
+	- Bulkhead
+		- Semaphore bulkhead
+			- Limits the number of concurrent calls using counter
+			- If the limit is reached, further calls are rejected immediately or blocked for specific wait time
+		- Thread pool bulkhead
+- Time Limiter
+	- Time limiter is used to prevent async call from hanging indefinitely
+	- Time limiter is non blocking in Resilience4j
+	- Means it is mainly designed for asynchronous operations, that returns a reactive type like Mono, Flux etc
+- Retry
+	- In distributed system, call to downstream service might fail because of Transient issues
+	- Transient issues means short temporary issues like network issue, timeouts etc.
+	- And retry of same request after a short delay can get succeed
+	- Idempotency
+	- Types of retry
+		- Fixed Interval
+		- Exponential backoff
+		- Exponential backoff + Jitter
+		- Custom Interval
+	- AOP based
+
+- Circuit Breaker
+	- This pattern prevents an application to make repeated calls to a downstream service that is likely to fail
+	- It prevents application to make repeated calls to a downstream service that is likely to fail
+	- State of Circuit Breaker
+		- Closed
+			- All calls are allowed to downstream service
+		- Open
+			- No calls allowed to downstream service and fail the call immediately
+		- Half Open
+			- Allows only limited number of test calls to downstream and keep track of their success rates
+
+![[Pasted image 20260729195303.png]]
+
+
