@@ -97,3 +97,22 @@ String response = restClient
 - Eureka server is single point of failure so we should have replicas for the same and it should be multi node cluster configured
 - Local cache and its tradeoff in client side 
 
+#### Load balancer
+- Helps in distributing traffic to multiple instances of a servers
+- Helps in preventing single server from being overloaded with huge traffic
+- Load balancer types
+	- Server side
+		- Centralized load balancer like Nginx, ELB etc
+		- Like a separate microservice
+	- Client side
+		- Load balancing capability present inside the client (the caller) or it uses a library to take the decision
+		- Like spring cloud LoadBalancer, Netflix Ribbon, Istio with sidecar etc
+- Client side load balancing with RestTemplate/FeignClient
+- Spring Cloud Load Balancer dependency 
+- Two algorithms
+	- Round Robin
+	- Random
+- Other algorithms like
+	- Weighted
+	- Least connection
+- Istio with Side car
