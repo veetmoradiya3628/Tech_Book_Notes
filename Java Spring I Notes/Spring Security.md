@@ -142,8 +142,52 @@ JWT
 - Token Validation
 - Refresh token
 
-- JWT dependencies jjwt
+- JWT dependencies `jjwt`
 - Access token
 - Refresh token
 
+OAuth2.0
+- OAuth stands for Open Authorization
+- Why its used ?
+	- It's an authorization framework
+	- Enables secure third-party access to user protected data
+- Roles / Actors involved here
+	- Resource Owner
+	- Client
+	- Authorization Server
+	- Resource Hosting Server
+- Authorization Grant Type - mechanism used by client to obtain access token
+	- Authorization Grant Code
+	- Implicit Client
+	- Resource Owner Password Credentials Grant 
+	- Client Credential Grant
+	- Refresh Token Grant
+
+- Authorization Code Grant Type
+	- most secure and common flow, primarily used for web applications with backend server. the user is redirected to the authorization server to login in, and the server returns a temporary "authorization code" to the client. The client's backend then securely exchanges this code for an access token and refresh token
+- Implicit grant
+	- Originally designed for Single Page Applications (SPAs) where a client secret couldn't be securely stored. The Access Token is returned directly in the URL fragment after user authentication, skipping the code exchange.
+	- Deprecated
+- Resource Owner Password Credentials Grant
+	- The user provides their raw username and password directly to the client application, which then sends them to the authorization server to get a token.
+	- Deprecated
+- Client Credentials Grant
+	- Used for Machine-to-Machine (M2M) communication where there is no human user involved. A client (e.g., a backend microservice) uses its own `client_id` and `client_secret` to authenticate and get a token to access another service.
+- Refresh Token Grant
+	- Access Tokens are meant to be short-lived. Instead of forcing the user to log in again when the token expires, the client uses a securely stored Refresh Token to request a new Access Token.
+
+- Role based Authorization via annotations
+	- @EnableMethodSecurity(prePostEnabled = true)
+	- @PreAuthorize
+		- This annotation performs authorization _before_ the execution of the API method.
+		- AuthorizationManagerBeforeMethodInterceptor
+		- Ex. @PreAuthorize("hasRole('USER') and hasAuthority('ORDER_READ')")
+	- @PostAuthorize
+		- This annotation performs authorization _after_ the API executes, but _before_ the response is sent back to the user
+		- It can access the returned object. For example: `@PostAuthorize("returnObject.userID == authentication.principal.id")`.
+	- hasRole vs. hasAuthority
+		- `hasRole` automatically appends a `"ROLE_"` prefix when checking permissions
+
+TODO:
+- hands on different security and its mechanism with in the spring java ecosystem
 
