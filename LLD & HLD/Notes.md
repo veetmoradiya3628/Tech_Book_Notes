@@ -1,0 +1,62 @@
+
+### Q. How to approach LLD OOD Interview problem
+
+- Tests ability to translate high level requirements into detailed class structures, methods and their interactions using object-oriented design principles
+- Steps
+	- Clarify requirements
+	- Identify entities
+	- class design
+	- implementation
+	- exception handling
+- Clarify requirements / use cases
+	- core features to be supported
+	- any specific feature to be prioritize
+	- primary users of the system
+	- actions that user can take
+	- any specific constraints or limitations
+	- do we need to handle concurrency
+	- errors, edge cases, exceptions and unexpected inputs
+- Identify Entities / problem analysis
+	- After clear with requirements, break down the problem and identify the core entities or objects we need to have in the design
+	- core entities are the key objects around which our system is built
+	- these entities will become the class in object oriented design like a nouns in the problem description
+- Class Design
+	- Next step is to design the `classes`, `enums` and `interfaces`
+	- Define classes and relationships
+		- Translate entities into classes and come up with a list of attributes you want to have in those classes
+		- If design have multiple classes, figure out how would they would relate with each other.
+		- Optional `UML class diagram` creation
+		- One to Many, Many to Many, Many to One relation design between classes with HashMap & ArrayList
+	- Define interfaces and core methods
+		- Define interfaces and core methods for each classes
+		- Methods encapsulate the actions or behaviors that each class is responsible for, they are the verbs associated with entities
+		- define method signatures with its parameters and its purpose
+	- Define a central class
+		- We don’t want to manipulate classes in our design directly from outside, that’s why we need a central class that provides a unified interface for interacting with the system.
+		- That will serve as the central coordinator for the entire system.
+		- It manages the creation, retrieval, and interaction of all major components.
+- Implementation / Code Quality
+	- Follow good coding practices
+		- Use meaningful names for classes, methods and variables
+		- Focus on simplicity and readability
+		- Favor composition over inheritance to promote flexibility and avoid tight coupling
+		- avoid duplicating code or logic
+		- Use interfaces to define contracts and enable loose coupling between components.
+		- Only implement what is required.
+		- Strive for modularity and separation of concerns to make the codebase maintainable and scalable.
+		- Apply design principles and design patterns wherever necessary.
+		- Make your code scalable so that it performs well with large data sets.
+	- Implement necessary methods
+		- Check with the interviewer to understand which methods are important for the interview.
+	- Address Concurrency
+		- Handle race conditions
+		- check where we need to handle concurrency in design
+		- few strategies to address concurrency
+			- use synchronization
+			- use atomic operations
+			- use immutable objects
+			- use thread safe data structures
+- Exception handling
+	- The problem may require you to handle **errors**, **edge cases**, **exceptions**, and **unexpected input**.
+- Extensibility & maintainability
+	- Think about 3 or 4 / be ready with at least 2 follow ups and expected to propose a change without major refactoring
