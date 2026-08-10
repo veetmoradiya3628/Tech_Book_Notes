@@ -24,7 +24,34 @@
 	- Message is stored in one of the topic partitions
 	- Message routing happens based on key to the particular partition
 	- Partitions defined by key
+		- hash(key) % no_of_partitions
 	- By default message in topic goes in round robin fashion
-- Offset
-	- 
-- Kafka Connect
+- Brokers
+	- an computer, instance, or container running the kafka process
+	- Manage partitions
+	- Handle write and read requests
+	- Manage replication of partitions
+	- Intentionally very simple
+- Replication
+	- Copies of data for fault tolerance
+	- One lead partition and N-1 followers
+	- In general, writes and reads happen to the leader
+	- An invisible process to most developers
+	- Tunable in the producer
+- Producers
+	- Client application
+	- Puts messages into topics
+	- Connection pooling
+	- Network buffering
+	- Partitioning
+	- Defines and determines where to put the message in which partition basically
+- Consumers
+	- Client application
+	- Reads messages from topics
+	- Connection pooling
+	- Network protocol
+	- Horizontally and elastically scalable
+	- Maintains ordering within partitions at scale
+	- Consumer group instance
+	- Kafka restricts each partition to being consumed by only one consumer per consumer group at a time.
+- 
