@@ -1,0 +1,30 @@
+- Event streaming platform
+- Use cases
+	- Pub Sub
+	- Distributed logging
+	- stream processing
+- Events
+	- It's Notification + State
+		- Internet of Things
+		- Business process change
+		- User interaction
+		- Microservice output
+- Key / Value pair
+- Topic
+	- Primary component of storage in kafka
+	- Named container for similar events
+	- Can duplicate data between topics
+	- Durable logs of events
+		- Append only
+		- Can only seek by offset, not indexed
+	- Events are immutable
+	- Retention is configurable
+- Partitions
+	- Multiple partitions in single topic and each can go in different machine or same machine in kafka cluster
+	- Message is stored in one of the topic partitions
+	- Message routing happens based on key to the particular partition
+	- Partitions defined by key
+	- By default message in topic goes in round robin fashion
+- Offset
+	- 
+- Kafka Connect
