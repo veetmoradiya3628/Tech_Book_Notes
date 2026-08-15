@@ -101,4 +101,18 @@ public class EmailNotification implements Notification {
 - Association vs. Dependency
 	- **Association** is a structural relationship. It is a long term connection where one object remembers another as part of its state.
 	- **Dependency** is a _behavioral_ relationship. It is a short-term, temporary connection where one object just needs another to complete a specific task.
+- High Cohesion and Loose (Low) Coupling
 
+- Cohesion
+	- **Cohesion** measures how closely related the responsibilities of a single class, struct, or module are.
+	- High cohesion is good
+		- A module does _one_ thing and does it well. Its methods and properties are highly related. (This aligns directly with the Single Responsibility Principle).
+	- Low cohesion is bad
+		- A module is a "God object" or a dumping ground for unrelated tasks (e.g., handling databases, formatting text, and sending emails all in one place).
+
+- Coupling
+	- **Coupling** measures how much two separate modules depend on each other.
+	- Loose coupling is good
+		- Modules know very little about each other. They interact through well-defined contracts (interfaces). If you change module A, module B doesn't break.
+	- Tighe coupling is bad
+		- Modules are deeply intertwined, often relying on concrete implementations. A change in one module forces a cascading change in several others.
