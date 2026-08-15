@@ -112,3 +112,8 @@
 		- Dependency Inversion Principle
 		- Dependency Inversion states that your code should depend on abstractions, not concrete implementations. Instead of `NotificationService` creating an `EmailSender` directly, it should accept a `MessageSender` interface through its constructor.
 		- The "inversion" refers to who defines the contract. Normally, your business logic conforms to whatever the implementation provides. With DIP, you flip this: define an interface based on what your business logic needs, then have implementations conform to that interface. The implementation adapts to the business logic, not the other way around.
+
+
+
+
+
