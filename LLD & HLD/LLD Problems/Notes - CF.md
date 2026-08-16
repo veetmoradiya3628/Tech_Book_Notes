@@ -116,3 +116,37 @@ public class EmailNotification implements Notification {
 		- Modules know very little about each other. They interact through well-defined contracts (interfaces). If you change module A, module B doesn't break.
 	- Tighe coupling is bad
 		- Modules are deeply intertwined, often relying on concrete implementations. A change in one module forces a cascading change in several others.
+
+
+
+- filled diamond denotes composition, meaning strong ownership. engine’s lifecycle depends on Car.
+ - dashed arrow indicates dependency, meaning AuthService uses Database temporarily.
+ - dashed arrows in sequence diagrams represent return values or responses, not calls.
+ - multiplicity 0..* means many.  so one Teacher can be associated with multiple Students.
+ - A self-call (arrow starting and ending on the same lifeline)
+
+UML & Its Applications
+- Class Diagrams - structural
+	- Class diagrams show the static structure of your system: what entities exist, what data they hold, and exactly how they relate to one another.
+
+![[UML Class Diagram.png]]
+
+- Inheritance / Generalization - IS-A - `extends`
+- Realization - Implements - `implements`
+- Composition / Strong Has-A
+- Aggregation / Weak Has-A
+- Dependency / USES-A
+
+- Sequence diagram - Behavioral 
+	- shows how objects communicate over time to fulfill a specific use case.
+	- Key components
+		- Lifeline
+		- Activation bar
+		- Synchronous message
+		- Return message
+- State Machine diagram / State diagram
+	- A State Diagram models the lifecycle of a _single_ object. It shows all the different statuses (states) that object can be in, and the specific events (triggers) that cause it to move from one state to another.
+	- Components
+		- State
+		- Transition
+		- Trigger / Event
