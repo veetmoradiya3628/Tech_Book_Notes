@@ -165,3 +165,38 @@ Clean Code
 	- A method should either be a _Command_ (changes state, returns void) or a _Query_ (returns data, doesn't change state). Don't mix them. A method named `validateBooking()` should not also write the booking to the database.
 - **Meaningful Signatures:** Method names should read like English. `process()` tells you nothing. `calculateFinalPriceAfterDiscount()` is self-documenting.
 - **Minimize Scope:** Keep variables as tightly scoped as possible. Decompose large methods into smaller, private helper methods that do exactly one thing.
+- Method extraction breaks large logic into smaller readable units with focused responsibilities.
+- Direct dependency on concrete implementations makes systems harder to extend and modify.
+- Poor cohesion occurs when unrelated responsibilities exist inside the same class.
+
+**1. Report Generation System Refactor**
+- **Short Description**
+	- A report generation system refactored from a God Class into dedicated data provider, formatter, and renderer components, allowing the service to coordinate the workflow while keeping data processing, formatting, and rendering responsibilities separate.
+- **Topics Used**
+	- God Class, Separation of Concerns, Cohesion, Responsibility Separation, Refactoring
+- **Concepts Practiced**
+    - Identifying God Class code smell, extracting data management responsibilities, formatter separation, renderer extraction, workflow orchestration, cohesive class design, helper class collaboration, maintainable service architecture.
+
+**2. Storage Management System**
+- **Short Description**
+    - A storage management system refactored to replace direct dependency on a concrete storage implementation with a common abstraction, enabling the service to work with multiple storage types without modification.
+- **Topics Used**
+    - Tight Coupling, Dependency Inversion, Programming to Abstractions, Interface-Based Design, Refactoring
+- **Concepts Practiced**
+    - Removing tight coupling, introducing abstractions, interface implementation, dependency injection through constructors, interchangeable storage implementations, extensible service design, delegation, maintainable architecture.
+
+**3. Student Result Processing System**
+- **Short Description**
+    - A student result processing system refactored from a long workflow method into smaller focused helper methods that calculate marks, evaluate results, generate summaries, and coordinate the overall processing flow.
+- **Topics Used**
+    - Long Method, Mixed Responsibility, Method Extraction, Refactoring
+- **Concepts Practiced**
+    - Workflow decomposition, total marks calculation, average computation, pass/fail evaluation, summary generation, helper method extraction, readable execution flow, maintainable business logic organization.
+
+**4. Notification Delivery System**
+- **Short Description**
+    - A notification delivery system designed around a common notification abstraction, allowing multiple notification channels to provide their own message delivery behavior while enabling uniform processing through polymorphism.
+- **Topics Used**
+    - Polymorphism, Interfaces, Runtime Polymorphism, Loose Coupling, Class Diagram
+- **Concepts Practiced**
+    - Designing interface-based systems, implementing multiple concrete classes, runtime method dispatch, programming to abstractions, interchangeable notification implementations, collection of interface references, extensible notification architecture.
