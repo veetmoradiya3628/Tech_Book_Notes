@@ -150,3 +150,18 @@ UML & Its Applications
 		- State
 		- Transition
 		- Trigger / Event
+
+Clean Code
+
+- Separation of concerns
+- Small focused methods improve readability and make validation logic easier to maintain and test.
+- Guard clause - bouncer pattern
+	- Avoid deep nesting and the "arrow anti-pattern" (where code keeps indenting to the right). Instead of wrapping your main logic in a giant `if (isValid)` block, handle the negative cases and throw exceptions or return at the very top of the method.
+- Tell, don't ask (encapsulation of behavior)
+- The Law of Demeter (Avoid "Train Wrecks")
+- Principle of Least Astonishment (POLA)
+	- Your methods should do exactly what the name suggests and nothing more. Side effects are the enemy.
+- Command-Query Separation (CQS)
+	- A method should either be a _Command_ (changes state, returns void) or a _Query_ (returns data, doesn't change state). Don't mix them. A method named `validateBooking()` should not also write the booking to the database.
+- **Meaningful Signatures:** Method names should read like English. `process()` tells you nothing. `calculateFinalPriceAfterDiscount()` is self-documenting.
+- **Minimize Scope:** Keep variables as tightly scoped as possible. Decompose large methods into smaller, private helper methods that do exactly one thing.
