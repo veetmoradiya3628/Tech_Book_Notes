@@ -200,3 +200,27 @@ Clean Code
     - Polymorphism, Interfaces, Runtime Polymorphism, Loose Coupling, Class Diagram
 - **Concepts Practiced**
     - Designing interface-based systems, implementing multiple concrete classes, runtime method dispatch, programming to abstractions, interchangeable notification implementations, collection of interface references, extensible notification architecture.
+
+**5. Inventory Restock Processing System**
+- **Short Description**
+       - An inventory management system refactored from a large workflow method into smaller focused methods that handle validation, stock updates, cost calculation, inventory evaluation, and summary generation.
+- **Topics Used**
+    - Long Method, Mixed Responsibility, Method Extraction, Refactoring
+- **Concepts Practiced**
+    - Workflow decomposition, validation extraction, inventory status evaluation, stock update processing, helper method design, readable execution flow, responsibility separation within service methods, maintainable business logic organization.
+
+**6. Customer Loyalty Evaluation System**
+- **Short Description**
+    - A customer loyalty evaluation system refactored from a monolithic processing method into smaller cohesive methods that calculate loyalty scores, determine membership categories, and evaluate reward eligibility.
+- **Topics Used**
+    - Long Method, Mixed Responsibility, Method Extraction, Refactoring
+- **Concepts Practiced**
+    - Business rule extraction, loyalty score calculation, membership classification logic, reward eligibility evaluation, workflow coordination, helper method organization, clean processing flow, maintainable service design.
+
+**7. Resume Builder System**
+- **Short Description**
+    - A resume generation system refactored from a God Class into specialized formatter and validation components to improve cohesion, readability, and responsibility separation.
+- **Topics Used**
+    - God Class, Separation of Concerns, Cohesion, Responsibility Separation, Refactoring
+- **Concepts Practiced**
+    - Identifying God Class code smell, extracting formatting responsibilities, validator separation, cohesive class design, formatter-based architecture, resume generation workflow orchestration, maintainable class structure, improved readability through focused components.
