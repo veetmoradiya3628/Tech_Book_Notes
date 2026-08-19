@@ -1,6 +1,5 @@
 
-LLD Foundations
-
+### LLD Foundations
 - Encapsulation
 	- Encapsulation is the practice of bundling data (state) and the methods that operate on that data into a single unit, while restricting direct access to some of the object's components. You expose only what is absolutely necessary.
 	- **Analogy:** A coffee machine. You don't need to know how the internal heater or grinder works; you just press a button (the public interface) to get coffee.
@@ -125,7 +124,7 @@ public class EmailNotification implements Notification {
  - multiplicity 0..* means many.  so one Teacher can be associated with multiple Students.
  - A self-call (arrow starting and ending on the same lifeline)
 
-UML & Its Applications
+### UML & Its Applications
 - Class Diagrams - structural
 	- Class diagrams show the static structure of your system: what entities exist, what data they hold, and exactly how they relate to one another.
 
@@ -151,7 +150,7 @@ UML & Its Applications
 		- Transition
 		- Trigger / Event
 
-Clean Code
+### Clean Code
 
 - Separation of concerns
 - Small focused methods improve readability and make validation logic easier to maintain and test.
@@ -224,3 +223,42 @@ Clean Code
     - God Class, Separation of Concerns, Cohesion, Responsibility Separation, Refactoring
 - **Concepts Practiced**
     - Identifying God Class code smell, extracting formatting responsibilities, validator separation, cohesive class design, formatter-based architecture, resume generation workflow orchestration, maintainable class structure, improved readability through focused components.
+
+### SOLID
+- S - Single Responsibility Principle
+- O - Open Closed Principle
+	- New behavior was added without modifying existing workflow logic.
+- L - Liskov Substitution Principle
+	- Different implementations safely replace abstraction references without breaking workflow behavior.
+- I - Interface Segregation Principle
+- D - Dependency Inversion Principle
+	- It means that big parts of your program should not connect directly to small, detailed parts. Instead, both should rely on simple general rules or interfaces
+- Down casting dependency on concrete implementation breaks abstraction-driven design and increases coupling to implementation details.
+- Polymorphism using abstraction
+- It means that big parts of your program should not connect directly to small, detailed parts. Instead, both should rely on simple general rules or interfaces
+
+Ex. 
+**1. Multi-Channel Alert System**
+- **Short Description**
+    - A notification platform that supports multiple alert channels while separating notification delivery from history tracking and allowing new notification types to be added without modifying existing workflow logic.
+- **Topics Used**
+    - SRP, OCP, Abstraction, Polymorphism
+- **Concepts Practiced**
+    - Responsibility separation between sending and tracking, interface-driven design, extensible notification channels, workflow coordination through services, history management, interchangeable notification implementations, open-for-extension architecture.
+
+**2. Logistics Fleet Management System**
+- **Short Description**
+    - A delivery management system that supports multiple delivery partner types through interchangeable implementations while keeping delivery workflows independent of partner-specific logic.
+- **Topics Used**
+    - OCP, LSP, Polymorphism, Substitutability
+- **Concepts Practiced**
+    - Interface-based delivery abstraction, interchangeable partner implementations, safe substitutability, workflow delegation, extensible delivery architecture, behavior replacement without workflow modification, abstraction-driven design.
+
+**3. Online Shopping Workflow System**
+- **Short Description**
+    - An e-commerce order processing platform that coordinates payment processing, notifications, delivery assignment, and invoice generation through extensible and loosely coupled components.
+- **Topics Used**
+    - SRP, OCP, LSP, Abstraction, Polymorphism
+- **Concepts Practiced**
+    - End-to-end workflow orchestration, responsibility separation across components, interchangeable payment mechanisms, interchangeable notification channels, interchangeable delivery partners, abstraction-driven architecture, safe substitutability, extensible business workflow design.
+
