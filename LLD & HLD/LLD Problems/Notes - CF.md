@@ -225,6 +225,7 @@ public class EmailNotification implements Notification {
     - Identifying God Class code smell, extracting formatting responsibilities, validator separation, cohesive class design, formatter-based architecture, resume generation workflow orchestration, maintainable class structure, improved readability through focused components.
 
 ### SOLID
+
 - S - Single Responsibility Principle
 - O - Open Closed Principle
 	- New behavior was added without modifying existing workflow logic.
@@ -261,4 +262,36 @@ Ex.
     - SRP, OCP, LSP, Abstraction, Polymorphism
 - **Concepts Practiced**
     - End-to-end workflow orchestration, responsibility separation across components, interchangeable payment mechanisms, interchangeable notification channels, interchangeable delivery partners, abstraction-driven architecture, safe substitutability, extensible business workflow design.
+
+**4. Employee Payroll Management System**
+- **Short Description**
+    - A payroll processing platform that separates salary calculation, tax computation, payslip generation, and workflow coordination into dedicated components connected through abstractions.
+- **Topics Used**
+    - SRP, DIP, Responsibility Separation, Loose Coupling
+- **Concepts Practiced**
+    - Dependency inversion through calculation abstractions, payroll workflow orchestration, salary and tax processing separation, payslip generation, reusable business components, loosely coupled service design, extensible payroll architecture.
+
+**5. Smart Restaurant Management System**
+- **Short Description**
+    - A restaurant workflow management system that assigns responsibilities through small role-based interfaces so employees depend only on behaviors they actually perform.
+- **Topics Used**
+    - ISP, SRP, Clean Interface Design, Responsibility Separation
+- **Concepts Practiced**
+    - Interface segregation, role-based abstractions, focused employee responsibilities, avoiding fat interfaces, workflow coordination through interfaces, clean dependency management, behavior-driven design.
+
+**6. Notification Delivery Platform**
+- **Short Description**
+    - A notification platform that supports multiple delivery providers while keeping notification delivery, history tracking, and workflow coordination loosely coupled and extensible.
+- **Topics Used**
+    - SRP, OCP, DIP, Abstraction, Extensible Design
+- **Concepts Practiced**
+    - Dependency inversion through notification abstractions, separation of delivery and tracking responsibilities, extensible provider architecture, workflow delegation, interchangeable notification implementations, history management, loosely coupled system design.
+
+**7. Ride Dispatch & Transport Allocation System**
+- **Short Description**
+    - A transport dispatch platform that supports interchangeable transport partners while separating route planning from dispatch execution through clean responsibility boundaries.
+- **Topics Used**
+    - LSP, SRP, Polymorphism, Substitutability, Responsibility Separation
+- **Concepts Practiced**
+    - Transport partner substitutability, route planning separation, dispatch workflow orchestration, polymorphic transport execution, abstraction-driven design, extensible transport architecture, clean responsibility allocation.
 
