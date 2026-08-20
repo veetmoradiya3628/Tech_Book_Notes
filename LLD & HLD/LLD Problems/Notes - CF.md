@@ -295,3 +295,20 @@ Ex.
 - **Concepts Practiced**
     - Transport partner substitutability, route planning separation, dispatch workflow orchestration, polymorphic transport execution, abstraction-driven design, extensible transport architecture, clean responsibility allocation.
 
+
+### Design Pattern
+- Creational
+	- **Builder (Warehouse & Assembly):** Instead of using massive, complex constructors, the Builder constructs objects step-by-step. In LLD, this cleanly separates the configuration of a custom PC or a multi-step shipment from its final representation.
+	- **Factory (Assembly & IoT):** Centralizes object creation. Instead of hardcoding concrete classes, the Factory dynamically decides which IoT device or PC component to instantiate, keeping your core business logic tightly decoupled.
+- Structural
+	- **Facade (Warehouse & Sync Hub):** Provides a simplified entry point to a complex subsystem. Your external clients only talk to the Facade, shielding them from the heavy underlying warehouse routing or synchronization workflows.
+	- **Adapter (Sync Hub):** Acts as a bridge for incompatible interfaces. It wraps third-party systems so your core sync logic remains untouched even if an external vendor completely rewrites their API.
+	- **Decorator (Assembly):** Dynamically adds behaviors to objects at runtime. Instead of creating endless rigid subclasses, you compose features by wrapping a base PC object with optional performance enhancements.
+- Behavioral
+	- **Strategy (Warehouse & Sync Hub):** Encapsulates interchangeable algorithms. You can effortlessly swap a "Standard Packaging Strategy" for an "Eco-Friendly" one at runtime without altering the core fulfillment code.
+	- **State (Warehouse & IoT):** Replaces massive `if/else` blocks by letting an object alter its behavior based on its lifecycle phase (e.g., an IoT device cleanly transitioning from `Active` to `Updating` to `Offline`).
+	- **Command & Observer (IoT):** Command turns actions (like firmware updates) into standalone objects that can be queued or tracked. Observer sets up a subscription model where monitoring systems react instantly to device health changes.
+- Principles
+	- Single Responsibility
+	- Open/closed principle
+	- Composition over inheritance
