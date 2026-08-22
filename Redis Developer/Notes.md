@@ -1,0 +1,15 @@
+
+- Redis is a memory-first, key-value data store.
+	- In memory storage provides unparalleled data access speed
+	- data stays as long as you need it
+	- standard data structures like strings, hashes, lists, JSON, Vectors
+- Use cases
+	- Enterprise caching
+	- Session management
+	- Real-time Leaderboards
+	- Vector search
+- Redis products
+	- Redis open source
+	- Redis cloud
+	- Redis software
+- Redis cloud database setup & connect setup
