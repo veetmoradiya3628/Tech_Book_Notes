@@ -110,7 +110,18 @@ SADD product:views:bowtie42 alice - return 0
 		- Recommendation engines
 
 - JSON
-	- 
+	- JSON serialized string vs. JSON document
+	- It supports query and manipulate parts of the document using JSONPath
+	- JSON.SET $
+	- JSON.GET
+	- JSON.GET $.\<field>  or $.*
+	- Merge JSON documents
+	- Work with multiple JSON documents
+	- Manipulate in many ways
+	- Use cases
+		- To store records
+		- To store sessions data
+	- Index, search
 
 - Redis data structures
 	- Strings - text
