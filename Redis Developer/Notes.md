@@ -123,6 +123,19 @@ SADD product:views:bowtie42 alice - return 0
 		- To store sessions data
 	- Index, search
 
+- Probabilistic data structure
+	- A data structure that sacrifices accuracy to gain improvements in speed and storage
+	- Hyper log log
+		- A data structure that counts a practically unlimited number of unique items
+	- Bloom filter
+		- A fast and space-efficient data structure that checks a set for membership
+- Streams
+	- An ordered data structure recording a series of chronological events and their associated data
+- Geospatial indexes
+	- A searchable collection of named locations storing longitude and latitude
+- Storing vectors in Redis for semantic search, semantic caching, RAG
+- Bitmaps, Bitfields, TimeSeries, Probabilistic
+
 - Redis data structures
 	- Strings - text
 	- Bitmaps - Bitmap encoding
