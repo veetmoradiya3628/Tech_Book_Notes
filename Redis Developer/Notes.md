@@ -136,6 +136,16 @@ SADD product:views:bowtie42 alice - return 0
 - Storing vectors in Redis for semantic search, semantic caching, RAG
 - Bitmaps, Bitfields, TimeSeries, Probabilistic
 
+- Key Expiration
+	- Two types of keys
+		- persistent
+		- volatile
+	- TTL
+	- EXPIRE to set TTL for key
+	- EXPIREAT to set unix timestamp for key expiry
+	- stale data expiry is main use case
+	- if key is expire get will give -2
+
 - Redis data structures
 	- Strings - text
 	- Bitmaps - Bitmap encoding
