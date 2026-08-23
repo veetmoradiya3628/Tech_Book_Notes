@@ -146,6 +146,12 @@ SADD product:views:bowtie42 alice - return 0
 	- stale data expiry is main use case
 	- if key is expire get will give -2
 
+- Additional use cases
+	- Caching
+	- Search and Query
+	- Session management
+	- Vector Search
+
 - Redis data structures
 	- Strings - text
 	- Bitmaps - Bitmap encoding
