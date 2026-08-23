@@ -62,6 +62,25 @@
 			- background task processing
 		- As a stack
 			- breadcrumb trail on a website
+- Sets
+	- Unordered collection of unique elements
+	- SADD
+	- SREM 
+	- SMEMBERS \<key>
+	- SCARD \<key>
+	- Set operations
+		- it also supports mathematical set operations like union, intersection and difference
+```
+SADD product:views:bowtie42 alice - return 1
+SADD product:views:bowtie42 bob chuck dave - return 3
+SADD product:views:bowtie42 alice - return 0
+```
+- Use cases
+	- store information when uniqueness matters
+	- move members between set
+	- get random members of a set
+	- store unions, intersections and differences
+
 - Redis data structures
 	- Strings - text
 	- Bitmaps - Bitmap encoding
