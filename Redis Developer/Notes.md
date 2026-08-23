@@ -98,7 +98,19 @@ SADD product:views:bowtie42 alice - return 0
 	- cache the records
 - index, search use cases
 
+- Sorted sets
+	- A set where each member is associated with a score
+		- ZADD \<key> score1 item1
+		- ZADD \<key> score1 item1 score2 item2 score3 item 3
+		- ZSCORE \<key> item
+		- ZRANK \<key> item
+		- ZRANGE - to find items between score range l to r
+	- Use cases
+		- Leaderboards
+		- Recommendation engines
 
+- JSON
+	- 
 
 - Redis data structures
 	- Strings - text
