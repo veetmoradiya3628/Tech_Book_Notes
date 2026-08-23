@@ -34,8 +34,34 @@
 		- get substrings within a string
 		- conduct bitwise operations
 	- Strings are binary safe sequence of bytes
-
-
+- Lists
+	- An ordered group of elements
+	- LPUSH
+	- RPUSH
+	- LPOP
+	- RPOP
+	- LRANGE
+		- supports negative indexes
+	- LINDEX
+	- List additionally supports
+		- moving elements between lists
+		- removing ranges of elements
+		- finding matching elements
+	- head & tail concept
+	```
+	LPUSH products:recent:alice BOWTIE12
+	
+	LPUSH products:recent:alice BOWTIE134
+	
+	LPUSH products:recent:alice BOWTIE134
+	```
+	- Use cases
+		- When order matters
+			- tracking a user's previously viewed products
+		- As a message queue
+			- background task processing
+		- As a stack
+			- breadcrumb trail on a website
 - Redis data structures
 	- Strings - text
 	- Bitmaps - Bitmap encoding
@@ -45,5 +71,5 @@
 	- Sets - Recommendations
 	- Sorted sets - Leaderboards
 	- Geospatial indexes - Location services
-	- Hyperlog-log - statistical estimations
+	- Hyper-log-log - statistical estimations
 	- Streams - Event stream processing
