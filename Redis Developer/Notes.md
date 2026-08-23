@@ -81,6 +81,25 @@ SADD product:views:bowtie42 alice - return 0
 	- get random members of a set
 	- store unions, intersections and differences
 
+- Hashes
+	- A collection of key-value pairs
+	- Redis has keys and hashes have fields
+	- HSET
+	```
+	HSET <key> <fiedl1-k> <field1-v> <fiedl2-k> <field2-v>
+	```
+	- Expire fields
+	- store and increment numbers
+	- return random fields
+	- remove fields
+- Use cases
+	- Session data
+	- records like user profiles
+	- cache the records
+- index, search use cases
+
+
+
 - Redis data structures
 	- Strings - text
 	- Bitmaps - Bitmap encoding
