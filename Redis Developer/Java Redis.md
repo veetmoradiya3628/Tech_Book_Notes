@@ -121,3 +121,34 @@ mvn clean install
 
 - JedisDataException - exception with transaction & pipeline
 
+- Sorted Sets
+- Geo
+- Geo + Criteria + Lua
+- Streams
+
+- Leaderboard  keep track of rankings
+- A common Redis use case
+- Sorted set with score + element to implement leader board
+	- score as capacity, member as siteId
+- ZRANGE and ZREVRANGE for getting top N and bottom N elements out of the elements from sorted set
+	- `zrangeWithScores method`
+- One leaderboard is not enough in call the cases
+	- so if needed we can create a leader board
+		- city
+		- region
+	- Use key naming for scoping
+		- e.g sites:capacity:ranking:\[city]
+- ZRANGE is O((logN) + M)
+- When sorted set has low cardinality, performance isn't a problem
+- With large sorted sets, retrieving large ranges may be expensive so keep your ranges small
+
+- Geospatial
+	- Store geospatial coordinates and issue queries against them
+	- Under the hood:
+		- Geohash
+		- Sorted sets
+	- GEOADD
+	- GEORADIUS
+	- With large sorted sets, consider ZSCAN for iterative retrieval
+	- Optimize multiple HGETALL round trips with pipelining
+- 
