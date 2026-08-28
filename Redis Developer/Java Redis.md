@@ -71,3 +71,53 @@ mvn clean install
 		- DAO Implementations
 			- Interact with a particular data store
 - jedis.close() closes any and all sockets from the current JVM that are connected to Redis
+
+- Storing meter reading metrics data in sorted set data structure will help
+	- as it will help range query and multiple data in single key
+	- key format depends on how we want to store the data
+	- It will keep always in sorted fashion
+	- Efficiency fetch a small range: O((logN) + m)
+	- Efficient inserts - O(logN)
+- jedis.zrevrangeWithScores() - method to get latest N recent elements
+
+- Compare And Swap needs to be atomic for which Lua scripting can be useful
+- To reduce too many round-trips to the server
+	- Pipelining and transactions can be useful for this
+
+- Lua Scripting with Jedis
+	- Redis Lua scripts are like stored procedures
+	- Execute custom logic on the server
+	- Lua scripts execute atomically
+- A real world app might use dozens of Lua scripts
+- We need to keep scripts organized
+- One class per script
+- Load the script on initialization using the script load command
+	- Cache the SHA
+- Provide a usable Java interface
+- Writing and organizing Lua scripts in Java
+
+- Pipelining
+	- Execute multiple commands in a single round trip
+	- Efficient because
+		- Reduces round-trip overhead
+		- Reduces the number of syscalls
+	- Read + Write both can be done in single 
+	- Responses to all commands are returned at a once
+	- `p.sync()`
+	- `jedis.pipelined()`
+
+- Transactions
+	- Pipeline commands are not guaranteed to run as atomic
+	- Jedis implements transaction as a pipeline
+	- Efficient and atomic
+	- `jedis.multi()`
+	- `exec()`
+
+- Use pipeline when
+	- You have two or more commands to execute
+	- Can wait for the responses of all commands at once
+- Use a transaction if in addition
+	- You require atomic execution of a set of commands
+
+- JedisDataException - exception with transaction & pipeline
+
