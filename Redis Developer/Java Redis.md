@@ -42,3 +42,32 @@ mvn clean install
 
 ![[Pasted image 20260825095647.png]]
 
+- Basic Operations using Jedis
+
+| Redis Type | Java Type            |
+| ---------- | -------------------- |
+| string     | String               |
+| list       | List\<String>        |
+| set        | Set\<String>         |
+| hash       | Map\<String, String> |
+| float      | Double               |
+| integer    | Long                 |
+
+- List, Set, Hash and its methods provided by Jedis for interacting with its internal data structure
+- O(n) commands be careful with high-cardinality ds
+	- LREM
+	- SMEMBERS
+	- Use SSCAN for high-cardinality sets
+- Redis DAO design pattern
+	- DAO
+		- Data Access Object
+		- Separates the data access interface from the logic for interacting with a given data store
+		- Allows for multiple storage implementations
+		- Domain objects are a separate concern
+		- Domain objects
+			- Pure data representations
+		- DAO Interfaces
+			- Data-store-agnostic API
+		- DAO Implementations
+			- Interact with a particular data store
+- jedis.close() closes any and all sockets from the current JVM that are connected to Redis
