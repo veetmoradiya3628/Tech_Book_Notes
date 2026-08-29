@@ -169,3 +169,21 @@ mvn clean install
 	- Approximate length trimming gives a slight performance advantage
 	- Java Map is use to represent a stream entry
 
+- Rate limiting
+- RedisTimeSeries
+- Error Handling
+- Connection Management
+- Scaling
+- Debugging
+- Client Protocols
+
+- Rate Limiting
+	- Rate limiter keep track of the rate of user requests
+	- Guard against careless and malicious users
+	- Important for protecting server resources
+	- Techniques
+		- Fixed window
+		- Sliding window
+	- Fixed window rate limiter implementation using Redis + Jedis
+	- `jedis.incr()` and `jedis.expire()` methods primarily can be used to expire the key and increase and counter for given minute
+	- Key format depends on the structure as an
