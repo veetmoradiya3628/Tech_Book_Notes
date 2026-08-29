@@ -139,7 +139,7 @@ mvn clean install
 	- Use key naming for scoping
 		- e.g sites:capacity:ranking:\[city]
 - ZRANGE is O((logN) + M)
-- When sorted set has low cardinality, performance isn't a problem
+- When sorted set has low cardinality, performance isn't a problem 
 - With large sorted sets, retrieving large ranges may be expensive so keep your ranges small
 
 - Geospatial
@@ -151,4 +151,21 @@ mvn clean install
 	- GEORADIUS
 	- With large sorted sets, consider ZSCAN for iterative retrieval
 	- Optimize multiple HGETALL round trips with pipelining
-- 
+- Streams
+	- meter readings as metrics, stats and leaderboards
+	- Redis streams can help
+	- A data structure
+	- Models an append-only log
+	- Syndication for Redis streams (RU202 course)
+	- XADD \[stream-name] \[ID] \[field-value pairs]
+		- returns the ID of the stream element got added
+	- XRANGE \[stream-name] + - COUNT 1
+		- reads from oldest to newest
+	- XREVRANGE
+		- reads from newest to oldest
+	- Streams are logically infinite, but redis servers don't have infinite memory
+	- We need to control the length of a stream
+	- XADD takes an optional argument, MAXLENGTH
+	- Approximate length trimming gives a slight performance advantage
+	- Java Map is use to represent a stream entry
+
