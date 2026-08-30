@@ -164,3 +164,48 @@ SADD product:views:bowtie42 alice - return 0
 	- Hyper-log-log - statistical estimations
 	- Streams - Event stream processing
 
+- HyperLogLog - HLL
+	- Utilized to estimate the cardinality - the number of unique elements - of a massive, rapidly growing dataset.
+	- It operates with 0.81% of error rate which is really minimal for huge dataset
+	- The 0.81% margin of error makes this structure ideal for large-scale analytics where absolute exactness is not a rigid business requirement.
+
+- Geo Hash
+	- Internally Sorted set data structure is used
+	- Provides geo search capability etc
+	- Useful for geo operation
+	- Converts latitude, longitude into geohash
+
+- Pipelining
+- Transactions
+- Server side scription with Lua Scripting
+	- Cryptographic script caching mechanism
+	- ARGV & KEYS
+	- SHA
+	- EVAL & other methods
+
+- Cache Eviction and Memory management
+	- maxmemory directive in redis.conf file for maximum memory redis can utilize
+	- there are different policies for eviction
+	- read operations will continue but when reached maximum memory limit write operations will fail with OOM error 
+- Allkeys vs. Volatile
+	- Allkeys scope
+		- The policy evaluates every single key in the database for potential eviction, regardless of whether it was intended to be a permanent record or a temporary cache entry.
+	- Volatile scope
+		- The policy restricts eviction solely to keys that have an explicit Time-To-Live (TTL) expiration set. Keys without a TTL are considered permanent data and are completely protected from eviction algorithms.
+- Eviction algorithms
+	- Redis employs three primary mathematical algorithms to determine which specific key to delete within the chosen scope
+		- Least Recently Used (LRU)
+		- Least Frequently Used (LFU)
+		- Time-to-live (TTL)
+
+### Redis Eviction Policies
+
+| Eviction Policy  | Target Scope  | Eviction Algorithm Logic                                            | Optimal Use Case                                                                                                |
+| :--------------- | :------------ | :------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------- |
+| `allkeys-lru`    | Every key     | Evicts the key that has not been accessed for the longest time.     | General-purpose caching following the Pareto principle (recently accessed data is likely to be accessed again). |
+| `volatile-lru`   | TTL keys only | Evicts the oldest untouched key among those set to expire.          | Shared instances acting as both a permanent datastore and a temporary cache.                                    |
+| `allkeys-lfu`    | Every key     | Evicts the key with the lowest historical frequency of access.      | Application caches where specific data remains globally popular despite brief lulls in access.                  |
+| `volatile-lfu`   | TTL keys only | Evicts the least frequently accessed key among those set to expire. | Caches prioritizing popularity over recency.                                                                    |
+| `volatile-ttl`   | TTL keys only | Evicts the key with the shortest remaining lifespan.                | Workloads where developers provide accurate hints via TTL regarding a key's long-term utility.                  |
+| `allkeys-random` | Every key     | Evicts a key entirely at random.                                    | Cyclic workloads where access patterns are completely uniform.                                                  |
+| `noeviction`     | None          | Returns an error on write attempts.                                 | Strict databases where data loss is unacceptable.                                                               |
