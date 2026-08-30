@@ -209,3 +209,16 @@ SADD product:views:bowtie42 alice - return 0
 | `volatile-ttl`   | TTL keys only | Evicts the key with the shortest remaining lifespan.                | Workloads where developers provide accurate hints via TTL regarding a key's long-term utility.                  |
 | `allkeys-random` | Every key     | Evicts a key entirely at random.                                    | Cyclic workloads where access patterns are completely uniform.                                                  |
 | `noeviction`     | None          | Returns an error on write attempts.                                 | Strict databases where data loss is unacceptable.                                                               |
+
+- Clustering
+	- Redis relies on the concept called HashSlots for distributed sharing
+	- The global space is divided into 16384 distinct slots
+	- CRC16 hash with % 16384 decides keys goes to which slot and that slot belongs to which redis shard (physical instance) will be decided by cluster routing logic
+	- Multi key restriction on transaction, lua scripting, if all keys not belong to same physical host slots operation will be rejected by error CROSSLOT 
+	- To avoid this error we can employ HashTags mechanism
+
+- Debugging tool in production
+	- MONITOR: Streams back every command processed by the Redis server in real-time. While invaluable for finding rogue application commands or connection leaks, it is highly CPU-intensive and reduces server throughput by over 50%, meaning it must be used with extreme caution in production environments.
+	- INFO: Returns comprehensive server statistics, including memory consumption, cache hit/miss ratios, connected client counts, and replication synchronization status.
+	- OBJECT: Used to inspect the internal, low-level encoding of a specific key (e.g., determining whether a Hash is stored as a memory-efficient ziplist or a standard hashtable) and its idle time for LRU eviction analysis.
+
