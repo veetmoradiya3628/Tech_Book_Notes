@@ -222,3 +222,45 @@ SADD product:views:bowtie42 alice - return 0
 	- INFO: Returns comprehensive server statistics, including memory consumption, cache hit/miss ratios, connected client counts, and replication synchronization status.
 	- OBJECT: Used to inspect the internal, low-level encoding of a specific key (e.g., determining whether a Hash is stored as a memory-efficient ziplist or a standard hashtable) and its idle time for LRU eviction analysis.
 
+- Probabilistic DS
+1. HyperLogLog (HLL)
+	- Estimates the unique cardinality (number of distinct elements) of a dataset
+	- 12KB per key fixed memory
+	- 0.81% Error rate
+	- Sparse vs. Dense
+2. Bloom Filter
+	- Answers the question "Is this element definitively NOT in the set, or PROBABLY in the set?"
+	- No false negative, if it says an item doesn't exist, it is 100% accurate
+3. Cuckoo Filter
+	- Similar to a Bloom Filter (membership testing) but supports deletion and is more memory-efficient at extremely low false-positive rates.
+4. Count-Min Sketch
+	- Estimates the frequency (count) of events in a data stream. Excellent for finding "heavy hitters" or tracking views/clicks.
+5. Top-K
+	- Identifies the $K$ most frequent items in a stream in real-time, in constant memory.
+6. t-digest
+	- Accurately estimates quantiles/percentiles (e.g., p95, p99) of continuous numeric data streams.
+
+| Data Structure    | Answers the Question             | Module      | Supports Deletion? | Primary Exam Metric                 |
+| :---------------- | :------------------------------- | :---------- | :----------------- | :---------------------------------- |
+| **HyperLogLog**   | "How many distinct items?"       | Core Redis  | No                 | Fixed 12KB max size                 |
+| **Bloom Filter**  | "Have I seen this item?"         | Redis Stack | No                 | No False Negatives                  |
+| **Cuckoo Filter** | "Have I seen this item?"         | Redis Stack | **Yes**            | Handles deletion, high fill-rate    |
+| **Count-Min**     | "How many times did this occur?" | Redis Stack | No                 | Overestimates, never underestimates |
+| **Top-K**         | "What are the top N items?"      | Redis Stack | No                 | Time-decaying HeavyKeeper           |
+| **t-digest**      | "What is the 99th percentile?"   | Redis Stack | No                 | Higher accuracy at the tails        |
+
+#### Indexing
+- Indexing in Redis transforms the database from a simple key-value store where you must know the exact key to fetch data, into a queryable database by creating secondary structures that sit alongside your data. Without an index, finding records matching specific criteria requires iterating through the entire keyspace using commands like `SCAN`, which is an O(N) operation and far too slow for real-time application request paths.
+- By defining an index schema, you tell Redis to watch keys matching a specific prefix and automatically build a searchable structure from their fields. This allows for complex operations—like full-text search, numeric range queries, aggregations, and vector similarity searches—to execute with extreme low latency.
+- **Field Types & Their Purposes:**
+	- **TEXT:** Used for full-text search. Redis tokenizes the content and applies stemming (e.g., searching "running" matches "run") to build an inverted index.
+	- **TAG:** Used for exact-match filtering. Unlike TEXT, TAG fields are treated as atomic units and are not tokenized or stemmed. They are ideal for categories, statuses, or IDs.
+	- **NUMERIC:** Supports range queries (greater than, less than) and sorting results.
+	- **GEO:** Enables location-based queries, such as finding documents within a specific radius or bounding box.
+	- **VECTOR:** Stores embeddings for semantic search. You must know the two algorithms: **FLAT** (brute-force, exact results, linear scaling time) and **HNSW** (graph-based, approximate nearest neighbors, highly scalable).
+- **JSON vs. Hash Indexing Behavior:**
+	- When storing arrays of tags in a Hash, a comma-separated string like `"black,silver"` defaults to creating two distinct tags: `"black"` and `"silver"`.
+	- When storing the same string in a JSON document without explicitly defining a separator in the index schema, it becomes a single tag: `"black,silver"`. To split it, you must define the separator `","` in the index.
+	- If a JSONPath expression targets multiple values, string and numerical values are indexed, `null` values are skipped, and any other data type causes an indexing failure.
+- **Indexing Timing:** New or modified documents are indexed synchronously (available immediately upon command completion), whereas existing documents in the database at the time of index creation are scanned and indexed asynchronously in the background.
+
