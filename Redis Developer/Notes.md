@@ -540,3 +540,144 @@ SADD product:views:bowtie42 alice - return 0
 - e.g
 	- user:101:name, user:101:age, user:101:email instead of this do user:101 as hash with fields name, age and email
 
+## 2. Caching Strategies and Expiration
+### 2.1 Cache Aside pattern / Lazy Loading
+- Cache Aside Read Path
+	- In Cache Aside pattern application code sites between the cache (Redis) and the system of records (Database). Redis does not directly talk to the database
+	- s1 - Cache check - the application queries redis for the key
+	- s2 - cache hit - fast path - if the key exists the application deserializes the data and return it to the client immediately
+	- s3 - cache miss - full through - if the key does not exist in the cache, the application queries the slow database. populates the cache with database results serialize it and writes back to the redis (usually with TTL)
+	- application returns the data to the client
+- Invalidation strategy on write (delete vs. update)
+	- when user updates their profile in the database, the redis version cached is now stale
+	- strategy A
+		- delete on write - preferred standard
+		- when data changes the application update the cache simple del user:101:profile from redis
+		- the next read request will trigger a cache miss and fetch the data
+		- its preferred because it keeps database as a absolute source of truth. it avoids risks of race condition and mathematically safer
+	- strategy B
+		- update on write - write through 
+			- The application writes update the database and immediately overwrites a Redis cache with the new data
+			- if the cache update fails or if concurrent writes hits application, you can end up with permanent cache draft. where redis and the db hit hold the different values indefinitely
+- Eviction policies under memory pressure
+	- what happens when your cache fills up entirely
+	- Redis relies on `maxmemory` policy configuration
+	- For cache aside
+		- you typically want a policy like `volatile-lru` (evict the least recently used keys that have a TTL set) or `allkeys-lru` (evict any LRU key regardless of TTL)
+		- when your app tries to populate a cache miss and memory is full, Redis uses the policy to instantly delete an old key to make room for new one.
+		- If the policy is no eviction the default redis will return an OOM error on the SET command and your cache-aside flow will fail
+- Choosing delete-on-write invalidation 
+	- Scenario: A user changes their account password
+		- The correct flow
+			- Application executes SQL update to change the password in the database
+			- Application executes jedis.del("user:101:profile")
+			- do not attempt to compute the new profile state and set() it back into Redis during the write operation
+- Diagnose the state data and cache-consistent as Bugs
+	- The missing TTL bug - always use SETEX instead of SET to ensure data expires on TTL and keeps it fresh based on cache miss and stuff
+	- The Reversed write bug - The application deletes a cache before writing to the DB. you must delete the db first and then go for cache update
+	- The partial bug update - storing a serialized JSON string in a key, but only updating a single field in the database without deleting a entire Redis key
+
+### 2.2 Query Caching and Stampede Prevention
+- Serialized strings for pre computed results
+	- why strings? when a database executes heavy query involving 5 table JOINs sorting and aggregations. you do not want to recreate that relational model in Redis using hashes and sets
+	- Serialize the final, pre-computed result (usually as a JSON string) and store it in a single Redis string. This turns a complex multi-second SQL operation into a sub-millisecond O(1) Redis GET
+- Key Schema for Parameterized queries
+	- when caching API responses or database queries that accept arguments, the key name must deterministically,  represent a exact parameters
+	- The pattern include the query parameters in a consistent, alphabetic order in the key name
+	- Ex. caching GET /api/products?category=shoes&page=2&sort=price
+		- Bad schema - products:shoes
+		- Good schema - api:products:categories:shoes:page:2:sort:price
+	- Ensure application always sorts the parameter before generating keys else duplicate keys.
+- The cache stampede (Thundering herd)
+	- A very expensive high trafficked query is cached with TTL. when that TTL expires, the key is deleted, In the exact millisecond before the cache is repopulated, 10000 concurrent users requests hit the application. They all got a cache miss, and all 10000 requests hits the database simultaneously to regenerate that expensive query, instantly crashed the database
+- Stampede mitigation strategies
+	- TTL Jitter (Randomization)
+	- If you cache a batch of 500 products, overnight do not give them all a TTL of exact 24 hours. Add a random variance (86400 + random(0. 3600)). This spreads the expiration over an hour, preventing a mass stampede
+	- mutex locks (SET NX, EX)
+	- when a cache miss occurs, the application attempts to acquire a lock using Redis, only the thread that successfully acquires the lock goes to the database. the other threads waits, retry or throws error
+- Stale while revalidating logical exp
+	- Instead of relying on a Redis internal TTL for expiry, store unixtime stamp in Redis JSON, check for expiry and if expired return stale data to client and trigger data refresh in async background
+- Implementing query caching with Serialization
+	- Weighing TTL vs. Hit Rate vs. Freshness
+	- Long TTL 
+		- high hit rate & low database load
+		- data is stale (users might see old prices)
+	- Short TTL
+		- fresh data
+		- lower hit rate
+		- high database load
+	- You must choose the TTL based on business requirement, A stock ticker requires short TTL, daily sales reports have long TTL
+- Protecting expensive query using with a lock
+	- You must know how to implement thread safe, distributed lock using SET with the NX and EX parameters
+```
+string cacheKey = "homepage:dashboard";
+string lockKey = cacheKey + ":lock";
+
+string data = jedis.get(cacheKey);
+if(data==null){
+	SetParams params = SetParams.setParams().nx().ex(10);
+	string lockAcquired = jedis.set(lockKey, "locked", params);
+	if("OK".equals(lockAcquired)){
+		try {
+			data = db.generateHomeDashboard();
+			jedis.set(cacheKey, 3600, data);
+		} finally {
+			jedis.del(lockKey);
+		}
+	} else {
+		Thread.sleep(50);
+		return getDashboard(); // self call
+	}
+}
+return data
+```
+
+### 2.3 Manage TTL and Expiration
+- Eviction vs. Expiration - what removes a key ?
+	- Expiration - time based
+		- passive / active expiration based on TTL
+		- passive on read
+		- active on periodically
+	- Eviction - memory based
+		- it will forced by redis server when reaches its maxmemory configuration
+		- It happens at write time to remove based on configured `maxmemory_policy`
+- Write Commands and TTL behavior
+	- Overwriting the entire key clears the TTL
+	- Modifying the key preserves the TTL
+	- Commands that clear TTL
+		- SET K V
+		- GETSET K V
+		- RENAME
+	- Commands that preserves the TTL
+		- Collection modifications
+			- HSET
+			- LPUSH
+			- SADD
+			- ZADD
+		- String modification
+			- INCR
+			- APPEND
+			- GET
+	- Commands that never touches TTL are Read commands
+		- GET
+		- HGETALL
+		- SMEMBERS
+- Inspecting expiration state
+	- TTL Key - returns the remaining time to live in seconds
+	- PTTL KEY - returns the remaining TTL in milliseconds
+		- -2 for if key does not exists
+		- -1 for if key exists but have no expiration set (it will live forever)
+	- EXPIRETIME key
+		- returns a absolute timestamp in seconds when the key will expire
+- Predicting TTL states after writes based on scenario
+	- If you want to overwrite a key but preserve its TTL you must use: SET mykey "new data" KEEPTTL
+- Diagnose keys that never expires
+	- Always set EX for key
+- Selecting expiration strategies for Data freshenss
+	- Rolling sessions
+		- sliding window expiration, A user session should expire 30 minutes after their last activity 
+		- Every time a user interacts with the app, the application must explicitly call EXPIRE SESSION\:123 1800 to reset the 30 minutes countdown
+	- Fixed window rate limiting
+		- A user can make 100 API calls per minute
+		- use INCR rate:user123:minute50 if the return value is 1 means its first API call this minutes then you immediately call EXPIRE rate:user123:minute50 60. for subsequent calls return value > 1 you do not expire allowing the counter to naturally die at the end of the minute
+
