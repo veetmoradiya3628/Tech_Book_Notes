@@ -824,3 +824,110 @@ poolConfig.setMaxTotal(128)
 	- Sets - Set\<String>
 	- Lists - List\<String>
 	- NULLs - null for key, for collections empty collection
+
+## 5. Concurrency, Transactions and Atomicity
+
+### 5.1 Reason about atomicity
+- Single threaded command execution
+	- Every command is a atomic
+	- Redis is perfectly consistency
+- The danger of multi-step process
+	- Multi step interaction with redis is not thread-safe
+	- Why read and then write races over: if your java code performs a GET, does some math locally, and then performs SET, you have created a vulnerability. In a high concurrent environment (like a webserver with 50 threads), another thread can slip its own GET or SET into the Redis queue between your two commands
+- Identify TOCTOU race conditions
+	- you must be able to identify a TOCTOU - Time of check to time of update bug in java code
+	- Ex. Two users are trying to buy a last concert ticket simultaneously
+	Ex. 
+	```
+	int ticketsLeft = Integer.parseInt(jedis.get("concert:tickets"))
+	if (ticketsLeft > 0){
+		jedis.set("concert:tickets", String.valueOf(ticketsLeft - 1));
+		return "success";
+	}
+	return "sold out";
+	```
+- Replacing read and then write with Atomic commands
+	- To solve TOCTOU problems on the server side, eliminating the need to pull a data to the client
+```
+// counter and decrement
+long ticketsLeft = jedis.decr(key);
+if(ticketsLeft >= 0) return "success";
+else {
+	jedis.incr(key);
+	return "sold out";
+}
+```
+- Use SET NX instead of EXISTS check on set
+- Instead of SISMEMBER just do SADD
+
+- What if a single command is not enough ?
+	- If you have complex logic that can not be solved by a single atomic command.
+	- we can solve by either of the below approach
+		- Transactions with Optimistic locking (MULTI, EXEC, WATCH)
+		- Lua Scripting (Server side execution)
+
+### 5.2 Use pipelines and transactions
+- Pipelines
+	- Performance not atomicity
+	- Batch of commands in a single network trip & without waiting for the reply of each individual command. Redis executes them and returns an array of all responses at once.
+	- It drastically cuts down on network latency (round-trip time)
+	- Pipelines guarantees zero atomicity guarantee.
+- MULTI/EXEC
+	- A transaction block is started with MULTI subsequent commands are not executed immediately. instead redis queues them and replies with Queued, when client sends EXEC redis executes entire queue subsequently.
+	- EXEC in atomic no other client's command can interleave
+	- EXEC replies array containing the individual replies of every command, in the exact order they pushed
+	- No rollback on data errors
+- WATCH (Optimistic locking)
+	- CAS - check and set
+	- You can ask redis to monitor specific keys for changes
+	- The mechanims
+		- you watch a key
+		- you read the key's value
+		- you do logic in your application
+		- you queue your writes to inside MULTI block
+		- you call exec
+	- if any other client modified the watched key between your WATCH and your EXEC. the entire transaction aborts and EXEC returns a null reply. No commands are executed
+- Choosing pipelining vs. transactions
+	- Pipeline when atomicity is not needed, just raw network speed
+	- Transaction with WATCH you need strict concurrency, control to prevent a race condition
+- Protecting check-then-act logic with WATCH
+
+```
+public boolean transferFunds(String fromAccount, String toAccount, int amount){
+	try (Jedis jedis = pool.getResource()) {
+		while(true){
+			jedis.watch(fromAccount);
+			int balance = Integer.parseInt(jedis.get(fromAccount));
+			if(balance < amount) {
+				jedis.unwatch();
+				return false;
+			}
+			
+			Transaction t = jedis.multi();
+			t.decrby(fromAccount, amount);
+			t.incrby(toAccount, amount);
+			
+			List<Object> results = t.exec();
+			
+			if(results != null && !results.empty()){
+				return true;
+			}
+		}
+	}
+}
+```
+
+- Predicting the output returned by EXEC
+
+```
+>MULTI
+OK
+>INCR mycounter
+QUEUED
+>SET mykey "hello"
+QUEUED
+>EXEC
+
+Output: [1, "OK"]
+```
+
