@@ -264,3 +264,83 @@ SADD product:views:bowtie42 alice - return 0
 	- If a JSONPath expression targets multiple values, string and numerical values are indexed, `null` values are skipped, and any other data type causes an indexing failure.
 - **Indexing Timing:** New or modified documents are indexed synchronously (available immediately upon command completion), whereas existing documents in the database at the time of index creation are scanned and indexed asynchronously in the background.
 
+
+# Exam Notes
+
+## 1. Data modeling with Redis Data Structures
+### 1.1 Data Structures
+- Strings
+		- Basic Redis type
+		- Binary Safe
+		- Hold any data (text, serialized objects, JPEGs, Integers)
+		- Max Size 512 MB
+		- SET, GET, INCR - O(1) Time complexity
+		- Use cases
+			- Caching HTML / API response
+			- Session management
+			- Atomic Counters
+		- Jedis Commands
+			- jedis.set()
+			- jedis.get()
+			- jedis.incr()
+- Hashes
+		- Its field value pair inside a redis key
+		- optimized to represent objects
+		- Store up to 2^32 - 1 ~ 4.29 billion fields
+		- HGET, HSET in O(1)
+		- HGETALL in O(N)
+		- Use cases
+			- User profiles
+			- Application configuration
+			- Rate-limiting counters
+		- Java DS is Map<String, String>
+		- Jedis Commands
+			- jedis.hget()
+			- jedis.hset()
+			- jedis.hincrby()
+- Lists
+		- LinkedList and not arrays / strings
+		- Max 2^32 - 1 elements
+		- LPUSH, RPUSH in O(1)
+		- access by index LINDEX - O(N)
+		- Use cases
+			- message queues - producer consumer
+			- activity streams
+			- recent items lists
+- Sets
+		- Unordered collection of unique elements
+		- Allow union and intersection across keys
+		- Max 2 ^ 32 - 1 elements
+		- SADD, SISMEMBER in O(1)
+		- SINTER, SUNION depends on size of sets
+		- Use cases
+			- Tracking unique IP addresses
+			- Tagging systems
+			- relationship mapping
+- Sorted Sets / Zsets
+		- Sorted strings hold unique strings, but every string is associated with a floating point score.
+		- elements are always sorted / kept by this score
+		- ZADD is O(logN)
+		- ZRANGE is O(logN + M), M is no. of elements used
+		- Use cases
+			- Leaderboards
+			- Priority queues
+			- Time series data using UNIX timestamp as a score
+- JSON
+		- Redis stack as part of RedisJSON
+		- Native JSON documents allowing partial updates and fast queries
+		- JSONPath syntax
+		```
+		$ for root
+		$.name for field
+		```
+		- Reading and writing deep path is substantially faster and uses less network bandwidth than entire document read, update and write
+		- Use cases
+			- String complex nested documents
+			- Product catalogs
+			- User configurations
+		- JSONDoc
+		- JSONGet
+		- JSONSet
+### 1.2
+- 
