@@ -681,3 +681,81 @@ return data
 		- A user can make 100 API calls per minute
 		- use INCR rate:user123:minute50 if the return value is 1 means its first API call this minutes then you immediately call EXPIRE rate:user123:minute50 60. for subsequent calls return value > 1 you do not expire allowing the counter to naturally die at the end of the minute
 
+## 3. Persistence, Key Lifecycle and operational commands
+
+- RDB - point in time. faster restart, data loss between snapshots
+- AOF - write logging, slow restart, minimal data loss
+- Hybrid - best for both
+### 3.1 Choose a persistence strategy 
+- RDB snapshots 
+	- point in time
+	- persistence
+	- RDB creates a compact, binary snapshot of the entire database at a specific interval
+	- the main redis process forks the child process called bgSave, the child process writes the memory content to a dump.rdb file on disk while parent continues to server the traffic
+	- because file is highly optimized binary dump of the data itself, loading an RDB file back to memory during a server restart is a extremely fast
+	- The loss window
+		- All writes since last snapshot in case server crashed  and that data will permanently lost
+- AOF
+	- Append only file
+	- AOF logs every single write command to a text file appendonly.aof as it happens. on restart redis replays these commands from top to bottom to reconstruct the dataset
+	- its significantly slow
+	- AOF rewrite to group data operation and keep file in less space preventing from growing too large
+	- fsync policies
+		- always
+			- on each command write file gets written to disk
+		- everysec
+			- on each second file writes to disk
+		- no
+			- redis never forces fsync it leave it entire upto the linux OS (usually 30 seconds) unpredictable data loss on crash
+- Modern redis 
+	- Hybrid - RDB + AOF
+	- RDB at beginning and then AOF commands
+- Spotting a snapshot interval bug
+- AOF file is preferred over rdb on server restart
+- Resolving AOF file growth
+
+### 3.2 Keyspace scanning and operational inspection
+- Why keys block the server and SCAN does not
+	- redis process commands on single main thread sequentially
+	- Keys goes all in single loop
+	- Scan goes in batch of micro size and allows other commands to executes in between
+- Cursor based iteration
+	- SCAN, MATCH, COUNT
+	- scan initiate with 0 redis returns two part array: the next cursor, and batch of keys found
+	- iteration is finished when redis returns cursor "0"
+	- SCAN 0 MATCH user:* count 100. the count is hint to the redis server to scan how many keys in this iteration, it can have non zero response means there is next batch to scan
+	- HSCAN - hash scan
+	- ZSCAN - sorted set scan
+	- SSCAN - set scan
+- Operational commands
+	- INFO keyspace - provides a macro-level summary of the databases, it shows the total number of keys the no. of keys with expiration set, and the avg ttl
+	- use this for high level monitoring and not finding specific keys
+	- TTL - seconds remaining
+	- EXPIRETIME - returns the absolute UNIX timestamp of the expiration
+	- MEMORY USAGE key - provides exact number of byte a specific key and its value consume in RAM
+- find the key safely in a production instance
+
+### 3.3 Delete data efficiently
+- DEL - Sync vs. UNLINK - Async
+	- DEL - Sync
+		- main thread block for other client
+		- releases memory and response
+		- useful for small keys
+		- its dangerous deleting a huge list or huge cardinality data structure
+	- UNLINK - Async
+		- immediately removes key from keyspace and memory clean up happens from background thread.
+		- OK in O(1)
+		- Always use UNLINK when deleting large collections
+- Multi key deletion
+	- both DEL and UNLINK are variadic, meaning accepts multiple keys in a single command
+	- DEL k1 k2 k3
+	- Return value is integer representing the number of keys that are actually removed
+	- Saves network round trips
+- Atomic Key level operations
+	- RENAME oldKey newKey
+	- Clean up pattern with rename
+- batch deleting keys with UNLINK and SCAN for efficiency
+- Avoid clean up races (isolate then read / delete)
+	- To avoid any accidental data clean up miss
+
+
