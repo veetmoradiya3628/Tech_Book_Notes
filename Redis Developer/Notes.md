@@ -270,7 +270,7 @@ SADD product:views:bowtie42 alice - return 0
 ## 1. Data modeling with Redis Data Structures
 ### 1.1 Data Structures
 - Strings
-		- Basic Redis type
+	- Basic Redis type
 		- Binary Safe
 		- Hold any data (text, serialized objects, JPEGs, Integers)
 		- Max Size 512 MB
@@ -283,8 +283,10 @@ SADD product:views:bowtie42 alice - return 0
 			- jedis.set()
 			- jedis.get()
 			- jedis.incr()
+		- Good for fetching or overwriting entire payload at once. atomic counters
+		- Bad for reading or updating a single field in a massive 500 KB object (requiring a network transfer of a whole object)
 - Hashes
-		- Its field value pair inside a redis key
+	- Its field value pair inside a redis key
 		- optimized to represent objects
 		- Store up to 2^32 - 1 ~ 4.29 billion fields
 		- HGET, HSET in O(1)
@@ -298,8 +300,10 @@ SADD product:views:bowtie42 alice - return 0
 			- jedis.hget()
 			- jedis.hset()
 			- jedis.hincrby()
+		- Good for updating specific flat fields, rate limits
+		- Bad for storing deeply nestad data or arrays
 - Lists
-		- LinkedList and not arrays / strings
+	- LinkedList and not arrays / strings
 		- Max 2^32 - 1 elements
 		- LPUSH, RPUSH in O(1)
 		- access by index LINDEX - O(N)
@@ -307,8 +311,10 @@ SADD product:views:bowtie42 alice - return 0
 			- message queues - producer consumer
 			- activity streams
 			- recent items lists
+		- Good for sequential processing queues - head tail O(1)
+		- Bad for random access or checking for existance O(N), if you need contains use sets
 - Sets
-		- Unordered collection of unique elements
+	- Unordered collection of unique elements
 		- Allow union and intersection across keys
 		- Max 2 ^ 32 - 1 elements
 		- SADD, SISMEMBER in O(1)
@@ -317,8 +323,10 @@ SADD product:views:bowtie42 alice - return 0
 			- Tracking unique IP addresses
 			- Tagging systems
 			- relationship mapping
+		- Faster membership checks, deduplication, finding intersections
+		- bad for maintaining orders or fetching item by index
 - Sorted Sets / Zsets
-		- Sorted strings hold unique strings, but every string is associated with a floating point score.
+	- Sorted strings hold unique strings, but every string is associated with a floating point score.
 		- elements are always sorted / kept by this score
 		- ZADD is O(logN)
 		- ZRANGE is O(logN + M), M is no. of elements used
@@ -326,8 +334,10 @@ SADD product:views:bowtie42 alice - return 0
 			- Leaderboards
 			- Priority queues
 			- Time series data using UNIX timestamp as a score
+	- Range queries by score - ZRANGE
+	- Bad for unordered collections
 - JSON
-		- Redis stack as part of RedisJSON
+	- Redis stack as part of RedisJSON
 		- Native JSON documents allowing partial updates and fast queries
 		- JSONPath syntax
 		```
@@ -342,5 +352,27 @@ SADD product:views:bowtie42 alice - return 0
 		- JSONDoc
 		- JSONGet
 		- JSONSet
+	- Deeply nested document queries, path level updates, appending to arrays
+	- Bad for simple KV look ups (unnecessary parsing)
+
+- Hashes vs. Strings for Record storage ?
+	- Strings
+		- Serialized string approach best for read all / write all
+		- problem is concurrency / bandwidth
+		- best for HTML rendering & finding database query results
+	- Hashes
+		- Best for partial updates
+		- Its use case is login_count or last_active timestamp frequency updates then hashes are superior with HINCRBY or HSET command
+		- Memory & serialization is a tradeoff
+- Hash vs. JSON for structural data ?
+	- Hashes are strictly one dimentional
+	- Redis JSON natively supports nested objects and arrays
+	- JSON uses path access support
+	- JSON handles this server side but for hash we need to pull in client and manage
+	- Atomic field operations both support
+- Choose the structures based on access patterns
+	- strings vs. hash vs. JSON based on use case
+
+
 ### 1.2
 - 
