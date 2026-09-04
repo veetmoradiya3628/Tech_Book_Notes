@@ -759,3 +759,68 @@ return data
 	- To avoid any accidental data clean up miss
 
 
+## 4. Client library usage and connection management
+
+### 4.1 Understand the fundamentals that frame client interaction
+
+- In memory architecture
+	- In memory store all data in RAM
+	- operates at sub-millisecond latency the primary bottleneck is I/O not CPU or memory speed
+	- even with AOF and RDB the active dataset is in RAM and the persistence is an asynchronous background operations
+- Single threaded command execution
+	- every command is atomic
+	- big executable commands block the small command or any other commands on the main thread
+- RESP
+	- Redis Serialization Protocol
+	- Human readable binary safe text protocol
+	- Redis uses this for communication over a TCP
+	- data type
+		- +simple string - e.g. +ok\r\n - string
+		- -Error: e.g. -ERR unknown command - error
+		- :Integer - e.g. :10\r\n - integer
+		- $Bulk string: e.g. $5\r\nhello\r\n
+		- \*Array 
+			- e.g. \*2\r\n$4\r\nLLEN\r\n$6\r\nmylist\r\n
+		- -null values - a missing key is represent as a null bulk string $-1\r\n
+- Reasoning about execution guarntees
+- Maximizing throughput
+	- with pipeliing
+
+### 4.2 Client Initialization & Connection Lifecycle
+- Jedis library for Java
+- Jedis
+	- Jedis - object - single connection
+	- `Jedis jedis = new Jedis("host", "port")`
+	- Object represents a single, synchronous TCP connection to Redis
+	- A single jedis instance is not a thread safe you cannot share a single jedis
+- JedisPool
+	- Connection pool
+	- initiating a new TCP connection for every request is extremely slow, you must use a pool.
+	- Pre established idle jedis connections
+	- Thread borrows a connection from pool, executes a command, returns the connection on the pool
+- UnifiedJedis / JedisPooled
+	- JedisPooled is a thread-safe class implements UnifiedJedis interface
+- Error Handling and reconnection
+	- Redis is down or network drops it throws
+		- JedisConnectionException
+	- If you try to execute a command against the wrong data type. Jedis throws a JedisDataException
+	- Test connection on borrow in latest JedisPool
+- JedisPoolConfig proper to maintain in production
+```
+JedisPoolConfig poolConfig = new JedisPoolConfig();
+
+poolConfig.setMaxTotal(128)
+.setMaxIdle(128)
+.setMinIdle(16)
+.setTestOnBorrow(true);
+
+```
+- Handling the connection lifecycle - graceful shutdown
+	- To prevent connection leaks try with resource pattern to utilize
+		- jedis.close()
+		- pool.close()
+- Return types mapping
+	- Hashes - Map<String, String>
+	- Sets - Set\<String>
+	- Lists - List\<String>
+	- NULLs - null for key, for collections empty collection
