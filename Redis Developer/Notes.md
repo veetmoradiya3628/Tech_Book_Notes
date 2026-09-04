@@ -374,5 +374,169 @@ SADD product:views:bowtie42 alice - return 0
 	- strings vs. hash vs. JSON based on use case
 
 
-### 1.2
-- 
+### 1.2 Model and manipulate records of Hashes
+
+- HSET semantics &  return values
+	- HSET merges new data into the existing hash
+	- It does not erase existing fields that are missing from your current command
+	- HSET returns an integer representing the number of new fields created
+		- If you add brand new - 1
+		- existing update - 0
+	- return 0 does not mean command fails, it means existing field updated
+	- HSET accepts multiple field-value pair in a single command
+- Missing keys & fields
+	- No exception only empty response
+	- missing field HGET returns nil, null in java
+	- missing key - HGET - nil, HMGET - empty map, HGETALL - empty list in Java
+	- No need for exists call
+- Atomic and conditional operations
+	- HSETNX - set if not exists 
+		- set only if not exist if already there then returns 0 without doing anything
+	- HINCRBY - Increment numeric field by a specific value
+	- Always use HINCRBY for thread safety and never do HGET & HSET
+- HDEL on field deletes root if no other field in a hash by key
+- Predicting a state after partial updates
+	- Implementing counters and stock decrements
+	- To manage inventory & rate limits safety you must rely on atomic commands
+	- There is no HDECRBY but we should use HINCRBY with negative value
+	- HINCRBY gives find value by operation so it will help us validate & there won't be additional need to read again
+- Avoid full records replacement when only few fields are updated
+	- Bad pattern to do HGETALL - map to Java object - update avatar - HSET instead
+	- do HSET user:1 avatar "new_image.jpg"
+
+### 1.3 Work With JSON documents
+
+- RedisJSON / Redis Stack
+- JSONPath syntax
+	- $ - represents top most root of a document for doc {} or \[] array
+	- . - dot notation for nested objects
+	- \[] - backets for arrays or key with spaces
+	- e.g.
+		- $.user.name
+		- $.skills\[0]
+		- $.\['last name']
+- Wild card - *
+	- select all elements at a specific level
+	- e.g
+		- $.uses\[\*].name - returns a collection of all names within the users array or objects
+- Recursive decent - .. (two dots)
+	- Deep search
+	- $..name will find every key named name any where in the entire document, regardless of depth.
+- Filter expression - \[?(@.condition)] 
+	- Used to select array elements based on Criteria rather than index.
+	- @ represents current element being processed
+	- Ex. $.inventory\[?(@.price < 50)] - returns all inventory items costing less than 50
+- How JSONPath queries returns results
+	- Any JSON path query that could return multiple results always returns an array of values, even if only one match is found
+	- If you query specific, explicit path $.user.name it returns the single value directly
+	- If you query $.user\[\*].name and there is only one user. it returns \["Alice"] not "Alice".
+- Core JSON operations
+	- JSON.SET
+		- fundamental write command
+		- JSON.SET key $ '{"a":1}' overwrites the root
+		- you can target specific path JSON.SET key $.a 2
+	- JSON.MERGE
+		- Deeply manages new JSON object into an existing one
+		- Additive - new keys are added
+		- Overwriting - existing keys are updated with new values
+		- NULL deletion
+			- If you pass null as the value for a key in JSON.MERGE payload, that key is deleted from the document
+	- JSON.DEL
+		- Deletes a value at a specific path
+		- JSON.DEL key $.password removes a password field.
+		- if called at the root JSON.DEL key $ - it deletes the entire key
+	- Array Operations
+		- Array operations without fetching the document
+			- JSON.ARRAPPEND key $.skills "Redis" - adds at the end
+			- JSON.ARRINSERT key $.skills 0 "Java" - adds at the specific index
+			- JSON.ARRPOP key $.skills -1 
+				- removes and returns an element 
+				- default is the last element
+- Reading nested values across arrays with wild cards
+- Updating a single nested value in a place
+	- You must avoid the anti pattern of fetching the document to change one piece of data
+- Order-Resilient updates using filter expression
+	- Never depend on indexes to update, always prefer filter expression
+- Multi-field updates with JSON.MERGE
+	- E.g.
+	```
+	JSON.MERGE user:1 $ '{"email": "new@gmail.com", "phone": "999-888-777", "secondary_address": null}'
+	```
+	- update the email, adds phone and deletes the secondary_address field
+
+### 1.4 Collections
+- Lists - Linked list
+	- head / tail operations are fast but index look up are slow
+	- LPUSH - head push (left)
+	- RPUSH - tail push (right)
+	- pushing multiple elements in one command reverses the append order e.g.
+		- LPUSH mylist A B C results into C B A
+	- reading a missing list by key returns nil
+	- pushing in missing key creates a list
+	- LTRIM 
+		- LPUSH followed by LTRIM to maintain a capped feed
+		- LTRIM key start end - keeps elements in provided range and deletes rest. 0 based indexing
+	- LTRIM key 0 99 - keeps first 100 elements negative indexes supported, -1 is the last element
+- Sets - Unordered, unique
+	- Mathematical structures
+	- SINTER, SUNION vs. pulling the data to the client
+	- SADD returns value, cnt of newly added elements, if no new 0.
+	- Uniqueness guaranteed
+	- SINTER - intersection
+	- SUNION - union
+	- SDIFF - Difference returns element present in the first set but not in any subsequent sets (order matters here)
+	- Commands like SINTERSTORE, SUNIONSTORE stores results in specified new key instead of returning result to the client
+- Sorted Set - ZSet
+	- Uniqueness + score ordered floating number
+	- If scores are tied, elements are ordered lexicographically
+	- ZADD - update vs. insert 
+		- updates score based on existing update
+		- returns the no. of new members added
+	- ZINCRBY - Auto creation
+		- initial score with 0 if not exist then increases
+	- ZRANK - direction
+		- Returns the index (0 - based) of a member sorted from low to high score.
+		- for leaderboards where highest in 1st place, you must use ZREVRANK
+- Range Queries
+	- Index vs. Score
+		- ZRANGE key 0 9 - top 10 elements
+		- ZRANGEBYSCORE key 100 200 - all elements with score between 100 and 200
+	- WITHSCORES to get member with scores in RANGE command we must pass WITHSCORES flag
+	- Automatic key deletion
+- When the last element or field is removed from a collection, Redis automatically deletes the key
+
+- Implementing command patterns
+	- Capped Activity feeds - Use lists (LPUSH + LTRIM)
+	- Uniqueness tracking - Use sets
+	- Leaderboards - Use sorted sets
+- Choose right set operations
+	- Membership overlap - SINTER
+	- Combining categories without duplication - SUNION
+	- SetA - SetB - SDIFF
+- Always do server side aggregation and minimize network I/O
+
+### 1.5 Key Namespaces
+- Hierarchical key naming with colon separators.
+- Redis is a flat-key store
+- It has no table, schemas or namespaces
+- To create structure, developer uses colon : as conventional based separators
+- Standard pattern
+	- object_type:id:attribute
+	- Ex.
+		- user:101:profile
+		- user:101:cart
+- Your key schema dictates how efficiently you can search for keys using the SCAN command
+- SCAN is preferred over KEYS to avoid blocking server
+- Effective Scaning:
+	- SCAN 0 MATCH user:\*:pattern
+- keys are binary safe, it can be anything like empty string, readable string, serialized java object or an image file
+- Always prefer UTF-8 strings for key
+- maximum size for a key is 512 MB
+- Memory & Bandwidth overhead for huge keys
+
+- Design consistent key schemas
+- Avoid flat ambiguous or over-compressed names
+- Reduce top level keys and group related data
+- e.g
+	- user:101:name, user:101:age, user:101:email instead of this do user:101 as hash with fields name, age and email
+
