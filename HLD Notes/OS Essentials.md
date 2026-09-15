@@ -101,5 +101,3 @@ Common pitfalls
 	- A 16-thread pool with a 500 ms downstream p99 stalls at 32 req/sec even with idle CPU. Use async clients so threads return to the pool during the wait, or dedicate an oversized pool for I/O-bound work.
 - **Cold page cache benchmarks.** 
 	- The first run reads from disk; the second reads from RAM. Your benchmark looks 100x faster on run two. Either drop caches before each run or pre-warm and report steady-state. Always say which you measured.
-
-- 
