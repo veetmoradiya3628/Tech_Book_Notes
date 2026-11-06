@@ -11,3 +11,18 @@
 
 - Installation of Jenkins
 	- Java is pre requisites for the jenkins
+
+- Job
+	- All automation task can be represented as Job
+- Agent
+	- VM or compute infra helper that can help jenkins to run jobs
+	- Master Node & Agent Node
+- Build Queue & Build Executor
+- Item type
+	- Freestyle project
+	- Pipeline
+	- Multi-configuration project
+	- Folder
+	- Multibranch pipeline
+	- Organization Folder
+- 
