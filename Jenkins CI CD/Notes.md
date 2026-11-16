@@ -25,4 +25,17 @@
 	- Folder
 	- Multibranch pipeline
 	- Organization Folder
+- Freestyle project
+	- General config
+		- It allows for configuration such as discard old builds, use Github repo, take input from user during execution, limiting number of build execution based on time etc
+	- Source code management
+		- If want to connect to Github 
+	- Triggers
+		- Automated actions via scripts or hooks
+	- Environment
+		- Clean files before builds, Inject secret securely, timestamp in output etc
+	- Build steps
+		- Define tasks to execute during the build
+	- Post-build actions
+		- Define tasks to execute after the build
 - 
