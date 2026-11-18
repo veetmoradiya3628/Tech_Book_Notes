@@ -38,4 +38,8 @@
 		- Define tasks to execute during the build
 	- Post-build actions
 		- Define tasks to execute after the build
+- Task
+	- clone code, build and sent email notification on success or failure
+- Email plugin - mailer
+	- Email plugin setup requires App password and setup
 - 
