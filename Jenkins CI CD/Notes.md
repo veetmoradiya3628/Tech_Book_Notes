@@ -42,4 +42,28 @@
 	- clone code, build and sent email notification on success or failure
 - Email plugin - mailer
 	- Email plugin setup requires App password and setup
-- 
+- What is plugins ?
+	- plugins are add-ons that extend its core functionality
+	- With plugins you can add support for things like Git, Docker, notifications, different build tools, and even UI improvements
+	- keep plugins updated
+	- avoid unnecessary plugins
+	- be careful of outdated plugins
+- What is pipeline ?
+	- A pipeline is a set of automated processes in Jenkins to build, test and deploy applications
+	- Helps in implementing CI/CD (Continuous Integration & Continuous Delivery)
+	- Written as Pipeline as Code using a Jenkinsfile
+	- Why use pipeline ?
+		- Automates software delivery process
+		- Easy to version control
+		- supports complex workflows
+		- Provides consistency & repeatability
+	- Types of pipelines
+		- Declarative pipeline - simple and structured
+		- Scripted pipeline - more flexibility, written in groovy
+	- Declarative
+		- pipeline {} defines pipeline
+		- stages {} contains multiple steps
+			- build, test and deploy
+	- Benefit of using declarative pipeline is that we can restart from any stage
+- Additional plugin required for pipeline stage view
+
