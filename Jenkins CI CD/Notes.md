@@ -67,3 +67,8 @@
 	- Benefit of using declarative pipeline is that we can restart from any stage
 - Additional plugin required for pipeline stage view
 
+
+Ref :-
+
+https://github.com/theshubhamgour/jenkins-tutorial/tree/main
+
