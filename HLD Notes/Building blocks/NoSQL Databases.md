@@ -44,4 +44,32 @@ NewSQL hybrids
 - Google spanner
 - CockroachDB
 - TiDB
-- 
+
+Trade-offs
+
+| Approach             | Pros                                                                                   | Cons                                                                                    | Best when                                                       | Our Pick                                                      |
+| -------------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------- |
+| DynamoDB             | Serverless, predictable single-digit ms latency, 151M req/sec proven at Prime Day 2025 | AWS lock-in, modeling discipline required, GSI eventually consistent                    | AWS-native, known access patterns, need zero-ops                | When you are on AWS and can model access patterns upfront     |
+| Cassandra / ScyllaDB | Linear write scale, tunable consistency, multi-DC native                               | Operational complexity, no joins, query-first modeling, compaction debt                 | Time-series, write-heavy, multi-region at Discord/Netflix scale | When you need multi-region writes and can invest in ops       |
+| MongoDB              | Flexible schema during iteration, rich queries, wide driver ecosystem                  | Weak defaults (99.6% use unsafe readConcern), sharding pain, Jepsen anomalies           | Content catalogs, variable schemas, early-stage products        | Only if you override defaults and accept schema-in-code       |
+| Neo4j / graph DBs    | Multi-hop traversals in O(pointer chases), expressive Cypher                           | Only one primary is elected writer per database at a time; secondaries scale reads only | Social graphs, fraud rings, knowledge graphs                    | When traversal depth > 3 hops and SQL joins are provably slow |
+| Postgres JSONB       | One system, full ACID, SQL joins, GIN indexes                                          | Not horizontally scaled without sharding middleware                                     | When "document" needs are modest and you want boring            | **The default. Start here.**                                  |
+| Distributed SQL      | SQL + horizontal scale + ACID; Spanner gives strict serializability                    | Newer operational scar tissue, latency tax, innovation-token cost                       | Global OLTP needing SQL, unwilling to run OLAP/OLTP split       | Only when you truly need multi-region strong consistency      |
+
+Common pitfalls
+- Picking nosql for the wrong reason
+- Trusting mongodb default
+- Underestimating operational burden
+- "Schemaless" means schema in application code
+- Expecting joins in Cassandra or DynamoDB
+- Denormalizing without pricing the loss of integrity
+- Ignoring Jepsen results
+
+Key Takeaways
+- Default to Postgres. Reach for NoSQL only when you can state the access pattern or scale wall in a specific number.
+- The four NoSQL families (key-value, document, wide-column, graph) solve different problems. Picking the wrong family is worse than staying on SQL.
+- Wide-column stores like Cassandra shine for write-heavy, time-series, multi-region workloads but are terrible at ad-hoc queries and joins.
+- DynamoDB rewards disciplined single-table modeling and punishes lazy access-pattern design. It proved 89.2M req/sec at Prime Day 2021 and 151M req/sec at Prime Day 2025.
+- MongoDB's read-concern default is still unsafe. The implicit write-concern default became `w: majority` in 5.0, but `readConcern: local` still returns uncommitted data, so override it or accept dirty reads that can vanish on failover.
+- NewSQL (Spanner, CockroachDB) gives you SQL + horizontal scale, but costs an innovation token and a latency tax.
+- Model for your reads, not your writes. Every NoSQL family forces this discipline; the ones that succeed embrace it early.
