@@ -18,12 +18,24 @@ Isolation levels
 Indexes
 - An index is an auxiliary data structure that converts O(n) scans into O(log n) lookups.
 - B-tree
+	- Default
 - Hash
 - GIN
+	- Generalized inverted index for arrays, jsonb, full-text search
 - GiST
+	- Generalized search tree
 - SP-GiST
 - BRIN
+	- Block range index
+	- ordered, timestamp data
 - Bloom (extension)
+
+Q. How to choose which index works ?
+- it depends on these 4 parameters
+	- Query
+	- Datatype
+	- Size
+	- Read & Write
 
 Composite indexes
 Covering indexes
