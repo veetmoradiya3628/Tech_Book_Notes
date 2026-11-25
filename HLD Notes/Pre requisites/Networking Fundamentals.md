@@ -76,5 +76,3 @@
 	- TLS 1.3 0-RTT used for non-idempotent requests only
 	- SSE stalled at the HTTP/1.1 6 connection browser limit
 		- An SSE-heavy app opens multiple tabs; the 7th tab cannot open a stream because the browser hit its 6-connection-per-domain cap. This is marked "Won't fix" in Chrome and Firefox
-
-
