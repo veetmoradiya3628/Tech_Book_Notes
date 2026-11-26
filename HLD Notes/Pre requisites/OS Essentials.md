@@ -43,6 +43,7 @@ I/O models
 	- `kqueue` (FreeBSD, macOS) provides the same pattern on BSD systems.
 - Async I/O (io_uring)
 	- Linux `io_uring` (kernel 5.1, 2019) uses two shared ring buffers: a submission queue and a completion queue. Userspace and kernel pass operations without a syscall per op, achieving multi-x throughput over syscall-per-op patterns in microbenchmarks
+
 ```
 Concurrent connections ?
 
@@ -101,3 +102,13 @@ Common pitfalls
 	- A 16-thread pool with a 500 ms downstream p99 stalls at 32 req/sec even with idle CPU. Use async clients so threads return to the pool during the wait, or dedicate an oversized pool for I/O-bound work.
 - **Cold page cache benchmarks.** 
 	- The first run reads from disk; the second reads from RAM. Your benchmark looks 100x faster on run two. Either drop caches before each run or pre-warm and report steady-state. Always say which you measured.
+
+Take aways
+
+- Threads share memory and switch in ~1 us; processes are isolated and switch in ~3-5 us. Use the lightest abstraction that gives you the isolation you need.
+- The memory hierarchy spans 8 orders of magnitude: L1 at 0.5 ns to cross-continent at 150 ms. Design around the gaps.
+- For 1K+ concurrent connections, use an event loop (epoll/kqueue). Thread-per-connection does not scale past that.
+- The page cache makes reads fast but lies about durability. Only `fsync` guarantees bytes are on disk, and it costs 1 to 10 ms.
+- Group commit turns expensive per-write fsyncs into cheap per-batch fsyncs, unlocking 100x throughput.
+- `io_uring` is the future of Linux async I/O but carries security risk. Use it on trusted hosts for high-throughput workloads.
+- Redis proves that a single-threaded event loop can handle 100K ops/sec when each operation is fast and the I/O model is right.
